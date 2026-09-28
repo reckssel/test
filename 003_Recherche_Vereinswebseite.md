@@ -13,7 +13,8 @@ Inhalt:
 2. [Was Vereine im Odenwald auf ihren Webseiten haben](#2-was-vereine-im-odenwald-auf-ihren-webseiten-haben)
 3. [Übersicht: Was Besucher wissen wollen](#3-übersicht-was-besucher-wissen-wollen)
 4. [Vorschlag für eine Seitenstruktur](#4-vorschlag-für-eine-seitenstruktur)
-5. [Quellen](#5-quellen)
+5. [Ideen fürs Hosting](#5-ideen-fürs-hosting)
+6. [Quellen](#6-quellen)
 
 ---
 
@@ -296,7 +297,80 @@ Startseite
 
 ---
 
-## 5. Quellen
+## 5. Ideen fürs Hosting
+
+Preise: Stand September 2026, gerundet. Sie ändern sich oft, und viele Anbieter locken mit einem
+günstigen ersten Jahr. Vor dem Abschluss den Preis **ab dem zweiten Jahr** vergleichen.
+
+### 5.1 Worauf es bei einem Verein ankommt
+
+- **Serverstandort in Deutschland oder der EU** und ein **Vertrag zur Auftragsverarbeitung (AVV)**,
+  den man im Kundenkonto abschließen kann (siehe 1.1).
+- **Eigene Domain inklusive**, z. B. `skills-lab-odenwald.de`. Eine `.de`-Domain kostet einzeln meist
+  etwa 1 € im Monat.
+- **E-Mail-Postfächer bzw. Weiterleitungen** für Funktionsadressen (`info@`, `kasse@`, `jugend@` …).
+  Das spricht gegen Angebote, die nur Webseiten hosten.
+- **HTTPS kostenlos** (Let's Encrypt) und automatische Backups.
+- **Vertrag läuft auf den Verein**, nicht auf eine Privatperson. Mindestens zwei Leute aus dem Vorstand
+  kennen die Zugangsdaten. Sonst ist die Seite weg, wenn jemand den Verein verlässt.
+- **Monatlich kündbar** oder kurze Laufzeit, Zahlung per Lastschrift vom Vereinskonto.
+
+### 5.2 Die Möglichkeiten im Überblick
+
+| Weg | Für wen | Kosten ca. | Vorteile | Nachteile |
+|---|---|---|---|---|
+| **A. Webspace bei einem deutschen Hoster** (z. B. ALL-INKL, netcup, Hetzner, Strato, IONOS, webhostone) | Verein mit mindestens einer Person, die Dateien hochladen kann | 3–8 € / Monat inkl. Domain und E-Mail | Domain, E-Mail, HTTPS und AVV aus einer Hand; PHP für das Kontaktformular; der Entwurf läuft sofort | Formulare und Updates muss man selbst einrichten |
+| **B. WordPress auf diesem Webspace** | Mehrere Leute sollen News und Termine ohne HTML-Kenntnisse pflegen | wie A | Bequemer Editor, Benutzerrollen, viele Termin-Plugins | Regelmäßige Updates Pflicht, Plugins holen gern Google Fonts und Tracking zurück |
+| **C. Vereins-Baukasten** (z. B. ClubDesk, auch Jimdo) | Verein will Webseite **und** Mitgliederverwaltung, Beitragseinzug, Newsletter in einem | ClubDesk: bis 50 Mitglieder kostenlos, sonst ca. 10–33 € / Monat | Kein Technikwissen nötig, Hosting und E-Mail enthalten, auf Vereine zugeschnitten | Design nur im Rahmen der Vorlagen, Umzug später aufwendig, Kosten wachsen mit der Mitgliederzahl |
+| **D. Kostenlose Pages-Dienste für statische Seiten** (z. B. Codeberg Pages) | Technikaffine Vereine, die eine reine Infoseite wollen | 0 € (Spende erwünscht), Domain extra | Kostenlos, Codeberg ist ein gemeinnütziger Verein in Berlin mit Servern in der EU | Keine E-Mail-Postfächer, keine Formulare, man braucht Git-Kenntnisse, keine Garantie auf Verfügbarkeit |
+| **E. Eigener Server / Raspberry Pi in der Werkstatt** | Eher nicht | Strom + Domain | Volle Kontrolle, gutes Lernprojekt | Sicherheit, Updates und Ausfälle hängen an Ehrenamtlichen; Anschluss hat meist keine feste IP |
+
+**Nicht empfohlen:** **GitHub Pages, Netlify, Vercel** und ähnliche US-Dienste. Sie sind technisch
+bequem, aber die Server stehen (auch) in den USA. Ob das mit der DSGVO vereinbar ist, ist rechtlich
+umstritten und muss in der Datenschutzerklärung erklärt werden. Kostenlose Baukästen mit Werbung
+(z. B. `…jimdofree.com`) wirken außerdem unprofessionell.
+
+### 5.3 Empfehlung für den Skills-Lab-Entwurf
+
+Der Entwurf in `beispiel-webseite/` ist eine **statische Seite** (HTML, CSS und ein bisschen JavaScript,
+Schriften lokal). Er braucht keine Datenbank und läuft auf jedem Webspace.
+
+**Vorschlag: Weg A, Webspace bei einem deutschen Hoster mit eigener Domain.**
+
+1. Paket mit mindestens einer Domain, einigen E-Mail-Postfächern und PHP wählen. Die kleinsten Pakete
+   reichen völlig.
+2. Im Kundenkonto den **AVV** abschließen, die **Domain** registrieren und **HTTPS** einschalten.
+3. Funktionsadressen anlegen (`info@`, `kasse@`, `jugend@` …) und an die zuständigen Leute weiterleiten.
+4. `python3 build.py` ausführen und den Ordner `beispiel-webseite/` (ohne `site.html`, `build.py` und
+   `README.md`) per **SFTP** hochladen, z. B. mit FileZilla. Alternativ lädt ein kleiner Ablauf in
+   Git (Deploy-Skript oder CI) die Dateien bei jeder Änderung automatisch hoch.
+5. Kontaktformular und Mitgliedsantrag über ein **kleines PHP-Skript beim selben Hoster** verschicken
+   lassen. So bleiben die Daten beim Hoster mit AVV, und es braucht keinen zusätzlichen Formular-Dienst.
+6. In der Datenschutzerklärung den Platzhalter `[Hoster, Sitz]` ausfüllen.
+
+**Wann etwas anderes besser passt:**
+
+- Wenn **mehrere Leute ohne Technikkenntnisse** regelmäßig Termine und Berichte eintragen sollen:
+  Weg **B** (WordPress). Den Entwurf dann als Vorlage für ein schlankes Theme nehmen.
+- Wenn der Verein ohnehin eine **Mitgliederverwaltung** mit Lastschrift sucht: Weg **C** prüfen. Dann
+  ersetzt der Baukasten sowohl Webseite als auch Excel-Mitgliederliste.
+- Wenn das Budget wirklich **0 €** sein muss: Weg **D** (Codeberg Pages) für die Seite, E-Mail getrennt
+  lösen. Die Formulare fallen dann weg; stattdessen die Funktionsadressen nennen.
+
+### 5.4 Laufende Kosten grob gerechnet
+
+| Posten | pro Jahr |
+|---|---|
+| Webspace mit Domain und E-Mail (Weg A) | ca. 40–100 € |
+| Zusätzliche Domain, falls nicht enthalten | ca. 10–15 € |
+| Vereins-Baukasten statt Webspace (Weg C, 100–250 Mitglieder) | ca. 120–200 € |
+
+Viele Hoster haben **Sonderkonditionen für eingetragene oder gemeinnützige Vereine**. Nachfragen lohnt
+sich, ebenso beim Sportkreis oder bei der Gemeinde, ob es ein gemeinsames Angebot für Ortsvereine gibt.
+
+---
+
+## 6. Quellen
 
 **Rechtliches**
 
@@ -315,6 +389,20 @@ Startseite
 - [ClubDesk: BFSG – digitale Barrierefreiheit für Vereine](https://www.clubdesk.de/de/vereinswissen/barrierefreiheitsstaerkungsgesetz-bfsg-und-bafg-digitale-barrierefreiheit-fuer-vereine)
 - [Flick Gocke Schaumburg: BFSG – müssen gemeinnützige Organisationen handeln?](https://www.fgs.de/en/news-and-insights/blog/detail/barrierefreiheitsstaerkungsgesetz-bfsg-muessen-gemeinnuetzige-organisationen-jetzt-handeln)
 - [Digital vereint (Bayern): Wann muss die Webseite barrierefrei sein?](https://digital-vereint.de/aktuelles/obacht-vor-panik-wann-muss-die-webseite-barrierefrei-sein/)
+
+**Hosting**
+
+- [evseite.de: Webhosting für Vereine – Checkliste und Vergleich](https://evseite.de/webhosting-fuer-vereine/)
+- [asverein: Hosting für Vereine – Webspace-Provider](https://asverein.de/blog/hosting-fuer-vereine-die-besten-webspace-provider-2025/)
+- [webhostone: Hosting für Vereine und Verbände](https://www.webhostone.de/loesungen/vereine-verbaende)
+- [VegaSystems: Webhosting für Vereine und gemeinnützige Organisationen](https://www.vegasystems.de/news/webhosting-fuer-vereine-und-gemeinnuetzige-organisationen-24)
+- [hostingauswahl.de: Webhosting-Vergleich (Hetzner, ALL-INKL, netcup)](https://hostingauswahl.de/)
+- [ALL-INKL: Webhosting-Tarife](https://all-inkl.com/en/webhosting)
+- [netcup: Webhosting](https://www.netcup.com/en/hosting)
+- [trusted.de: ClubDesk Kosten](https://trusted.de/clubdesk-kosten)
+- [Codeberg (Wikipedia)](https://en.wikipedia.org/wiki/Codeberg)
+- [INNOQ: Static Sites Without Big Tech Hosting](https://www.innoq.com/en/blog/2026/08/static-site-hosting-without-big-tech/)
+- [Muster-Datenschutzerklärung für GitHub Pages (zeigt den USA-Transfer)](https://opr.vc/docs/hosting/github_pages/)
 
 **Vereine im Odenwald**
 
