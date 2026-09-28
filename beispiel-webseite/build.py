@@ -17,7 +17,7 @@ page = f"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="TSV Lindenbrunn 1908 e.V. – Fußball, Kinderturnen, Gymnastik, Tischtennis und Wandern im Odenwald (Beispielseite).">
+<meta name="description" content="Skills Lab e.V. – offene Werkstatt, Repair-Café und Tüftel-Club im Odenwald.">
 {title}
 {head}</style>
 </head>

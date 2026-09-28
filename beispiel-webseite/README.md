@@ -1,8 +1,12 @@
-# Beispiel-Webseite: TSV Lindenbrunn 1908 e.V.
+# Webseiten-Entwurf: Skills Lab e.V.
 
-Eine Beispiel-Webseite für einen **erfundenen** Sportverein im Odenwald. Sie setzt die Ergebnisse aus
-[`../003_Recherche_Vereinswebseite.md`](../003_Recherche_Vereinswebseite.md) um. Alle Namen, Adressen,
-Nummern und Bankdaten sind Platzhalter.
+Entwurf für die Webseite von **Skills Lab e.V.**, einer offenen Werkstatt im Odenwald. Der Entwurf setzt
+die Ergebnisse aus [`../003_Recherche_Vereinswebseite.md`](../003_Recherche_Vereinswebseite.md) um.
+
+Das Konzept (Werkbereiche, Repair-Café, Tüftel-Club, Termine, Texte) ist ein Vorschlag. Alles, was der
+Verein noch mit echten Angaben füllen muss, ist auf der Seite **farbig hinterlegt und gestrichelt
+unterstrichen** und steht in `[eckigen Klammern]`, z. B. `[Straße Nr.]`, `[Vorname Nachname]`,
+`VR [Nummer]`, `[IBAN]`, `info@[domain].de`, Beitragshöhen und Zeiten.
 
 ## Ansehen
 
@@ -12,16 +16,16 @@ Nummern und Bankdaten sind Platzhalter.
 
 | Recherche | Auf der Seite |
 |---|---|
-| Die 5 Fragen auf der Startseite (Was, Wo, Kosten, Kontakt) | Faktenleiste unter dem Einstieg |
-| Angebote mit Zeiten, Ort, Ausrüstung, Ansprechpartner, Probetraining | *Angebote*: eine Karte pro Abteilung, dazu Anlagen und Vermietung des Vereinsheims |
-| Termine, Trainingsausfälle | *Termine* mit Ausfall-Hinweis ganz oben |
-| Beiträge klar nennen | *Mitmachen*: Beitragstabelle, Kündigungsfrist, Hinweis auf das Bildungs- und Teilhabepaket |
+| Die wichtigsten Fragen auf der Startseite (Was, Wo, Kosten, Wann) | Faktenleiste unter dem Einstieg |
+| Angebote mit Zeiten, Ausstattung, Mitbringen, Kontakt, Schnuppern | *Werkstatt*: eine Karte pro Werkbereich, dazu Räume, Werkstattordnung, Workshops für Gruppen |
+| Termine, Ausfälle | *Termine* mit Ausfall-Hinweis ganz oben |
+| Beiträge klar nennen | *Mitmachen*: Beitragstabelle, Kündigungsfrist, Materialkosten |
 | Online-Mitgliedsantrag | Formular mit SEPA-Mandat und **freiwilliger, nicht vorausgewählter** Foto-Einwilligung |
-| Kinderschutz, Ehrenamt | Kästen auf *Mitmachen* |
-| Vorstand, Chronik, Downloads, Sponsoren, Spenden | *Verein* |
+| Kinderschutz, Ehrenamt | Kästen auf *Mitmachen* (Tüftel-Club, Mentoren gesucht) |
+| Vorstand, Chronik, Downloads, Förderer, Spenden | *Verein*, inkl. Sachspenden |
 | Funktionsadressen statt privater Telefonnummern | überall |
 | Impressum nach § 5 DDG und § 18 Abs. 2 MStV | *Impressum*, verlinkt im Footer jeder Seite |
-| Datenschutzerklärung, Aufsichtsbehörde Hessen | *Datenschutz* |
+| Datenschutzerklärung, Aufsichtsbehörde je nach Bundesland | *Datenschutz* |
 | Kein Cookie-Banner nötig | keine Cookies, kein Tracking, **Schriften lokal** in `fonts/` |
 | Karte nur per Zwei-Klick | Kontaktseite: Karte wird erst nach Klick geladen (hier nur angedeutet) |
 | Social Media ohne Plugins | Footer: nur Text-Hinweise |
@@ -38,9 +42,9 @@ Nach Änderungen an `site.html`: `python3 build.py`
 
 ## Was für einen echten Einsatz noch fehlt
 
-- Echte Inhalte, Fotos (mit Einwilligungen) und PDF-Dateien für die Downloads
+- Alle Platzhalter füllen, echte Fotos (mit Einwilligungen) und PDF-Dateien für die Downloads
 - Formulare brauchen ein Backend oder einen Formular-Dienst (mit Vertrag zur Auftragsverarbeitung).
-  Die Beispiel-Formulare verschicken nichts.
+  Die Formulare im Entwurf verschicken nichts.
 - Echte Karte (z. B. OpenStreetMap-Einbettung) hinter dem Zwei-Klick-Button
 - Impressum und Datenschutzerklärung an die tatsächlichen Daten und Dienste anpassen und prüfen lassen
 - Einzelne HTML-Seiten oder ein CMS, wenn mehrere Leute die Seite pflegen sollen
