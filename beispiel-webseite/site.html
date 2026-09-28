@@ -1,0 +1,1067 @@
+<title>TSV Lindenbrunn 1908</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root {
+  --bg: #f4f6f2;
+  --surface: #ffffff;
+  --surface-2: #e9eee7;
+  --ink: #17231d;
+  --ink-soft: #4a5a51;
+  --line: #d3dcd3;
+  --fir: #1f4d3a;
+  --fir-ink: #ffffff;
+  --sandstone: #a8432f;
+  --sandstone-soft: #f6e4de;
+  --focus: #d98a1f;
+  --radius: 6px;
+  --display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #111814;
+    --surface: #18221c;
+    --surface-2: #1f2b24;
+    --ink: #e6ede8;
+    --ink-soft: #a3b2a9;
+    --line: #2e3d34;
+    --fir: #7fc1a0;
+    --fir-ink: #0e1a14;
+    --sandstone: #e38b74;
+    --sandstone-soft: #3a211b;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111814;
+  --surface: #18221c;
+  --surface-2: #1f2b24;
+  --ink: #e6ede8;
+  --ink-soft: #a3b2a9;
+  --line: #2e3d34;
+  --fir: #7fc1a0;
+  --fir-ink: #0e1a14;
+  --sandstone: #e38b74;
+  --sandstone-soft: #3a211b;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 17px/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--fir); text-underline-offset: 3px; }
+a:hover { color: var(--sandstone); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1.05;
+  text-wrap: balance;
+  margin: 0;
+}
+h1 { font-size: clamp(2.4rem, 6vw, 3.9rem); letter-spacing: .005em; }
+h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); text-transform: uppercase; letter-spacing: .02em; }
+h3 { font-size: 1.45rem; font-weight: 600; }
+p { margin: 0; max-width: 65ch; }
+.wrap { max-width: 1120px; margin-inline: auto; padding-inline: 20px; }
+.eyebrow {
+  font-family: var(--display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .95rem;
+  color: var(--sandstone);
+}
+.muted { color: var(--ink-soft); }
+.num { font-variant-numeric: tabular-nums; }
+
+/* Beispiel-Hinweis */
+.demo-note {
+  background: var(--sandstone-soft);
+  color: var(--ink);
+  font-size: .9rem;
+  padding-block: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Kopf */
+.site-head {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--fir);
+  color: var(--fir-ink);
+}
+.head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 68px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+.brand:hover { color: inherit; }
+.brand svg { width: 40px; height: 46px; flex: none; }
+.brand-name { font-family: var(--display); font-weight: 700; font-size: 1.5rem; line-height: 1; letter-spacing: .02em; text-transform: uppercase; }
+.brand-sub { display: block; font-family: var(--body); font-size: .8rem; font-weight: 400; letter-spacing: 0; text-transform: none; opacity: .85; margin-top: 3px; }
+.nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav a {
+  color: inherit;
+  text-decoration: none;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+}
+.nav a:hover { background: rgba(255,255,255,.12); color: inherit; }
+.nav a[aria-current="page"] { box-shadow: inset 0 -3px 0 currentColor; border-radius: 0; }
+.menu-btn {
+  display: none;
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+  border-radius: var(--radius);
+  font: 600 1rem var(--display);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+@media (max-width: 860px) {
+  .menu-btn { display: block; }
+  .nav { display: none; width: 100%; flex-direction: column; padding-bottom: 12px; }
+  .nav.open { display: flex; }
+  .head-row { flex-wrap: wrap; }
+}
+
+/* Views */
+main { padding-block: 40px 64px; }
+.view { display: grid; gap: 56px; }
+.section { display: grid; gap: 20px; }
+.section-head { display: grid; gap: 6px; }
+
+/* Start */
+.hero {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.hero-text { display: grid; gap: 18px; }
+.hero-lead { font-size: 1.2rem; color: var(--ink-soft); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-block;
+  font: 600 1.15rem var(--display);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  text-decoration: none;
+  padding: 11px 20px;
+  border-radius: var(--radius);
+  border: 2px solid var(--fir);
+  background: var(--fir);
+  color: var(--fir-ink);
+  cursor: pointer;
+}
+.btn:hover { background: var(--sandstone); border-color: var(--sandstone); color: #fff; }
+.btn.ghost { background: transparent; color: var(--fir); }
+.btn.ghost:hover { color: #fff; }
+.hero-art {
+  background: var(--surface-2);
+  border-radius: var(--radius);
+  aspect-ratio: 5 / 4;
+  max-width: 100%;
+  overflow: hidden;
+}
+.hero-art svg { width: 100%; height: 100%; display: block; }
+@media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-block: 2px solid var(--ink);
+}
+.fact { padding: 18px 18px 20px; display: grid; gap: 6px; align-content: start; }
+.fact + .fact { border-left: 1px solid var(--line); }
+.fact-q { font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--sandstone); font-size: 1rem; }
+.fact-a { font-size: 1rem; }
+.fact-a strong { display: block; font-size: 1.15rem; }
+@media (max-width: 860px) {
+  .facts { grid-template-columns: 1fr 1fr; }
+  .fact:nth-child(3) { border-left: 0; }
+  .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 460px) {
+  .facts { grid-template-columns: 1fr; }
+  .fact + .fact { border-left: 0; border-top: 1px solid var(--line); }
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+
+/* Termine */
+.dates { list-style: none; margin: 0; padding: 0; display: grid; }
+.date-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 16px;
+  padding-block: 14px;
+  border-top: 1px solid var(--line);
+}
+.date-item:last-child { border-bottom: 1px solid var(--line); }
+.cal {
+  text-align: center;
+  font-family: var(--display);
+  line-height: 1;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  padding-block: 6px;
+  align-self: start;
+}
+.cal b { display: block; font-size: 1.9rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cal span { font-size: .85rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
+.date-title { font-weight: 700; }
+.date-meta { color: var(--ink-soft); font-size: .95rem; }
+.tag {
+  display: inline-block;
+  font: 600 .8rem var(--body);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 1px 8px;
+  border-radius: 99px;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  margin-left: 6px;
+  vertical-align: 2px;
+}
+.tag.hot { background: var(--sandstone-soft); color: var(--sandstone); }
+
+/* News */
+.news { display: grid; gap: 0; }
+.news article { padding-block: 14px; border-top: 1px solid var(--line); display: grid; gap: 4px; }
+.news article:last-child { border-bottom: 1px solid var(--line); }
+.news time { font-size: .9rem; color: var(--ink-soft); }
+.news h3 { font-size: 1.3rem; }
+
+/* Angebote */
+.offer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+@media (max-width: 400px) { .offer-grid { grid-template-columns: 1fr; } }
+.offer {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.offer-for { color: var(--ink-soft); }
+.times { width: 100%; border-collapse: collapse; font-size: .95rem; font-variant-numeric: tabular-nums; }
+.times th, .times td { text-align: left; padding: 5px 8px 5px 0; border-top: 1px solid var(--line); vertical-align: top; }
+.times th { font-weight: 600; white-space: nowrap; }
+.offer dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: .95rem; }
+.offer dt { font-weight: 600; }
+.offer dd { margin: 0; }
+.kv { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; }
+.kv dt { font-weight: 600; }
+.kv dd { margin: 0; }
+.trial { font-size: .95rem; background: var(--surface-2); padding: 8px 12px; border-radius: var(--radius); }
+
+/* Tabellen */
+.table-scroll { overflow-x: auto; }
+.data {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  background: var(--surface);
+}
+.data th, .data td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); }
+.data thead th { font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 1rem; border-bottom: 2px solid var(--ink); }
+.data td.r, .data th.r { text-align: right; }
+
+/* Boxen */
+.box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.box.note { background: var(--sandstone-soft); border-color: transparent; }
+ul.clean { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+
+/* Formulare */
+form { display: grid; gap: 14px; }
+.field { display: grid; gap: 4px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+label { font-weight: 600; font-size: .95rem; }
+input, select, textarea {
+  font: inherit;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 9px 11px;
+  width: 100%;
+}
+textarea { min-height: 120px; resize: vertical; }
+.check { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; font-weight: 400; }
+.check input { width: 18px; height: 18px; margin-top: 4px; }
+.hint { font-size: .9rem; color: var(--ink-soft); }
+.form-msg { padding: 10px 14px; border-radius: var(--radius); background: var(--surface-2); font-weight: 600; }
+
+/* Chronik */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+.timeline li { display: grid; grid-template-columns: 70px 1fr; gap: 16px; padding-block: 10px; border-top: 1px solid var(--line); }
+.timeline b { font-family: var(--display); font-size: 1.5rem; line-height: 1.1; color: var(--sandstone); font-variant-numeric: tabular-nums; }
+
+/* Personen */
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.person { display: grid; gap: 2px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.person .role { font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--sandstone); }
+.person .name { font-weight: 700; }
+.person .mail { font-size: .95rem; word-break: break-all; }
+
+/* Downloads */
+.files { list-style: none; margin: 0; padding: 0; display: grid; }
+.files li { display: flex; justify-content: space-between; gap: 16px; padding-block: 10px; border-top: 1px solid var(--line); }
+.files li:last-child { border-bottom: 1px solid var(--line); }
+.files span { color: var(--ink-soft); font-size: .9rem; white-space: nowrap; }
+
+.sponsors { display: flex; flex-wrap: wrap; gap: 12px; }
+.sponsor {
+  flex: 1 1 180px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: .03em;
+  color: var(--ink-soft);
+}
+
+/* Karte (Zwei-Klick) */
+.map-consent {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  padding: 22px;
+  display: grid;
+  gap: 12px;
+  align-content: center;
+  min-height: 220px;
+}
+
+/* Rechtstexte */
+.legal { display: grid; gap: 22px; max-width: 760px; }
+.legal section { display: grid; gap: 8px; }
+.legal h3 { font-size: 1.35rem; }
+.legal address { font-style: normal; }
+
+/* Fuß */
+.site-foot { background: var(--surface-2); border-top: 1px solid var(--line); padding-block: 36px; font-size: .95rem; }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 28px; }
+@media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr; } }
+.foot-grid h3 { font-size: 1.15rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+.foot-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .view:not([hidden]) { animation: rise .25s ease-out; }
+  @keyframes rise { from { transform: translateY(6px); } to { transform: none; } }
+}
+</style>
+
+<div class="demo-note">
+  <div class="wrap"><strong>Beispielseite:</strong> Der TSV Lindenbrunn ist ein erfundener Verein. Namen, Adressen, Nummern und Bankdaten sind Platzhalter.</div>
+</div>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="#start" aria-label="TSV Lindenbrunn 1908 – zur Startseite">
+      <svg viewBox="0 0 40 46" aria-hidden="true">
+        <path d="M2 2h36v22c0 11-8 17-18 20C10 41 2 35 2 24z" fill="currentColor" opacity=".15" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M20 10c-6 4-8 9-6 14 1 3 4 5 6 5s5-2 6-5c2-5 0-10-6-14z" fill="currentColor"/>
+        <path d="M20 14v20" stroke="var(--fir)" stroke-width="1.6"/>
+        <path d="M20 20l-4-3M20 24l4-3M20 28l-4-3" stroke="var(--fir)" stroke-width="1.2" fill="none"/>
+        <text x="20" y="40" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="7.5" fill="currentColor">1908</text>
+      </svg>
+      <span class="brand-name">TSV Lindenbrunn<span class="brand-sub">Turn- und Sportverein im Odenwald</span></span>
+    </a>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menü</button>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="#angebote">Angebote</a>
+      <a href="#termine">Termine</a>
+      <a href="#aktuelles">Aktuelles</a>
+      <a href="#mitmachen">Mitmachen</a>
+      <a href="#verein">Verein</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+
+  <!-- ============ START ============ -->
+  <div class="view" data-view="start">
+    <section class="hero">
+      <div class="hero-text">
+        <span class="eyebrow">Sport im Dorf seit 1908</span>
+        <h1>Fußball, Turnen, Tischtennis und Wandern in Lindenbrunn</h1>
+        <p class="hero-lead">Wir sind ein Mehrspartenverein mit rund 640 Mitgliedern. Bei uns trainieren Kinder ab 3 Jahren genauso wie die Wandergruppe 60 plus. Zum Ausprobieren musst du kein Mitglied sein.</p>
+        <div class="btn-row">
+          <a class="btn" href="#angebote">Angebot finden</a>
+          <a class="btn ghost" href="#mitmachen">Probetraining</a>
+        </div>
+      </div>
+      <div class="hero-art" role="img" aria-label="Zeichnung: Sportplatz vor bewaldeten Odenwaldhügeln">
+        <svg viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice">
+          <rect width="500" height="400" fill="var(--surface-2)"/>
+          <path d="M0 190 C80 120 150 150 220 110 S360 90 500 140 V400 H0Z" fill="var(--fir)" opacity=".35"/>
+          <path d="M0 230 C100 170 190 210 280 170 S420 160 500 200 V400 H0Z" fill="var(--fir)" opacity=".6"/>
+          <g fill="var(--fir)">
+            <path d="M60 230 l14 -44 14 44z"/><path d="M82 222 l12 -38 12 38z"/>
+            <path d="M390 205 l14 -46 14 46z"/><path d="M414 212 l11 -36 11 36z"/><path d="M436 206 l13 -42 13 42z"/>
+          </g>
+          <path d="M0 270 H500 V400 H0Z" fill="var(--fir)"/>
+          <g fill="none" stroke="var(--bg)" stroke-width="3" opacity=".85">
+            <rect x="40" y="290" width="420" height="90"/>
+            <line x1="250" y1="290" x2="250" y2="380"/>
+            <circle cx="250" cy="335" r="22"/>
+            <rect x="40" y="310" width="40" height="50"/>
+            <rect x="420" y="310" width="40" height="50"/>
+          </g>
+          <circle cx="410" cy="70" r="26" fill="var(--sandstone)" opacity=".9"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="facts" aria-label="Das Wichtigste auf einen Blick">
+      <div class="fact">
+        <span class="fact-q">Was?</span>
+        <p class="fact-a"><strong>5 Abteilungen</strong>Fußball, Kinderturnen, Gymnastik, Tischtennis, Wandern</p>
+      </div>
+      <div class="fact">
+        <span class="fact-q">Wo?</span>
+        <p class="fact-a"><strong>Sportgelände Am Lindenweg</strong>Sportplatz, Halle und Vereinsheim an einem Ort</p>
+      </div>
+      <div class="fact">
+        <span class="fact-q">Was kostet es?</span>
+        <p class="fact-a"><strong class="num">ab 5 € im Monat</strong>Familien zahlen 16 €, keine Aufnahmegebühr</p>
+      </div>
+      <div class="fact">
+        <span class="fact-q">Wen frage ich?</span>
+        <p class="fact-a"><strong>Geschäftsstelle</strong>Di 18–19:30 Uhr im Vereinsheim, <a href="#kontakt">Kontakt</a></p>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <section class="section">
+        <div class="section-head">
+          <span class="eyebrow">Demnächst</span>
+          <h2>Nächste Termine</h2>
+        </div>
+        <ul class="dates" id="home-dates"></ul>
+        <p><a href="#termine">Alle Termine ansehen</a></p>
+      </section>
+      <section class="section">
+        <div class="section-head">
+          <span class="eyebrow">Aus dem Verein</span>
+          <h2>Aktuelles</h2>
+        </div>
+        <div class="news" id="home-news"></div>
+        <p><a href="#aktuelles">Alle Meldungen</a></p>
+      </section>
+    </div>
+
+    <section class="box note">
+      <h3>Helfer für die Kerb gesucht</h3>
+      <p>Vom 16. bis 18. Oktober feiern wir Kerb am Sportplatz. Für den Getränkestand und den Kuchenverkauf suchen wir noch Leute für je eine 3-Stunden-Schicht. Auch Nichtmitglieder sind willkommen.</p>
+      <p><a href="#mitmachen">So kannst du helfen</a></p>
+    </section>
+  </div>
+
+  <!-- ============ ANGEBOTE ============ -->
+  <div class="view" data-view="angebote" hidden>
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">Unsere Abteilungen</span>
+        <h1>Angebote</h1>
+      </div>
+      <p>Alle Gruppen dürfen zwei- bis dreimal kostenlos ausprobiert werden. Komm einfach zur Trainingszeit vorbei oder schreib der Abteilung kurz vorher.</p>
+    </section>
+
+    <div class="offer-grid">
+      <article class="offer">
+        <h3>Fußball</h3>
+        <p class="offer-for">Bambini bis Alte Herren. In der Jugend spielen wir als JSG mit dem Nachbarort.</p>
+        <table class="times">
+          <tr><th>Bambini (3–6)</th><td>Fr 16:00–17:00</td></tr>
+          <tr><th>F- bis D-Jugend</th><td>Di + Do 17:00–18:30</td></tr>
+          <tr><th>Aktive</th><td>Di + Fr 19:00–20:45</td></tr>
+          <tr><th>Alte Herren</th><td>Mi 19:30–21:00</td></tr>
+        </table>
+        <dl>
+          <dt>Ort</dt><dd>Sportplatz Am Lindenweg</dd>
+          <dt>Mitbringen</dt><dd>Sportkleidung, Schienbeinschoner, Hallenschuhe im Winter</dd>
+          <dt>Kontakt</dt><dd>fussball@tsv-lindenbrunn.example</dd>
+        </dl>
+        <p class="trial">Spielpläne und Ergebnisse stehen auf fussball.de.</p>
+      </article>
+
+      <article class="offer">
+        <h3>Kinderturnen</h3>
+        <p class="offer-for">Eltern-Kind-Turnen und Turnen für Kinder bis 10 Jahre.</p>
+        <table class="times">
+          <tr><th>Eltern-Kind (1–3)</th><td>Mo 15:30–16:30</td></tr>
+          <tr><th>Kinder 4–6</th><td>Mo 16:30–17:30</td></tr>
+          <tr><th>Kinder 7–10</th><td>Mi 16:30–17:45</td></tr>
+        </table>
+        <dl>
+          <dt>Ort</dt><dd>Mehrzweckhalle, Schulstraße 4</dd>
+          <dt>Mitbringen</dt><dd>Turnschläppchen oder Socken mit Noppen, Getränk</dd>
+          <dt>Kontakt</dt><dd>turnen@tsv-lindenbrunn.example</dd>
+        </dl>
+        <p class="trial">Die Gruppen sind oft voll. Bitte vor dem ersten Besuch kurz melden.</p>
+      </article>
+
+      <article class="offer">
+        <h3>Gymnastik &amp; Fitness</h3>
+        <p class="offer-for">Rücken, Beweglichkeit und Kraft für Erwachsene. Kein Vorwissen nötig.</p>
+        <table class="times">
+          <tr><th>Rückenfit</th><td>Mo 19:00–20:00</td></tr>
+          <tr><th>Gymnastik 60 plus</th><td>Do 9:30–10:30</td></tr>
+          <tr><th>Zirkeltraining</th><td>Do 19:30–20:30</td></tr>
+        </table>
+        <dl>
+          <dt>Ort</dt><dd>Mehrzweckhalle, Schulstraße 4</dd>
+          <dt>Mitbringen</dt><dd>Matte, Handtuch</dd>
+          <dt>Kontakt</dt><dd>gymnastik@tsv-lindenbrunn.example</dd>
+        </dl>
+        <p class="trial">Rückenfit ist als Präventionskurs zertifiziert. Viele Krankenkassen erstatten einen Teil.</p>
+      </article>
+
+      <article class="offer">
+        <h3>Tischtennis</h3>
+        <p class="offer-for">Freizeit- und Mannschaftsspieler ab 8 Jahren. Schläger zum Ausleihen sind da.</p>
+        <table class="times">
+          <tr><th>Jugend</th><td>Mi 17:30–19:00</td></tr>
+          <tr><th>Erwachsene</th><td>Mi 19:30–22:00</td></tr>
+        </table>
+        <dl>
+          <dt>Ort</dt><dd>Vereinsheim, Tischtennisraum</dd>
+          <dt>Mitbringen</dt><dd>Hallenschuhe mit heller Sohle</dd>
+          <dt>Kontakt</dt><dd>tischtennis@tsv-lindenbrunn.example</dd>
+        </dl>
+        <p class="trial">Ergebnisse der Mannschaften stehen auf click-TT.</p>
+      </article>
+
+      <article class="offer">
+        <h3>Wandergruppe</h3>
+        <p class="offer-for">Einmal im Monat eine geführte Tour im Odenwald, 8 bis 15 km, mit Einkehr.</p>
+        <table class="times">
+          <tr><th>Touren</th><td>1. Samstag im Monat, 9:30</td></tr>
+          <tr><th>Treffpunkt</th><td>Parkplatz Vereinsheim</td></tr>
+        </table>
+        <dl>
+          <dt>Ort</dt><dd>wechselnd, siehe Wanderplan</dd>
+          <dt>Mitbringen</dt><dd>Wanderschuhe, Rucksackverpflegung</dd>
+          <dt>Kontakt</dt><dd>wandern@tsv-lindenbrunn.example</dd>
+        </dl>
+        <p class="trial">Gäste wandern kostenlos mit. Fahrgemeinschaften bilden wir am Treffpunkt.</p>
+      </article>
+    </div>
+
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">Wo wir trainieren</span>
+        <h2>Anlagen &amp; Vereinsheim</h2>
+      </div>
+      <div class="offer-grid">
+        <div class="box">
+          <h3>Sportgelände Am Lindenweg</h3>
+          <p>Rasenplatz mit LED-Flutlicht, Kleinspielfeld, Vereinsheim mit Umkleiden. 40 Parkplätze. Bushaltestelle „Lindenweg“ (Linie 45) in 3 Minuten zu Fuß.</p>
+        </div>
+        <div class="box">
+          <h3>Mehrzweckhalle</h3>
+          <p>Schulstraße 4, neben der Grundschule. Eingang über den Schulhof. Die Halle ist barrierefrei erreichbar.</p>
+        </div>
+        <div class="box">
+          <h3>Vereinsheim mieten</h3>
+          <p>Saal für bis zu 60 Personen mit Küche. Mitglieder zahlen 120 €, Nichtmitglieder 180 € pro Tag, jeweils plus Endreinigung. Anfragen an vermietung@tsv-lindenbrunn.example.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ TERMINE ============ -->
+  <div class="view" data-view="termine" hidden>
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">Kalender 2026</span>
+        <h1>Termine &amp; Veranstaltungen</h1>
+      </div>
+      <p>Trainingsausfälle stehen ganz oben. Den Wanderplan für das ganze Jahr gibt es zusätzlich unter <a href="#verein">Downloads</a>.</p>
+    </section>
+    <section class="box note">
+      <h3>Trainingsausfall</h3>
+      <p><strong class="num">12.–23. Oktober:</strong> In den Herbstferien ist die Mehrzweckhalle geschlossen. Kinderturnen und Gymnastik fallen aus. Fußball und Tischtennis finden statt.</p>
+    </section>
+    <ul class="dates" id="all-dates"></ul>
+  </div>
+
+  <!-- ============ AKTUELLES ============ -->
+  <div class="view" data-view="aktuelles" hidden>
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">Berichte &amp; Neuigkeiten</span>
+        <h1>Aktuelles</h1>
+      </div>
+    </section>
+    <div class="news" id="all-news"></div>
+  </div>
+
+  <!-- ============ MITMACHEN ============ -->
+  <div class="view" data-view="mitmachen" hidden>
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">Mitglied werden</span>
+        <h1>Mitmachen</h1>
+      </div>
+      <p>So geht es: Zwei- bis dreimal kostenlos mittrainieren, dann den Mitgliedsantrag ausfüllen. Online hier auf der Seite oder auf Papier beim Training.</p>
+    </section>
+
+    <section class="section">
+      <h2>Beiträge</h2>
+      <div class="table-scroll">
+        <table class="data">
+          <thead><tr><th>Tarif</th><th>Wer</th><th class="r">pro Monat</th><th class="r">pro Jahr</th></tr></thead>
+          <tbody>
+            <tr><td>Kinder &amp; Jugendliche</td><td>bis 17 Jahre</td><td class="r">5,00 €</td><td class="r">60,00 €</td></tr>
+            <tr><td>Erwachsene</td><td>ab 18 Jahre</td><td class="r">8,00 €</td><td class="r">96,00 €</td></tr>
+            <tr><td>Ermäßigt</td><td>Azubis, Studierende, Rentner</td><td class="r">5,00 €</td><td class="r">60,00 €</td></tr>
+            <tr><td>Familie</td><td>Eltern mit allen Kindern unter 18</td><td class="r">16,00 €</td><td class="r">192,00 €</td></tr>
+            <tr><td>Fördermitglied</td><td>ohne Sportteilnahme</td><td class="r">3,00 €</td><td class="r">36,00 €</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="clean">
+        <li>Keine Aufnahmegebühr. Der Beitrag wird einmal im Jahr im Februar per Lastschrift eingezogen.</li>
+        <li>Kündigung schriftlich bis 30. September zum Jahresende.</li>
+        <li>Familien mit wenig Geld: Der Beitrag für Kinder kann über das Bildungs- und Teilhabepaket bezahlt werden. Die Geschäftsstelle hilft beim Antrag.</li>
+      </ul>
+    </section>
+
+    <div class="two-col">
+      <section class="section">
+        <h2>Mitgliedsantrag</h2>
+        <form id="join-form" novalidate>
+          <div class="field-row">
+            <div class="field"><label for="j-first">Vorname</label><input id="j-first" autocomplete="given-name" required></div>
+            <div class="field"><label for="j-last">Nachname</label><input id="j-last" autocomplete="family-name" required></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="j-birth">Geburtsdatum</label><input id="j-birth" type="date" required></div>
+            <div class="field"><label for="j-tarif">Tarif</label>
+              <select id="j-tarif" required>
+                <option value="">Bitte wählen</option>
+                <option>Kinder &amp; Jugendliche</option>
+                <option>Erwachsene</option>
+                <option>Ermäßigt</option>
+                <option>Familie</option>
+                <option>Fördermitglied</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label for="j-street">Straße und Hausnummer</label><input id="j-street" autocomplete="street-address" required></div>
+          <div class="field-row">
+            <div class="field"><label for="j-zip">PLZ</label><input id="j-zip" inputmode="numeric" autocomplete="postal-code" required></div>
+            <div class="field"><label for="j-city">Ort</label><input id="j-city" autocomplete="address-level2" required></div>
+          </div>
+          <div class="field"><label for="j-mail">E-Mail</label><input id="j-mail" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="j-dept">Abteilung</label>
+            <select id="j-dept">
+              <option>Fußball</option><option>Kinderturnen</option><option>Gymnastik &amp; Fitness</option><option>Tischtennis</option><option>Wandergruppe</option>
+            </select>
+          </div>
+          <div class="field"><label for="j-iban">IBAN für die Lastschrift</label><input id="j-iban" autocomplete="off" placeholder="DE.." required></div>
+          <label class="check" for="j-sepa"><input type="checkbox" id="j-sepa" required><span>Ich erteile dem TSV Lindenbrunn ein SEPA-Lastschriftmandat für den Jahresbeitrag. Gläubiger-ID und Mandatsreferenz bekomme ich mit der Aufnahmebestätigung.</span></label>
+          <label class="check" for="j-satzung"><input type="checkbox" id="j-satzung" required><span>Ich erkenne die Satzung an und habe die <a href="#datenschutz">Datenschutzhinweise</a> gelesen.</span></label>
+          <label class="check" for="j-fotos"><input type="checkbox" id="j-fotos"><span>Freiwillig: Fotos von mir dürfen in Berichten auf der Webseite und in der Vereinszeitung erscheinen. Ich kann das jederzeit widerrufen.</span></label>
+          <p class="hint">Bei Minderjährigen füllen die Erziehungsberechtigten den Antrag aus.</p>
+          <button class="btn" type="submit">Antrag absenden</button>
+          <p class="form-msg" id="join-msg" role="status" hidden></p>
+        </form>
+      </section>
+
+      <div class="section">
+        <section class="box">
+          <h3>Lieber auf Papier?</h3>
+          <p>Die Beitrittserklärung gibt es als PDF unter <a href="#verein">Downloads</a> und bei jedem Training. Abgeben beim Übungsleiter oder in den Briefkasten am Vereinsheim.</p>
+        </section>
+        <section class="box">
+          <h3>Kinder- und Jugendschutz</h3>
+          <p>Alle Trainerinnen und Trainer in der Jugend legen ein erweitertes Führungszeugnis vor und haben unseren Verhaltenskodex unterschrieben.</p>
+          <p>Vertrauensperson für Kinder, Jugendliche und Eltern: Miriam Scholl, kinderschutz@tsv-lindenbrunn.example. Gespräche bleiben vertraulich.</p>
+        </section>
+        <section class="box">
+          <h3>Ehrenamt</h3>
+          <p>Ein Verein lebt von Leuten, die mit anpacken. Gerade gesucht:</p>
+          <ul class="clean">
+            <li>Helfer für die Kerb am 16.–18. Oktober (je 3 Stunden)</li>
+            <li>Übungsleitung Kinderturnen 4–6 Jahre (Lizenz zahlen wir)</li>
+            <li>Jemand für die Pflege dieser Webseite</li>
+          </ul>
+          <p>Melde dich bei ehrenamt@tsv-lindenbrunn.example.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ VEREIN ============ -->
+  <div class="view" data-view="verein" hidden>
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">Über uns</span>
+        <h1>Der Verein</h1>
+      </div>
+      <p>Der TSV Lindenbrunn 1908 e.V. ist als gemeinnützig anerkannt und Mitglied im Landessportbund Hessen und im Sportkreis Odenwald. Rund 45 Ehrenamtliche halten den Betrieb am Laufen.</p>
+    </section>
+
+    <div class="two-col">
+      <section class="section">
+        <h2>Chronik</h2>
+        <ol class="timeline">
+          <li><b>1908</b><span>Gründung als Turnverein mit 31 Mitgliedern im Gasthaus „Zur Linde“.</span></li>
+          <li><b>1926</b><span>Die Fußballabteilung spielt ihr erstes Punktspiel.</span></li>
+          <li><b>1954</b><span>Mitglieder bauen in Eigenleistung den Sportplatz Am Lindenweg.</span></li>
+          <li><b>1979</b><span>Einweihung des Vereinsheims. Die Tischtennisabteilung wird gegründet.</span></li>
+          <li><b>2008</b><span>100 Jahre TSV mit Festwoche und Umzug durch das Dorf.</span></li>
+          <li><b>2024</b><span>Umstellung des Flutlichts auf LED, gefördert vom Land Hessen.</span></li>
+        </ol>
+      </section>
+      <section class="section">
+        <h2>Vorstand</h2>
+        <div class="people">
+          <div class="person"><span class="role">1. Vorsitzende</span><span class="name">Sabine Kerner</span><span class="mail">vorstand@tsv-lindenbrunn.example</span></div>
+          <div class="person"><span class="role">2. Vorsitzender</span><span class="name">Jürgen Hofmann</span><span class="mail">vorstand@tsv-lindenbrunn.example</span></div>
+          <div class="person"><span class="role">Kasse</span><span class="name">Ahmet Yıldız</span><span class="mail">kasse@tsv-lindenbrunn.example</span></div>
+          <div class="person"><span class="role">Schriftführung</span><span class="name">Lena Brenner</span><span class="mail">info@tsv-lindenbrunn.example</span></div>
+          <div class="person"><span class="role">Jugendwart</span><span class="name">Tobias Walter</span><span class="mail">jugend@tsv-lindenbrunn.example</span></div>
+        </div>
+        <p class="hint">Wir veröffentlichen nur Funktionsadressen, keine privaten Telefonnummern.</p>
+      </section>
+    </div>
+
+    <section class="section" id="downloads">
+      <h2>Downloads</h2>
+      <ul class="files">
+        <li>Satzung (Fassung vom 14.03.2025)<span>PDF · 210 KB</span></li>
+        <li>Beitragsordnung 2026<span>PDF · 80 KB</span></li>
+        <li>Beitrittserklärung mit SEPA-Mandat<span>PDF · 120 KB</span></li>
+        <li>Datenschutzhinweise für Mitglieder<span>PDF · 95 KB</span></li>
+        <li>Wanderplan 2026<span>PDF · 340 KB</span></li>
+        <li>Adressänderung / Kündigung<span>PDF · 60 KB</span></li>
+      </ul>
+      <p class="hint">Alle Dokumente stehen auch als Text auf Anfrage bei info@tsv-lindenbrunn.example bereit.</p>
+    </section>
+
+    <div class="two-col">
+      <section class="section">
+        <h2>Sponsoren</h2>
+        <p>Danke an die Betriebe aus der Region, die unsere Jugendarbeit, Trikots und das Flutlicht unterstützen.</p>
+        <div class="sponsors">
+          <div class="sponsor">Bäckerei Muster</div>
+          <div class="sponsor">Autohaus Beispiel</div>
+          <div class="sponsor">Musterbank Odenwald</div>
+          <div class="sponsor">Zimmerei Holzapfel</div>
+        </div>
+        <p>Bandenwerbung ab 150 € im Jahr, Trikotsatz ab 600 €. Ansprechpartner: sponsoring@tsv-lindenbrunn.example</p>
+      </section>
+      <section class="section">
+        <h2>Spenden</h2>
+        <div class="box">
+          <p>Aktuelles Projekt: <strong>neue Turnmatten für das Kinderturnen</strong>. Noch fehlen 1.400 €.</p>
+          <dl class="kv">
+            <dt>Empfänger</dt><dd>TSV Lindenbrunn 1908 e.V.</dd>
+            <dt>IBAN</dt><dd class="num">DE00 0000 0000 0000 0000 00</dd>
+            <dt>Zweck</dt><dd>Spende Turnmatten</dd>
+          </dl>
+          <p class="hint">Wir sind gemeinnützig. Ab 300 € schicken wir eine Zuwendungsbestätigung, bitte dafür die Adresse im Verwendungszweck angeben. Bis 300 € reicht dem Finanzamt der Kontoauszug.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ KONTAKT ============ -->
+  <div class="view" data-view="kontakt" hidden>
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">So erreichst du uns</span>
+        <h1>Kontakt &amp; Anfahrt</h1>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <section class="section">
+        <div class="box">
+          <h3>Geschäftsstelle im Vereinsheim</h3>
+          <address>TSV Lindenbrunn 1908 e.V.<br>Am Lindenweg 12<br>64799 Lindenbrunn im Odenwald</address>
+          <p>Geöffnet dienstags 18:00–19:30 Uhr<br>E-Mail: info@tsv-lindenbrunn.example</p>
+        </div>
+        <h2>Ansprechpartner</h2>
+        <div class="table-scroll">
+          <table class="data">
+            <thead><tr><th>Thema</th><th>E-Mail</th></tr></thead>
+            <tbody>
+              <tr><td>Allgemeine Fragen</td><td>info@tsv-lindenbrunn.example</td></tr>
+              <tr><td>Mitgliedschaft &amp; Beiträge</td><td>kasse@tsv-lindenbrunn.example</td></tr>
+              <tr><td>Jugend</td><td>jugend@tsv-lindenbrunn.example</td></tr>
+              <tr><td>Vermietung Vereinsheim</td><td>vermietung@tsv-lindenbrunn.example</td></tr>
+              <tr><td>Presse &amp; Webseite</td><td>presse@tsv-lindenbrunn.example</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="map-consent" id="map-box">
+          <h3>Karte</h3>
+          <p>Die Karte wird erst nach deinem Klick geladen. Dabei wird deine IP-Adresse an OpenStreetMap übertragen. Mehr dazu in der <a href="#datenschutz">Datenschutzerklärung</a>.</p>
+          <div><button class="btn ghost" type="button" id="map-btn">Karte anzeigen</button></div>
+          <p class="hint" id="map-msg" hidden>Beispielseite: Auf der echten Webseite erscheint hier jetzt die Karte. Bis dahin: Am Lindenweg 12, Parkplatz direkt am Vereinsheim.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Nachricht schreiben</h2>
+        <form id="contact-form" novalidate>
+          <div class="field"><label for="c-name">Name</label><input id="c-name" autocomplete="name" required></div>
+          <div class="field"><label for="c-mail">E-Mail</label><input id="c-mail" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="c-topic">Thema</label>
+            <select id="c-topic"><option>Allgemein</option><option>Probetraining</option><option>Mitgliedschaft</option><option>Vermietung</option><option>Sponsoring</option></select>
+          </div>
+          <div class="field"><label for="c-text">Nachricht</label><textarea id="c-text" required></textarea></div>
+          <p class="hint">Wir nutzen deine Angaben nur, um dir zu antworten, und löschen sie nach Abschluss der Anfrage. Details in der <a href="#datenschutz">Datenschutzerklärung</a>.</p>
+          <button class="btn" type="submit">Nachricht senden</button>
+          <p class="form-msg" id="contact-msg" role="status" hidden></p>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ IMPRESSUM ============ -->
+  <div class="view" data-view="impressum" hidden>
+    <div class="legal">
+      <h1>Impressum</h1>
+      <section>
+        <h3>Angaben nach § 5 DDG</h3>
+        <address>TSV Lindenbrunn 1908 e.V.<br>Am Lindenweg 12<br>64799 Lindenbrunn im Odenwald</address>
+      </section>
+      <section>
+        <h3>Vertreten durch den Vorstand nach § 26 BGB</h3>
+        <p>Sabine Kerner (1. Vorsitzende), Jürgen Hofmann (2. Vorsitzender), Ahmet Yıldız (Kassenwart). Je zwei Vorstandsmitglieder vertreten den Verein gemeinsam.</p>
+      </section>
+      <section>
+        <h3>Kontakt</h3>
+        <p>Telefon: 06061 000000 (Platzhalter)<br>E-Mail: info@tsv-lindenbrunn.example</p>
+      </section>
+      <section>
+        <h3>Registereintrag</h3>
+        <p>Eingetragen im Vereinsregister beim Amtsgericht Darmstadt<br>Registernummer: VR 00000 (Platzhalter)</p>
+      </section>
+      <section>
+        <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
+        <address>Lena Brenner<br>Am Lindenweg 12<br>64799 Lindenbrunn im Odenwald</address>
+      </section>
+      <section>
+        <h3>Bildnachweise</h3>
+        <p>Alle Fotos: Mitglieder des TSV Lindenbrunn. Die Zeichnungen auf dieser Seite sind eigene Grafiken.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ DATENSCHUTZ ============ -->
+  <div class="view" data-view="datenschutz" hidden>
+    <div class="legal">
+      <h1>Datenschutzerklärung</h1>
+      <p class="muted">Kurzfassung als Beispiel. Eine echte Erklärung muss genau zu den Diensten passen, die die Webseite nutzt.</p>
+      <section>
+        <h3>1. Verantwortlicher</h3>
+        <p>TSV Lindenbrunn 1908 e.V., Am Lindenweg 12, 64799 Lindenbrunn im Odenwald, info@tsv-lindenbrunn.example. Einen Datenschutzbeauftragten müssen wir nicht bestellen. Fragen beantwortet der Vorstand.</p>
+      </section>
+      <section>
+        <h3>2. Hosting und Server-Logfiles</h3>
+        <p>Die Webseite liegt bei einem Hoster in Deutschland, mit dem wir einen Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO geschlossen haben. Beim Aufruf speichert der Server kurzzeitig IP-Adresse, Zeitpunkt und aufgerufene Seite, um den Betrieb und die Sicherheit zu gewährleisten (Art. 6 Abs. 1 lit. f DSGVO). Die Logfiles werden nach 7 Tagen gelöscht.</p>
+      </section>
+      <section>
+        <h3>3. Keine Cookies, kein Tracking</h3>
+        <p>Wir setzen keine Cookies und keine Analyse-Werkzeuge ein. Schriftarten liegen auf unserem eigenen Server, es werden keine Daten an Google übertragen. Deshalb gibt es auch kein Cookie-Banner.</p>
+      </section>
+      <section>
+        <h3>4. Kontaktformular und E-Mail</h3>
+        <p>Was du uns schreibst, nutzen wir nur zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b und f DSGVO). Nach Abschluss löschen wir die Nachricht, soweit keine Aufbewahrungspflicht besteht.</p>
+      </section>
+      <section>
+        <h3>5. Mitgliedsantrag</h3>
+        <p>Die Angaben im Antrag brauchen wir für die Mitgliederverwaltung und den Beitragseinzug (Art. 6 Abs. 1 lit. b DSGVO). Die Einwilligung zur Veröffentlichung von Fotos ist freiwillig und jederzeit widerrufbar (Art. 6 Abs. 1 lit. a DSGVO). Name und Geburtsdatum geben wir an den Landessportbund Hessen weiter, soweit das für Spielberechtigungen und Versicherung nötig ist.</p>
+      </section>
+      <section>
+        <h3>6. Karte</h3>
+        <p>Die Karte auf der Kontaktseite wird nur nach deinem Klick geladen. Dann überträgt dein Browser deine IP-Adresse an die OpenStreetMap Foundation (Art. 6 Abs. 1 lit. a DSGVO).</p>
+      </section>
+      <section>
+        <h3>7. Fotos in Berichten</h3>
+        <p>In Berichten über Veranstaltungen zeigen wir Fotos, um über das Vereinsleben zu informieren (Art. 6 Abs. 1 lit. f DSGVO). Fotos von Kindern und Jugendlichen veröffentlichen wir nur mit Einwilligung der Erziehungsberechtigten. Wenn du auf einem Foto nicht erscheinen willst, entfernen wir es.</p>
+      </section>
+      <section>
+        <h3>8. Deine Rechte</h3>
+        <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine Einwilligung kannst du jederzeit für die Zukunft widerrufen.</p>
+      </section>
+      <section>
+        <h3>9. Beschwerderecht</h3>
+        <p>Du kannst dich bei der zuständigen Aufsichtsbehörde beschweren: Der Hessische Beauftragte für Datenschutz und Informationsfreiheit, Wiesbaden.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ BARRIEREFREIHEIT ============ -->
+  <div class="view" data-view="barrierefreiheit" hidden>
+    <div class="legal">
+      <h1>Barrierefreiheit</h1>
+      <p>Wir möchten, dass alle unsere Webseite gut nutzen können. Die Seite passt sich an Handy und Tablet an, lässt sich mit der Tastatur bedienen, hat ausreichend Kontrast und folgt der Hell- oder Dunkel-Einstellung deines Geräts.</p>
+      <p>Bekannte Einschränkung: Einige ältere PDF-Dokumente sind noch nicht barrierefrei. Den Inhalt schicken wir dir gern als Text.</p>
+      <p>Wenn dir eine Barriere auffällt, schreib an presse@tsv-lindenbrunn.example.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h3>TSV Lindenbrunn 1908 e.V.</h3>
+      <p>Am Lindenweg 12, 64799 Lindenbrunn im Odenwald<br>info@tsv-lindenbrunn.example</p>
+      <p class="muted">Mitglied im Landessportbund Hessen und im Sportkreis Odenwald.</p>
+    </div>
+    <div>
+      <h3>Rechtliches</h3>
+      <ul class="foot-links">
+        <li><a href="#impressum">Impressum</a></li>
+        <li><a href="#datenschutz">Datenschutz</a></li>
+        <li><a href="#barrierefreiheit">Barrierefreiheit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Folge uns</h3>
+      <ul class="foot-links">
+        <li>Instagram: @tsv.lindenbrunn</li>
+        <li>Facebook: TSV Lindenbrunn 1908</li>
+      </ul>
+      <p class="hint">Bewusst nur als Text, ohne eingebettete Buttons, damit beim Seitenaufruf keine Daten an Meta gehen.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var dates = [
+    { d: "03", m: "Okt", wd: "Sa", title: "Herbstwanderung zum Katzenbuckel", meta: "9:30 Uhr, Parkplatz Vereinsheim · 12 km", tag: "Wandern" },
+    { d: "11", m: "Okt", wd: "So", title: "Heimspiel gegen SV Musterhausen", meta: "15:00 Uhr, Sportplatz Am Lindenweg · Eintritt 3 €", tag: "Fußball" },
+    { d: "16", m: "Okt", wd: "Fr", title: "Lindenbrunner Kerb am Sportplatz", meta: "16.–18. Oktober · Fr ab 18 Uhr, Sa ab 14 Uhr, So Frühschoppen ab 11 Uhr", tag: "Fest", hot: true },
+    { d: "06", m: "Nov", wd: "Fr", title: "Jahreshauptversammlung", meta: "19:30 Uhr, Vereinsheim · mit Vorstandswahl, Einladung und Tagesordnung per Post", tag: "Verein" },
+    { d: "28", m: "Nov", wd: "Sa", title: "Stand auf dem Lindenbrunner Weihnachtsmarkt", meta: "ab 15 Uhr, Rathausplatz · Waffeln und Glühwein", tag: "Fest" },
+    { d: "05", m: "Dez", wd: "Sa", title: "Nikolausturnen für Kinder", meta: "10:00 Uhr, Mehrzweckhalle · Gäste willkommen", tag: "Turnen" }
+  ];
+  var news = [
+    { t: "20.09.2026", h: "Aktive gewinnen Derby mit 3:1", p: "Vor rund 250 Zuschauern setzte sich unsere erste Mannschaft gegen den Nachbarn durch. Zwei Tore nach Standards, ein Konter in der Schlussminute." },
+    { t: "12.09.2026", h: "Neue Gruppe: Kinderturnen für 4- bis 6-Jährige", p: "Seit September turnt eine zweite Gruppe montags ab 16:30 Uhr. Es gibt noch einige freie Plätze." },
+    { t: "30.08.2026", h: "Sommerfest mit Rekordbesuch", p: "Über 400 Gäste, 38 Kuchen und ein Elfmeterschießen der Alten Herren gegen die D-Jugend. Die D-Jugend gewann." },
+    { t: "14.07.2026", h: "Tischtennis: Aufstieg in die Kreisliga", p: "Die erste Herrenmannschaft hat die Saison ohne Niederlage beendet und spielt ab Herbst eine Klasse höher." }
+  ];
+
+  function dateHTML(x) {
+    return '<li class="date-item"><div class="cal"><b>' + x.d + '</b><span>' + x.m + '</span></div>' +
+      '<div><div class="date-title">' + x.title + '<span class="tag' + (x.hot ? ' hot' : '') + '">' + x.tag + '</span></div>' +
+      '<div class="date-meta">' + x.wd + ', ' + x.meta + '</div></div></li>';
+  }
+  function newsHTML(x) {
+    return '<article><time>' + x.t + '</time><h3>' + x.h + '</h3><p>' + x.p + '</p></article>';
+  }
+  document.getElementById("home-dates").innerHTML = dates.slice(0, 4).map(dateHTML).join("");
+  document.getElementById("all-dates").innerHTML = dates.map(dateHTML).join("");
+  document.getElementById("home-news").innerHTML = news.slice(0, 3).map(newsHTML).join("");
+  document.getElementById("all-news").innerHTML = news.map(newsHTML).join("");
+
+  var views = document.querySelectorAll(".view");
+  var navLinks = document.querySelectorAll(".nav a");
+  var nav = document.getElementById("nav");
+  var menuBtn = document.getElementById("menu-btn");
+
+  function show() {
+    var id = (location.hash || "#start").slice(1);
+    var found = false;
+    views.forEach(function (v) {
+      var on = v.getAttribute("data-view") === id;
+      v.hidden = !on;
+      if (on) found = true;
+    });
+    if (!found) { id = "start"; views[0].hidden = false; }
+    navLinks.forEach(function (a) {
+      if (a.getAttribute("href") === "#" + id) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+    nav.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show();
+
+  menuBtn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  function demoSubmit(formId, msgId, okText) {
+    var form = document.getElementById(formId);
+    var msg = document.getElementById(msgId);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var missing = Array.prototype.filter.call(form.querySelectorAll("[required]"), function (el) {
+        return el.type === "checkbox" ? !el.checked : !el.value.trim();
+      });
+      msg.hidden = false;
+      if (missing.length) {
+        msg.textContent = "Bitte fülle noch alle Pflichtfelder aus (" + missing.length + " fehlen).";
+        missing[0].focus();
+      } else {
+        msg.textContent = okText;
+      }
+    });
+  }
+  demoSubmit("join-form", "join-msg", "Beispielseite: Der Antrag wurde nicht verschickt. Auf der echten Seite käme jetzt eine Bestätigung per E-Mail.");
+  demoSubmit("contact-form", "contact-msg", "Beispielseite: Die Nachricht wurde nicht verschickt. Auf der echten Seite antworten wir innerhalb weniger Tage.");
+
+  document.getElementById("map-btn").addEventListener("click", function () {
+    document.getElementById("map-msg").hidden = false;
+  });
+})();
+</script>
