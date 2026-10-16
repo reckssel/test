@@ -129,27 +129,28 @@ Voraussetzung: Phasen 3 und 4 freigegeben.
 - [x] Gefundene Fehler beheben (Überlauf RU-Vereinsseite, `dl`-Struktur Bankdaten, „Label in Name“ bei Warteliste, Betragsfeld mit Komma, Menü-Button auf Desktop, fehlendes iban.js auf Spendenseite, Ausrichtung Textspalten, mailto-Betreff kodieren)
 - [x] Ergebnis: Build-Prüfung ok · statische Prüfung 46 Seiten/1741 Links ohne Fehler · Browser-Tests 76/76 bestanden · axe-core hell/dunkel 0 Verstöße
 - [x] Zusammenfassung → **Stopp, Freigabe abwarten**
-- [ ] Freigabe Phase 5 durch den Nutzer
+- [x] Freigabe Phase 5 durch den Nutzer
 
 ## Phase 6 – Dokumentation der Webseite
-- [ ] `skills-lab/docs/03-dokumentation.md` mit allen 12 Abschnitten:
-  - [ ] 1 Überblick
-  - [ ] 2 Technologie-Stack
-  - [ ] 3 Projektstruktur
-  - [ ] 4 Seiten und Komponenten
-  - [ ] 5 Design-System
-  - [ ] 6 Funktionen und Logik
-  - [ ] 7 Einrichtung und Start (lokal, Veröffentlichen, Formular-Endpunkte: Formspree / eigenes PHP inkl. DSGVO-Folgen)
-  - [ ] 8 Inhalte pflegen (Übersetzungen, Beiträge, Termine, Angebote, Logo, PDFs)
-  - [ ] 9 Tests und Qualität (echte Ergebnisse)
-  - [ ] 10 Bekannte Einschränkungen und Ideen
-  - [ ] 11 Entscheidungsprotokoll mit Bezug zur Recherche
-  - [ ] 12 Quellen und Lizenzhinweise
-- [ ] Vollständige Platzhalterliste (Adresse, Telefon, E-Mail, Logo, Bankdaten, Beiträge, Satzung, Registernummer, Vorstand, rechtliche Texte, Gemeinnützigkeit …)
-- [ ] Kurzer Überblick über Designentscheidungen und Kurzanleitung (Ausgabeformat des Auftrags)
-- [ ] Gesamtfazit: was erstellt wurde, wo die Dateien liegen, Annahmen, was offen bleibt
-- [ ] Abschlussprüfung: kein Punkt dieser Checkliste offen
-- [ ] **Stopp, Abschluss**
+- [x] `skills-lab/docs/03-dokumentation.md` mit allen 12 Abschnitten:
+  - [x] 1 Überblick
+  - [x] 2 Technologie-Stack
+  - [x] 3 Projektstruktur
+  - [x] 4 Seiten und Komponenten
+  - [x] 5 Design-System
+  - [x] 6 Funktionen und Logik
+  - [x] 7 Einrichtung und Start (lokal, Veröffentlichen, Formular-Endpunkte: Formspree / eigenes PHP inkl. DSGVO-Folgen)
+  - [x] 8 Inhalte pflegen (Übersetzungen, Beiträge, Termine, Angebote, Logo, PDFs)
+  - [x] 9 Tests und Qualität (echte Ergebnisse)
+  - [x] 10 Bekannte Einschränkungen und Ideen
+  - [x] 11 Entscheidungsprotokoll mit Bezug zur Recherche
+  - [x] 12 Quellen und Lizenzhinweise
+- [x] Vollständige Platzhalterliste (Adresse, Telefon, E-Mail, Logo, Bankdaten, Beiträge, Satzung, Registernummer, Vorstand, rechtliche Texte, Gemeinnützigkeit …)
+- [x] Kurzer Überblick über Designentscheidungen und Kurzanleitung (Ausgabeformat des Auftrags)
+- [x] Gesamtfazit: was erstellt wurde, wo die Dateien liegen, Annahmen, was offen bleibt
+- [x] Zusätzlich: `README.md`, getestetes PHP-Beispiel `tools/examples/formular.php`
+- [x] Abschlussprüfung: alle Punkte erledigt – **Ausnahme:** Sichtprüfung der Vorbildseiten (Phase 2) bleibt wegen gesperrten Netzwerkzugriffs offen und ist dokumentiert
+- [x] **Stopp, Abschluss**
 
 ## Laufend
-- [ ] Nach jeder Phase committen und auf Branch `versuch2` pushen (laufend, Phasen 0–5 erledigt)
+- [x] Nach jeder Phase committen und auf Branch `versuch2` pushen (Phasen 0–6)
