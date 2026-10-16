@@ -79,7 +79,7 @@ Insgesamt 15 Seiten × 3 Sprachen = **45 HTML-Seiten**, dazu `index.html` (Sprac
 
 ### 2.4 Navigation
 
-- **Hauptnavigation (6):** Über uns · Angebote · Termine · Verein · Kontakt
+- **Hauptnavigation (5):** Über uns · Angebote · Termine · Verein · Kontakt
   plus Sprachumschalter `DE | EN | RU`
 - **Zwei Header-Buttons:** „Mitglied werden“ (Umriss in Primärfarbe) und „Spenden“ (gefüllt in Akzentfarbe)
 - **Satzung und Beitragsordnung** sind Unterseiten von „Verein“, dort verlinkt und in einer lokalen Unternavigation.
@@ -267,7 +267,7 @@ Betrieb: Wer nur hochlädt, braucht es nie. Wer einen Text ändert, führt einma
 - Alle drei Sprachdateien haben **dieselben Schlüssel**. Das Pflegeskript bricht mit einer
   verständlichen Meldung ab, wenn in einer Sprache ein Schlüssel fehlt.
 - Beträge stehen **nur** in `data/beitraege.json` bzw. `data/angebote.json`. Formatiert werden sie
-  je Sprache (`60 €` / `€60` / `60 €`) über die Funktion `Intl.NumberFormat`-Logik des Skripts.
+  je Sprache (`60 €` / `€60` / `60 €`) über eine Formatierungsfunktion im Pflegeskript.
 
 ### 6.2 Pflege-Ablauf
 
