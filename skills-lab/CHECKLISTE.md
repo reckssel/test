@@ -22,20 +22,23 @@ Legende: `- [ ]` offen · `- [x]` erledigt
 - [x] Offene Fragen nur stellen, wenn zwingend nötig
 - [x] Ergebnis in `docs/00-auftrag.md` festgehalten (Zusatzdatei zur Nachvollziehbarkeit)
 - [x] Zusammenfassung → **Stopp, Freigabe abwarten**
-- [ ] Freigabe Phase 1 durch den Nutzer
+- [x] Freigabe Phase 1 durch den Nutzer
 
 ## Phase 2 – Recherche ähnlicher Webseiten
-- [ ] Suchbegriffe festlegen (Bildungsverein, Volkshochschule, Workshop-Verein, Spendenseite e.V., mehrsprachige Vereinsseite)
-- [ ] Mindestens 5 ähnliche Webseiten auswählen (Mischung: Marktführer, kleinere Vereine, gelungenes Design)
-- [ ] Mindestens 1 Beispiel mit Kurs-/Terminübersicht (z. B. VHS)
-- [ ] Mindestens 1 Beispiel mit Spendenseite/Bankdaten bzw. GiroCode
-- [ ] Mindestens 1 mehrsprachiges Beispiel (idealerweise mit Russisch)
-- [ ] Jede Seite analysieren: Zweck/Zielgruppe, Aufbau/Navigation, Inhalte, Design, Funktionen, Stärken/Schwächen, Mobil/Ladeeindruck
-- [ ] Quellen (URLs) notieren; nicht abrufbare Seiten offen kennzeichnen
-- [ ] Rechtliche Kurzprüfung: Barrierefreiheitserklärung (BFSG/BITV) für Vereine, Zuwendungsbestätigung/vereinfachter Spendennachweis
-- [ ] Lösung für Spannungsfeld „kein Build-Schritt / Sprach-URLs / zentrale Übersetzungen“ recherchieren
-- [ ] Technische Recherche: EPC-QR-Standard (GiroCode), IBAN-Prüfsumme (ISO 13616 / Mod 97), lokale QR-Bibliothek inkl. Lizenz, Schriften mit freier Lizenz
-- [ ] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [x] Nutzerwunsch: Schwerpunkt auf Webseiten aus dem **Odenwaldkreis**
+- [x] Suchbegriffe festlegen (Bildungsverein, Volkshochschule, Workshop-Verein, Spendenseite e.V., mehrsprachige Vereinsseite)
+- [x] Mindestens 5 ähnliche Webseiten auswählen (Mischung: Marktführer, kleinere Vereine, gelungenes Design)
+- [x] Mindestens 1 Beispiel mit Kurs-/Terminübersicht (z. B. VHS)
+- [x] Mindestens 1 Beispiel mit Spendenseite/Bankdaten bzw. GiroCode
+- [x] Mindestens 1 mehrsprachiges Beispiel (idealerweise mit Russisch) → im Odenwaldkreis keine Vereinsseite gefunden, Lücke dokumentiert, Sparkasse Odenwaldkreis als Sprachmenü-Referenz
+- [x] Jede Seite analysieren (7 Seiten) – soweit über Websuche möglich
+- [ ] Design, Mobilansicht, Ladeeindruck per Seitenabruf prüfen → **blockiert**: Netzwerkrichtlinie erlaubt keinen Seitenabruf (nur Websuche)
+- [x] Quellen (URLs) notieren; nicht abrufbare Seiten offen kennzeichnen (`docs/recherche-notizen.md`)
+- [x] Rechtliche Kurzprüfung: Barrierefreiheitserklärung (BFSG/BITV) für Vereine, Zuwendungsbestätigung/vereinfachter Spendennachweis
+- [ ] Lösung für Spannungsfeld „kein Build-Schritt / Sprach-URLs / zentrale Übersetzungen“ → wird im Konzept (Phase 4) entschieden
+- [x] Technische Recherche: EPC-QR-Standard (GiroCode), IBAN-Prüfsumme (ISO 13616 / Mod 97), lokale QR-Bibliothek inkl. Lizenz, Schriften mit freier Lizenz
+- [x] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [ ] Freigabe Phase 2 durch den Nutzer
 
 ## Phase 3 – Recherche-Dokumentation
 - [ ] `skills-lab/docs/01-recherche.md` anlegen
