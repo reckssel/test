@@ -1,0 +1,143 @@
+{
+  "_hinweis": "Kurse und Workshops (erfundene Beispiele). Preise sind Platzhalter in Euro. format: onsite | online | hybrid. level: beginner | all | advanced. Nach Änderung: python3 tools/build.py",
+  "courses": [
+    {
+      "id": "kommunikation",
+      "format": "onsite",
+      "level": "beginner",
+      "price": 40,
+      "member_price": 25,
+      "title": {
+        "de": "Klar kommunizieren im Alltag und Beruf",
+        "en": "Communicating clearly at home and at work",
+        "ru": "Ясная коммуникация в жизни и на работе"
+      },
+      "text": {
+        "de": "Zuhören, nachfragen, Ich-Botschaften: Wir üben einfache Werkzeuge für Gespräche, die gelingen – auch wenn es schwierig wird. Mit vielen kurzen Übungen in kleinen Gruppen.",
+        "en": "Listening, asking questions, ‘I’ statements: we practise simple tools for conversations that work – even when things get difficult. With lots of short exercises in small groups.",
+        "ru": "Слушать, переспрашивать, говорить от первого лица: мы отрабатываем простые приёмы для успешного разговора – даже в трудной ситуации. Много коротких упражнений в небольших группах."
+      },
+      "duration": { "de": "2 Termine à 3 Stunden", "en": "2 sessions of 3 hours", "ru": "2 занятия по 3 часа" },
+      "audience": {
+        "de": "Alle, die im Alltag oder Beruf sicherer kommunizieren möchten",
+        "en": "Anyone who wants to communicate with more confidence in daily life or at work",
+        "ru": "Все, кто хочет увереннее общаться в повседневной жизни и на работе"
+      }
+    },
+    {
+      "id": "praesentieren",
+      "format": "onsite",
+      "level": "all",
+      "price": 60,
+      "member_price": 40,
+      "title": {
+        "de": "Sicher präsentieren",
+        "en": "Presenting with confidence",
+        "ru": "Уверенные презентации"
+      },
+      "text": {
+        "de": "Vom Gedanken zur klaren Botschaft: Aufbau, Folien mit wenig Text, Stimme und Lampenfieber. Jede Person hält eine kurze Präsentation und erhält freundliches Feedback.",
+        "en": "From idea to clear message: structure, slides with little text, voice and stage fright. Everyone gives a short presentation and receives friendly feedback.",
+        "ru": "От идеи к ясному посылу: структура, слайды с минимумом текста, голос и волнение. Каждый участник проводит короткую презентацию и получает доброжелательную обратную связь."
+      },
+      "duration": { "de": "1 Tag (6 Stunden)", "en": "1 day (6 hours)", "ru": "1 день (6 часов)" },
+      "audience": {
+        "de": "Berufstätige, Studierende, Ehrenamtliche",
+        "en": "Working people, students, volunteers",
+        "ru": "Работающие, студенты, волонтёры"
+      }
+    },
+    {
+      "id": "digital-fit",
+      "format": "onsite",
+      "level": "beginner",
+      "price": 30,
+      "member_price": 15,
+      "title": {
+        "de": "Digital fit: Smartphone und Internet",
+        "en": "Digital basics: smartphone and internet",
+        "ru": "Цифровая грамотность: смартфон и интернет"
+      },
+      "text": {
+        "de": "In Ruhe und Schritt für Schritt: Nachrichten schreiben, Fotos teilen, sicher im Internet suchen, Termine online vereinbaren. Bringen Sie gern Ihr eigenes Gerät mit.",
+        "en": "Calmly and step by step: sending messages, sharing photos, searching the internet safely, booking appointments online. Feel free to bring your own device.",
+        "ru": "Спокойно и шаг за шагом: писать сообщения, делиться фотографиями, безопасно искать в интернете, записываться на приём онлайн. Приносите своё устройство."
+      },
+      "duration": { "de": "4 Termine à 2 Stunden", "en": "4 sessions of 2 hours", "ru": "4 занятия по 2 часа" },
+      "audience": {
+        "de": "Einsteigerinnen und Einsteiger jeden Alters, ausdrücklich auch ältere Menschen",
+        "en": "Beginners of all ages, explicitly including older people",
+        "ru": "Начинающие любого возраста, в том числе пожилые люди"
+      }
+    },
+    {
+      "id": "zeitmanagement",
+      "format": "online",
+      "level": "all",
+      "price": 35,
+      "member_price": 20,
+      "title": {
+        "de": "Zeit- und Selbstmanagement",
+        "en": "Time and self-management",
+        "ru": "Тайм-менеджмент и самоорганизация"
+      },
+      "text": {
+        "de": "Prioritäten setzen, Aufgaben planen, Pausen schützen: alltagstaugliche Methoden ohne Perfektionismus. Online, mit kleinen Aufgaben zwischen den Terminen.",
+        "en": "Setting priorities, planning tasks, protecting breaks: practical methods without perfectionism. Online, with small tasks between sessions.",
+        "ru": "Расставлять приоритеты, планировать задачи, беречь время для отдыха: практичные методы без перфекционизма. Онлайн, с небольшими заданиями между занятиями."
+      },
+      "duration": { "de": "3 Termine à 90 Minuten", "en": "3 sessions of 90 minutes", "ru": "3 занятия по 90 минут" },
+      "audience": {
+        "de": "Alle, die Beruf, Familie und Ehrenamt besser unter einen Hut bringen möchten",
+        "en": "Anyone who wants to balance work, family and volunteering better",
+        "ru": "Все, кто хочет лучше совмещать работу, семью и волонтёрство"
+      }
+    },
+    {
+      "id": "englisch-beruf",
+      "format": "online",
+      "level": "advanced",
+      "price": 80,
+      "member_price": 55,
+      "title": {
+        "de": "Englisch für den Beruf",
+        "en": "English for work",
+        "ru": "Английский для работы"
+      },
+      "text": {
+        "de": "E-Mails, Telefonate und Besprechungen auf Englisch: Wir trainieren typische Situationen aus dem Berufsalltag und erweitern den Wortschatz gezielt.",
+        "en": "Emails, phone calls and meetings in English: we practise typical workplace situations and build vocabulary in a targeted way.",
+        "ru": "Электронные письма, звонки и совещания на английском: тренируем типичные рабочие ситуации и целенаправленно расширяем словарный запас."
+      },
+      "duration": { "de": "8 Termine à 90 Minuten", "en": "8 sessions of 90 minutes", "ru": "8 занятий по 90 минут" },
+      "audience": {
+        "de": "Fortgeschrittene ab Niveau B1",
+        "en": "Advanced learners from level B1",
+        "ru": "Продолжающие с уровня B1"
+      }
+    },
+    {
+      "id": "ki-werkzeuge",
+      "format": "hybrid",
+      "level": "beginner",
+      "price": 45,
+      "member_price": 30,
+      "title": {
+        "de": "KI-Werkzeuge verstehen und nutzen",
+        "en": "Understanding and using AI tools",
+        "ru": "Инструменты ИИ: понимать и применять"
+      },
+      "text": {
+        "de": "Was können Textgeneratoren und Bild-KI – und was nicht? Wir probieren aus, bewerten Ergebnisse kritisch und sprechen über Datenschutz und Urheberrecht.",
+        "en": "What can text generators and image AI do – and what can’t they? We try things out, assess results critically and talk about data protection and copyright.",
+        "ru": "Что умеют генераторы текста и ИИ для изображений – и чего не умеют? Пробуем на практике, критически оцениваем результаты и обсуждаем защиту данных и авторское право."
+      },
+      "duration": { "de": "2 Termine à 2,5 Stunden", "en": "2 sessions of 2.5 hours", "ru": "2 занятия по 2,5 часа" },
+      "audience": {
+        "de": "Neugierige ohne Vorkenntnisse; vor Ort oder online zugeschaltet",
+        "en": "Curious people without prior knowledge; on site or joining online",
+        "ru": "Любознательные без предварительных знаний; очно или онлайн"
+      }
+    }
+  ]
+}

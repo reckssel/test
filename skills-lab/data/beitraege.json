@@ -1,0 +1,61 @@
+{
+  "_hinweis": "Einzige Quelle für alle Mitgliedsbeiträge (Beitragsordnung, Mitglied werden, Auswahlfeld im Antrag). Beträge sind Platzhalter in Euro pro Jahr. Nach Änderung: python3 tools/build.py",
+  "currency": "EUR",
+  "types": [
+    {
+      "id": "einzel",
+      "amount": 60,
+      "min": false,
+      "label": { "de": "Einzelmitglied", "en": "Individual member", "ru": "Индивидуальный член" },
+      "note": {
+        "de": "Erwachsene ab 18 Jahren",
+        "en": "Adults aged 18 and over",
+        "ru": "Взрослые от 18 лет"
+      }
+    },
+    {
+      "id": "ermaessigt",
+      "amount": 30,
+      "min": false,
+      "label": { "de": "Ermäßigt", "en": "Reduced", "ru": "Льготный" },
+      "note": {
+        "de": "Schüler, Auszubildende, Studierende, Rentner, Empfänger von Sozialleistungen (mit Nachweis)",
+        "en": "School pupils, apprentices, students, pensioners, recipients of social benefits (proof required)",
+        "ru": "Школьники, учащиеся профобразования, студенты, пенсионеры, получатели социальных пособий (при наличии подтверждения)"
+      }
+    },
+    {
+      "id": "familie",
+      "amount": 90,
+      "min": false,
+      "label": { "de": "Familie", "en": "Family", "ru": "Семья" },
+      "note": {
+        "de": "Zwei Erwachsene und ihre Kinder unter 18 Jahren im selben Haushalt",
+        "en": "Two adults and their children under 18 living in the same household",
+        "ru": "Двое взрослых и их дети до 18 лет, проживающие в одном домохозяйстве"
+      }
+    },
+    {
+      "id": "foerder",
+      "amount": 120,
+      "min": true,
+      "label": { "de": "Fördermitglied", "en": "Supporting member", "ru": "Член-попечитель" },
+      "note": {
+        "de": "Unterstützt den Verein finanziell, ohne Stimmrecht; Betrag frei wählbar ab Mindestbeitrag",
+        "en": "Supports the association financially, without voting rights; amount freely chosen above the minimum",
+        "ru": "Финансово поддерживает объединение без права голоса; сумма по выбору, не ниже минимальной"
+      }
+    },
+    {
+      "id": "firma",
+      "amount": 300,
+      "min": true,
+      "label": { "de": "Firmenmitglied", "en": "Corporate member", "ru": "Корпоративный член" },
+      "note": {
+        "de": "Unternehmen, Vereine und Einrichtungen; ohne Stimmrecht",
+        "en": "Companies, associations and institutions; without voting rights",
+        "ru": "Компании, объединения и организации; без права голоса"
+      }
+    }
+  ]
+}

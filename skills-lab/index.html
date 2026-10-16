@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skills Lab e.V. – Sprache wählen</title>
+<meta name="description" content="Skills Lab e.V. ist ein gemeinnütziger Verein im Odenwaldkreis mit Kursen und Workshops zu Kommunikation, digitalen Kompetenzen, Präsentation, Zeitmanagement und Sprachen.">
+<link rel="canonical" href="https://www.example.org/">
+<link rel="alternate" hreflang="de" href="https://www.example.org/de/">
+<link rel="alternate" hreflang="en" href="https://www.example.org/en/">
+<link rel="alternate" hreflang="ru" href="https://www.example.org/ru/">
+<link rel="alternate" hreflang="x-default" href="https://www.example.org/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<noscript><meta http-equiv="refresh" content="5;url=de/index.html"></noscript>
+<script>
+  /* Sprachweiche: gespeicherte Wahl > Browsersprache > Deutsch */
+  (function () {
+    var supported = ["de", "en", "ru"];
+    var lang = null;
+    try { lang = localStorage.getItem("sl-lang"); } catch (e) {}
+    if (supported.indexOf(lang) === -1) {
+      var prefs = navigator.languages || [navigator.language || "de"];
+      for (var i = 0; i < prefs.length && !lang; i++) {
+        var code = String(prefs[i]).slice(0, 2).toLowerCase();
+        if (supported.indexOf(code) !== -1) lang = code;
+      }
+    }
+    if (supported.indexOf(lang) === -1) lang = "de";
+    location.replace(lang + "/index.html");
+  })();
+</script>
+</head>
+<body>
+<main id="main" class="container hero">
+<h1>Skills Lab e.V.</h1>
+<p lang="de">Bitte wählen Sie eine Sprache</p><p lang="en">Please choose a language</p><p lang="ru">Пожалуйста, выберите язык</p>
+<ul class="btn-row" style="list-style:none;padding:0"><li><a class="btn btn--outline" href="de/index.html" lang="de" hreflang="de" data-lang="de">Deutsch</a></li><li><a class="btn btn--outline" href="en/index.html" lang="en" hreflang="en" data-lang="en">English</a></li><li><a class="btn btn--outline" href="ru/index.html" lang="ru" hreflang="ru" data-lang="ru">Русский</a></li></ul>
+</main>
+</body>
+</html>

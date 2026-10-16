@@ -1,0 +1,664 @@
+{
+  "meta": {
+    "lang": "de",
+    "locale": "de_DE",
+    "name": "Deutsch",
+    "short": "DE"
+  },
+
+  "common": {
+    "site_name": "Skills Lab e.V.",
+    "tagline": "Kurse und Workshops für alle",
+    "skip": "Zum Inhalt springen",
+    "menu": "Menü",
+    "menu_close": "Menü schließen",
+    "nav_label": "Hauptnavigation",
+    "lang_label": "Sprache wählen",
+    "lang_current": "Aktuelle Sprache",
+    "cta_member": "Mitglied werden",
+    "cta_donate": "Spenden",
+    "home_link": "Skills Lab – zur Startseite",
+    "theme_label": "Darstellung",
+    "theme_system": "Wie System",
+    "theme_light": "Hell",
+    "theme_dark": "Dunkel",
+    "footer_about": "Skills Lab e.V. ist ein gemeinnütziger Verein im Odenwaldkreis. Wir bieten Kurse und Workshops für Menschen jeden Alters und mit allen Vorkenntnissen an.",
+    "footer_contact": "Kontakt",
+    "footer_legal": "Rechtliches",
+    "footer_association": "Verein",
+    "footer_placeholder": "Hinweis: Diese Website enthält Platzhalter. Angaben in [eckigen Klammern] müssen vom Verein ersetzt werden.",
+    "copyright": "© {year} Skills Lab e.V.",
+    "required": "Pflichtfeld",
+    "optional": "optional",
+    "toc": "Inhalt",
+    "back_to_top": "Nach oben",
+    "status_label": "Stand",
+    "version_label": "Fassung",
+    "decided_label": "Beschlossen durch die Mitgliederversammlung am",
+    "download_pdf": "Als PDF herunterladen",
+    "pdf_size": "PDF",
+    "print": "Drucken",
+    "per_year": "pro Jahr",
+    "from": "ab",
+    "more": "Mehr erfahren",
+    "placeholder_legal": "<strong>Platzhaltertext</strong>Dieser Text ist ein Muster. Er muss vom Verein beschlossen bzw. angepasst und rechtlich geprüft werden. Er ist keine Rechtsberatung.",
+    "translation_notice": "",
+    "binding_german": "",
+    "formats": { "onsite": "Vor Ort", "online": "Online", "hybrid": "Vor Ort und online" },
+    "levels": { "beginner": "Einsteiger", "all": "Alle Niveaus", "advanced": "Fortgeschrittene" },
+    "facts": {
+      "duration": "Dauer",
+      "format": "Format",
+      "level": "Niveau",
+      "audience": "Für wen",
+      "price": "Preis",
+      "member_price": "für Mitglieder"
+    },
+    "seats": {
+      "free": "{n} von {m} frei",
+      "few": "nur noch {n} frei",
+      "none": "ausgebucht",
+      "label": "Freie Plätze"
+    },
+    "weekdays": ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+    "months": ["Jan.", "Feb.", "März", "Apr.", "Mai", "Juni", "Juli", "Aug.", "Sept.", "Okt.", "Nov.", "Dez."],
+    "date_pattern": "{wd}, {d}.{m}.{y}",
+    "time_pattern": "{start}–{end} Uhr",
+    "money_pattern": "{n} €"
+  },
+
+  "nav": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "courses": "Angebote",
+    "dates": "Termine",
+    "association": "Verein",
+    "contact": "Kontakt",
+    "statutes": "Satzung",
+    "fees": "Beitragsordnung",
+    "membership": "Mitglied werden",
+    "donate": "Spenden",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "cookies": "Cookie-Einstellungen",
+    "accessibility": "Barrierefreiheit",
+    "newsletter_confirmed": "Newsletter bestätigt"
+  },
+
+  "consent": {
+    "title": "Externe Inhalte",
+    "text": "Diese Website setzt keine Cookies und nutzt kein Tracking. Nur die Karte auf der Kontaktseite wird von OpenStreetMap geladen – dabei wird Ihre IP-Adresse übertragen. Möchten Sie die Karte erlauben? <a href='{p:cookies}'>Einstellungen und Details</a>",
+    "accept": "Karte erlauben",
+    "reject": "Nur notwendige",
+    "map_title": "Karte (OpenStreetMap)",
+    "map_text": "Zum Schutz Ihrer Daten wird die Karte erst geladen, wenn Sie zustimmen. Dabei wird Ihre IP-Adresse an die OpenStreetMap Foundation übertragen.",
+    "map_load": "Karte laden",
+    "map_route": "Adresse auf OpenStreetMap öffnen (neues Fenster)",
+    "map_iframe_title": "Karte mit dem Standort von Skills Lab e.V."
+  },
+
+  "forms": {
+    "name": "Name",
+    "first_name": "Vorname",
+    "last_name": "Nachname",
+    "street": "Straße und Hausnummer",
+    "zip": "PLZ",
+    "city": "Ort",
+    "email": "E-Mail-Adresse",
+    "phone": "Telefon",
+    "birthdate": "Geburtsdatum",
+    "message": "Nachricht",
+    "topic": "Thema",
+    "topic_choose": "Bitte wählen",
+    "topics": {
+      "kurs": "Kursanfrage",
+      "workshop": "Workshop buchen",
+      "mitgliedschaft": "Mitgliedschaft",
+      "spenden": "Spenden",
+      "allgemein": "Allgemeine Frage",
+      "sonstiges": "Sonstiges"
+    },
+    "privacy_consent": "Ich habe die <a href='{p:privacy}'>Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden.",
+    "newsletter_consent": "Ich möchte den Newsletter von Skills Lab e.V. per E-Mail erhalten. Ich kann mich jederzeit wieder abmelden. Hinweise in der <a href='{p:privacy}'>Datenschutzerklärung</a>.",
+    "honeypot": "Bitte dieses Feld leer lassen",
+    "submit_contact": "Nachricht senden",
+    "submit_newsletter": "Anmelden",
+    "submit_membership": "Antrag absenden",
+    "submit_donation": "Spendenanfrage senden",
+    "required_note": "Mit * markierte Felder sind Pflichtfelder.",
+    "errors": {
+      "summary": "Bitte prüfen Sie Ihre Angaben:",
+      "required": "Bitte füllen Sie dieses Feld aus.",
+      "choose": "Bitte wählen Sie eine Option.",
+      "checkbox": "Bitte bestätigen Sie dieses Feld.",
+      "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein, z. B. name@beispiel.de.",
+      "zip": "Bitte geben Sie eine gültige Postleitzahl ein.",
+      "date": "Bitte geben Sie ein gültiges Datum ein.",
+      "birthdate": "Das Geburtsdatum darf nicht in der Zukunft liegen.",
+      "iban": "Diese IBAN ist ungültig. Bitte prüfen Sie Ihre Eingabe (Prüfsumme stimmt nicht).",
+      "iban_length": "Diese IBAN hat nicht die richtige Länge für das angegebene Land.",
+      "iban_country": "Diese IBAN beginnt nicht mit einem bekannten Ländercode.",
+      "amount": "Bitte geben Sie einen Betrag zwischen 1 und 10.000 € ein.",
+      "send_failed": "Das Senden hat leider nicht geklappt. Bitte versuchen Sie es später erneut oder schreiben Sie uns eine E-Mail an {site:org.email}."
+    },
+    "status": {
+      "sending": "Wird gesendet …",
+      "mailto_opened": "Ihr E-Mail-Programm wurde mit Ihrer Nachricht geöffnet. Bitte senden Sie die E-Mail dort ab. Falls sich nichts geöffnet hat, schreiben Sie uns direkt an {site:org.email}.",
+      "contact": "Vielen Dank für Ihre Nachricht! Wir melden uns so schnell wie möglich – in der Regel innerhalb einer Woche.",
+      "newsletter": "Fast geschafft: Bitte bestätigen Sie Ihre Anmeldung über den Link in der E-Mail, die wir Ihnen senden.",
+      "membership": "Vielen Dank für Ihren Antrag! Der Vorstand prüft ihn und meldet sich bei Ihnen. Es erfolgt keine Zahlung über diese Website.",
+      "donation": "Vielen Dank für Ihre Spendenbereitschaft!"
+    },
+    "mail_subject": "Anfrage über die Website: {form}",
+    "form_names": {
+      "contact": "Kontakt",
+      "newsletter": "Newsletter-Anmeldung",
+      "membership": "Mitgliedsantrag",
+      "donation": "Spendenanfrage"
+    },
+    "yes": "ja",
+    "no": "nein"
+  },
+
+  "pages": {
+    "home": {
+      "title": "Kurse und Workshops für alle im Odenwald",
+      "description": "Skills Lab e.V. ist ein gemeinnütziger Verein im Odenwaldkreis mit Kursen und Workshops zu Kommunikation, digitalen Kompetenzen, Präsentation, Zeitmanagement und Sprachen.",
+      "h1": "Neues lernen. Gemeinsam. Für alle.",
+      "lead": "Skills Lab e.V. bietet praxisnahe Kurse und Workshops in kleinen Gruppen – für Einsteiger und Fortgeschrittene, jedes Alter, faire Preise. Gemeinnützig und offen für alle.",
+      "cta_courses": "Angebote ansehen",
+      "cta_dates": "Nächste Termine",
+      "courses_h2": "Unsere Angebote",
+      "courses_all": "Alle Angebote mit Details",
+      "about_h2": "Über Skills Lab",
+      "about_text": "Wir sind ein ehrenamtlich getragener Verein. Unsere Kursleiterinnen und Kursleiter geben weiter, was sie im Beruf und im Leben gelernt haben – verständlich, geduldig und mit vielen Übungen. Wer mitmacht, lernt in kleinen Gruppen und kann jederzeit Fragen stellen.",
+      "about_link": "Mehr über uns",
+      "dates_h2": "Nächste Termine",
+      "dates_all": "Alle Termine",
+      "dates_empty": "Zurzeit sind keine Termine geplant. Schauen Sie bald wieder vorbei oder abonnieren Sie unseren Newsletter.",
+      "member_h2": "Mitglied werden",
+      "member_text": "Mitglieder zahlen weniger für Kurse, gestalten das Programm mit und stärken das Lernen vor Ort. Der Beitrag beginnt bei {fee_min} im Jahr.",
+      "member_btn": "Mitgliedschaft ansehen",
+      "donate_h2": "Spenden",
+      "donate_text": "Mit Ihrer Spende ermöglichen Sie kostenlose Plätze, Material und neue Kurse. Überweisen geht ganz einfach mit dem GiroCode in Ihrer Banking-App.",
+      "donate_btn": "Jetzt spenden",
+      "newsletter_h2": "Newsletter",
+      "newsletter_text": "Neue Kurse und Termine etwa einmal im Monat per E-Mail. Abmelden ist jederzeit möglich."
+    },
+
+    "about": {
+      "title": "Über uns",
+      "description": "Mission, Werte, Team und Arbeitsweise von Skills Lab e.V., dem gemeinnützigen Bildungsverein im Odenwaldkreis.",
+      "h1": "Über uns",
+      "lead": "Wir glauben: Jede und jeder kann Neues lernen – mit der richtigen Begleitung, in einem freundlichen Rahmen und zu einem Preis, der niemanden ausschließt.",
+      "mission_h2": "Unsere Mission",
+      "mission_text": "Skills Lab e.V. fördert die Volks- und Berufsbildung im Odenwaldkreis. Wir vermitteln Fähigkeiten, die im Alltag und im Beruf weiterhelfen: gut kommunizieren, sicher präsentieren, digitale Werkzeuge nutzen, die eigene Zeit organisieren und Sprachen sprechen.",
+      "values_h2": "Unsere Werte",
+      "values": [
+        { "t": "Offen", "d": "Unsere Angebote stehen allen offen – unabhängig von Alter, Herkunft, Vorkenntnissen oder Einkommen." },
+        { "t": "Praxisnah", "d": "Wir üben an Beispielen aus dem echten Leben. Was Sie bei uns lernen, können Sie am nächsten Tag anwenden." },
+        { "t": "Gemeinsam", "d": "Wir lernen in kleinen Gruppen und voneinander. Fragen sind ausdrücklich erwünscht." },
+        { "t": "Gemeinnützig", "d": "Wir arbeiten nicht gewinnorientiert. Überschüsse fließen in neue Kurse und ermäßigte Plätze." }
+      ],
+      "work_h2": "So arbeiten wir",
+      "work_items": [
+        "Kleine Gruppen mit höchstens 16 Teilnehmenden",
+        "Ehrenamtliche Kursleitungen mit Erfahrung aus Beruf und Praxis",
+        "Faire Preise, für Mitglieder ermäßigt; ermäßigte Plätze auf Anfrage",
+        "Kurse vor Ort in Erbach, online oder in beiden Formen",
+        "Barrierearme Räume und Unterlagen in einfacher Sprache [bitte prüfen]"
+      ],
+      "team_h2": "Team",
+      "team_text": "Hier stellen sich künftig Vorstand und Kursleitungen vor. [Platzhalter – Namen, Rollen und ggf. Fotos mit Einwilligung ergänzen.]",
+      "team": [
+        { "initials": "AB", "name": "[Vorname Nachname]", "role": "Vorsitz" },
+        { "initials": "CD", "name": "[Vorname Nachname]", "role": "Stellvertretender Vorsitz" },
+        { "initials": "EF", "name": "[Vorname Nachname]", "role": "Kasse" },
+        { "initials": "GH", "name": "[Vorname Nachname]", "role": "Kursleitung Digitales" }
+      ],
+      "cta_text": "Sie möchten selbst einen Kurs geben oder sich engagieren? Wir freuen uns auf Sie.",
+      "cta_btn": "Kontakt aufnehmen"
+    },
+
+    "courses": {
+      "title": "Angebote",
+      "description": "Kurse und Workshops von Skills Lab e.V.: Kommunikation, Präsentieren, Smartphone und Internet, Zeitmanagement, Englisch für den Beruf und KI-Werkzeuge.",
+      "h1": "Angebote",
+      "lead": "Sechs Kurse für den Alltag und den Beruf – vor Ort in Erbach, online oder beides. Alle Preise sind Gesamtpreise für den Kurs.",
+      "member_note": "<strong>Mitglieder zahlen weniger.</strong>Für jeden Kurs gibt es einen ermäßigten Preis für Mitglieder. Wenn der Preis für Sie eine Hürde ist, sprechen Sie uns an – wir finden eine Lösung. <a href='{p:membership}'>Mitglied werden</a>",
+      "dates_link": "Termine für diesen Kurs",
+      "request_link": "Kurs anfragen",
+      "group_h2": "Kurs für Ihre Gruppe",
+      "group_text": "Alle Kurse bieten wir auch als Workshop für Vereine, Schulen und Unternehmen an – bei Ihnen vor Ort oder online.",
+      "group_btn": "Workshop anfragen",
+      "prices_placeholder": "Preise sind Platzhalter und vom Verein festzulegen."
+    },
+
+    "dates": {
+      "title": "Termine",
+      "description": "Aktuelle Kurstermine von Skills Lab e.V. mit Datum, Uhrzeit, Ort und freien Plätzen.",
+      "h1": "Termine",
+      "lead": "Alle kommenden Kurstermine auf einen Blick. Angegeben ist jeweils der erste Termin eines Kurses.",
+      "filter_label": "Nach Kurs filtern",
+      "filter_all": "Alle Kurse",
+      "filter_count": "{n} Termine angezeigt",
+      "table_caption": "Kommende Kurstermine",
+      "col_date": "Datum",
+      "col_time": "Uhrzeit",
+      "col_course": "Kurs",
+      "col_place": "Ort",
+      "col_seats": "Freie Plätze",
+      "col_action": "Anmeldung",
+      "request": "Anfragen",
+      "request_label": "{action}: {course} am {date}",
+      "waitlist": "Warteliste",
+      "no_results": "Für diese Auswahl gibt es zurzeit keine Termine.",
+      "note": "<strong>So melden Sie sich an</strong>Eine Online-Buchung gibt es noch nicht. Klicken Sie bei einem Termin auf „Anfragen“ – das Kontaktformular ist dann schon vorausgefüllt. Wir bestätigen Ihren Platz per E-Mail."
+    },
+
+    "association": {
+      "title": "Verein",
+      "description": "Skills Lab e.V.: Vereinszweck, Gemeinnützigkeit, Vorstand, Vereinsregister sowie Satzung und Beitragsordnung zum Lesen und Herunterladen.",
+      "h1": "Der Verein",
+      "lead": "Skills Lab ist ein eingetragener, gemeinnütziger Verein. Hier finden Sie alle wichtigen Angaben und Dokumente.",
+      "facts_h2": "Auf einen Blick",
+      "f_name": "Name",
+      "f_seat": "Sitz",
+      "f_register": "Vereinsregister",
+      "f_purpose": "Zweck",
+      "purpose_text": "Förderung der Volks- und Berufsbildung (§ 52 Abs. 2 Satz 1 Nr. 7 Abgabenordnung)",
+      "f_nonprofit": "Gemeinnützigkeit",
+      "nonprofit_text": "Als gemeinnützig anerkannt durch das {site:org.tax_office}, Freistellungsbescheid vom {site:org.tax_notice_date} [Platzhalter]",
+      "f_board": "Vorstand",
+      "roles": { "chair": "Vorsitz", "vice_chair": "Stellvertretender Vorsitz", "treasurer": "Kasse" },
+      "docs_h2": "Satzung und Beitragsordnung",
+      "docs_statutes": "Regelt Zweck, Mitgliedschaft, Organe und Auflösung des Vereins.",
+      "docs_fees": "Regelt Höhe, Fälligkeit und Zahlung der Mitgliedsbeiträge.",
+      "read": "Online lesen",
+      "history_h2": "Wie alles begann",
+      "history_text": "[Platzhalter: Gründungsjahr, Anlass und Entwicklung des Vereins in wenigen Sätzen.]"
+    },
+
+    "statutes": {
+      "title": "Satzung",
+      "description": "Satzung von Skills Lab e.V. mit Inhaltsverzeichnis: Name und Sitz, Zweck, Gemeinnützigkeit, Mitgliedschaft, Beiträge, Organe, Mitgliederversammlung, Vorstand, Auflösung.",
+      "h1": "Satzung des Skills Lab e.V.",
+      "sections": [
+        { "id": "p1", "title": "§ 1 Name, Sitz, Geschäftsjahr", "paras": [
+          "Der Verein führt den Namen „Skills Lab“. Er soll in das Vereinsregister eingetragen werden und führt danach den Zusatz „e.V.“.",
+          "Der Verein hat seinen Sitz in Erbach (Odenwald). [Platzhalter]",
+          "Das Geschäftsjahr ist das Kalenderjahr."
+        ]},
+        { "id": "p2", "title": "§ 2 Zweck des Vereins", "paras": [
+          "Zweck des Vereins ist die Förderung der Volks- und Berufsbildung.",
+          "Der Satzungszweck wird insbesondere verwirklicht durch Kurse, Workshops, Vorträge und offene Lernangebote zu Kommunikation, digitalen Kompetenzen, Präsentation, Selbstorganisation und Sprachen, die allen Interessierten offenstehen.",
+          "Der Verein ist parteipolitisch und konfessionell neutral."
+        ]},
+        { "id": "p3", "title": "§ 3 Gemeinnützigkeit", "paras": [
+          "Der Verein verfolgt ausschließlich und unmittelbar gemeinnützige Zwecke im Sinne des Abschnitts „Steuerbegünstigte Zwecke“ der Abgabenordnung.",
+          "Der Verein ist selbstlos tätig; er verfolgt nicht in erster Linie eigenwirtschaftliche Zwecke."
+        ]},
+        { "id": "p4", "title": "§ 4 Mittelverwendung", "paras": [
+          "Mittel des Vereins dürfen nur für die satzungsmäßigen Zwecke verwendet werden. Die Mitglieder erhalten keine Zuwendungen aus Mitteln des Vereins.",
+          "Es darf keine Person durch Ausgaben, die dem Zweck des Vereins fremd sind, oder durch unverhältnismäßig hohe Vergütungen begünstigt werden.",
+          "Vorstandsmitglieder und Kursleitungen können im Rahmen der Haushaltslage eine angemessene Aufwandsentschädigung erhalten (z. B. nach § 3 Nr. 26 oder Nr. 26a EStG). Darüber entscheidet der Vorstand."
+        ]},
+        { "id": "p5", "title": "§ 5 Mitgliedschaft", "paras": [
+          "Mitglied kann jede natürliche Person sowie jede juristische Person werden, die die Ziele des Vereins unterstützt.",
+          "Der Verein hat ordentliche Mitglieder und Fördermitglieder. Fördermitglieder unterstützen den Verein finanziell; sie haben kein Stimmrecht.",
+          "Über den schriftlichen oder elektronischen Aufnahmeantrag entscheidet der Vorstand. Bei Minderjährigen ist die Zustimmung der gesetzlichen Vertreter erforderlich. Eine Ablehnung muss nicht begründet werden."
+        ]},
+        { "id": "p6", "title": "§ 6 Beendigung der Mitgliedschaft", "paras": [
+          "Die Mitgliedschaft endet durch Austritt, Ausschluss, Tod oder bei juristischen Personen durch deren Erlöschen.",
+          "Der Austritt erfolgt durch Erklärung in Textform gegenüber dem Vorstand. Er ist mit einer Frist von drei Monaten zum Ende des Geschäftsjahres möglich.",
+          "Ein Mitglied kann durch Beschluss des Vorstands ausgeschlossen werden, wenn es in grober Weise gegen die Interessen des Vereins verstößt oder trotz zweimaliger Mahnung mit dem Beitrag für mehr als ein Jahr im Rückstand ist. Vor dem Beschluss ist dem Mitglied Gelegenheit zur Stellungnahme zu geben. Gegen den Ausschluss kann das Mitglied innerhalb eines Monats die Mitgliederversammlung anrufen."
+        ]},
+        { "id": "p7", "title": "§ 7 Beiträge", "paras": [
+          "Von den Mitgliedern werden Jahresbeiträge erhoben.",
+          "Höhe, Fälligkeit und Zahlungsweise regelt eine Beitragsordnung, die die Mitgliederversammlung beschließt.",
+          "Der Vorstand kann Beiträge in begründeten Fällen ganz oder teilweise stunden, ermäßigen oder erlassen."
+        ]},
+        { "id": "p8", "title": "§ 8 Organe des Vereins", "paras": [
+          "Organe des Vereins sind die Mitgliederversammlung und der Vorstand."
+        ]},
+        { "id": "p9", "title": "§ 9 Mitgliederversammlung", "paras": [
+          "Die ordentliche Mitgliederversammlung findet einmal im Jahr statt. Eine außerordentliche Mitgliederversammlung ist einzuberufen, wenn das Interesse des Vereins es erfordert oder ein Zehntel der stimmberechtigten Mitglieder dies in Textform unter Angabe der Gründe verlangt.",
+          "Die Mitgliederversammlung wird vom Vorstand mit einer Frist von drei Wochen in Textform (z. B. per E-Mail) unter Angabe der Tagesordnung einberufen. Sie kann auch virtuell oder hybrid stattfinden; die Entscheidung trifft der Vorstand in der Einladung.",
+          "Die Mitgliederversammlung ist insbesondere zuständig für: die Wahl und Entlastung des Vorstands, die Wahl der Kassenprüfer, die Entgegennahme des Jahresberichts, die Beschlussfassung über die Beitragsordnung, Satzungsänderungen und die Auflösung des Vereins.",
+          "Jedes ordentliche Mitglied ab 16 Jahren hat eine Stimme. Die ordnungsgemäß einberufene Mitgliederversammlung ist ohne Rücksicht auf die Zahl der Erschienenen beschlussfähig.",
+          "Beschlüsse werden mit einfacher Mehrheit der abgegebenen gültigen Stimmen gefasst, soweit diese Satzung nichts anderes bestimmt. Enthaltungen zählen nicht.",
+          "Über die Beschlüsse wird ein Protokoll angefertigt, das von der Versammlungsleitung und der protokollführenden Person unterzeichnet wird."
+        ]},
+        { "id": "p10", "title": "§ 10 Vorstand", "paras": [
+          "Der Vorstand besteht aus der oder dem Vorsitzenden, der oder dem stellvertretenden Vorsitzenden und der Kassenwartin oder dem Kassenwart.",
+          "Der Verein wird gerichtlich und außergerichtlich durch zwei Vorstandsmitglieder gemeinsam vertreten (Vorstand im Sinne des § 26 BGB).",
+          "Der Vorstand wird von der Mitgliederversammlung für zwei Jahre gewählt. Er bleibt bis zur Neuwahl im Amt.",
+          "Der Vorstand führt die Geschäfte des Vereins, soweit nicht die Mitgliederversammlung zuständig ist. Er kann sich eine Geschäftsordnung geben und Aufgaben an Mitglieder oder Arbeitsgruppen übertragen."
+        ]},
+        { "id": "p11", "title": "§ 11 Kassenprüfung", "paras": [
+          "Die Mitgliederversammlung wählt für zwei Jahre zwei Kassenprüferinnen oder Kassenprüfer, die nicht dem Vorstand angehören.",
+          "Sie prüfen einmal im Jahr die Kassen- und Buchführung und berichten der Mitgliederversammlung."
+        ]},
+        { "id": "p12", "title": "§ 12 Datenschutz", "paras": [
+          "Der Verein verarbeitet personenbezogene Daten seiner Mitglieder, Teilnehmenden und Spender ausschließlich zur Erfüllung seiner satzungsmäßigen Aufgaben und unter Beachtung der Datenschutz-Grundverordnung (DSGVO) und des Bundesdatenschutzgesetzes (BDSG).",
+          "Näheres kann der Vorstand in einer Datenschutzordnung regeln."
+        ]},
+        { "id": "p13", "title": "§ 13 Satzungsänderung", "paras": [
+          "Satzungsänderungen bedürfen einer Mehrheit von zwei Dritteln der abgegebenen gültigen Stimmen. Sie können nur beschlossen werden, wenn sie in der Einladung zur Mitgliederversammlung angekündigt wurden.",
+          "Änderungen, die vom Registergericht oder vom Finanzamt aus formalen Gründen verlangt werden, kann der Vorstand allein vornehmen. Er informiert die Mitglieder darüber."
+        ]},
+        { "id": "p14", "title": "§ 14 Auflösung und Vermögensbindung", "paras": [
+          "Die Auflösung des Vereins kann nur in einer eigens dazu einberufenen Mitgliederversammlung mit einer Mehrheit von drei Vierteln der abgegebenen gültigen Stimmen beschlossen werden.",
+          "Bei Auflösung des Vereins oder bei Wegfall steuerbegünstigter Zwecke fällt das Vermögen des Vereins an [Bezeichnung einer juristischen Person des öffentlichen Rechts oder einer anderen steuerbegünstigten Körperschaft], die es unmittelbar und ausschließlich für gemeinnützige Zwecke, nämlich die Förderung der Volks- und Berufsbildung, zu verwenden hat.",
+          "Diese Satzung tritt mit der Eintragung in das Vereinsregister in Kraft."
+        ]}
+      ]
+    },
+
+    "fees": {
+      "title": "Beitragsordnung",
+      "description": "Beitragsordnung von Skills Lab e.V.: Beitragshöhe für Einzel-, ermäßigte, Familien-, Förder- und Firmenmitglieder, Fälligkeit, Zahlungsweise, Ein- und Austritt.",
+      "h1": "Beitragsordnung des Skills Lab e.V.",
+      "intro": "Diese Beitragsordnung beruht auf § 7 der Satzung. Sie ist nicht Bestandteil der Satzung.",
+      "table_caption": "Jahresbeiträge (Platzhalter)",
+      "col_type": "Mitgliedsart",
+      "col_amount": "Beitrag pro Jahr",
+      "col_note": "Für wen",
+      "amounts_placeholder": "Alle Beträge sind Platzhalter und von der Mitgliederversammlung festzulegen.",
+      "sections": [
+        { "id": "b1", "title": "§ 1 Beitragshöhe", "table": true, "paras": [
+          "Der Verein erhebt Jahresbeiträge in der in der folgenden Tabelle genannten Höhe.",
+          "Bei Fördermitgliedern und Firmenmitgliedern ist der genannte Betrag ein Mindestbeitrag. Ein höherer Beitrag ist willkommen."
+        ]},
+        { "id": "b2", "title": "§ 2 Fälligkeit", "paras": [
+          "Der Jahresbeitrag ist jeweils zum 31. Januar eines Jahres für das laufende Geschäftsjahr fällig.",
+          "Bei Eintritt im laufenden Jahr ist der Beitrag einen Monat nach Aufnahme fällig."
+        ]},
+        { "id": "b3", "title": "§ 3 Zahlungsweise", "paras": [
+          "Der Beitrag wird bevorzugt per SEPA-Lastschrift eingezogen. Das Mitglied erteilt dazu ein SEPA-Lastschriftmandat. Der Verein kündigt den Einzug mindestens fünf Tage vorher an (Vorabinformation).",
+          "Alternativ kann der Beitrag auf das Vereinskonto überwiesen werden. Als Verwendungszweck sind Name und „Mitgliedsbeitrag [Jahr]“ anzugeben.",
+          "Kosten für Rücklastschriften, die das Mitglied zu vertreten hat (z. B. fehlende Deckung, geänderte Bankverbindung), trägt das Mitglied."
+        ]},
+        { "id": "b4", "title": "§ 4 Eintritt im laufenden Jahr", "paras": [
+          "Bei Eintritt im ersten Halbjahr ist der volle Jahresbeitrag zu zahlen, bei Eintritt ab dem 1. Juli der halbe Jahresbeitrag."
+        ]},
+        { "id": "b5", "title": "§ 5 Austritt", "paras": [
+          "Der Austritt richtet sich nach § 6 der Satzung (drei Monate zum Ende des Geschäftsjahres).",
+          "Bereits gezahlte Beiträge werden bei Austritt oder Ausschluss nicht erstattet."
+        ]},
+        { "id": "b6", "title": "§ 6 Ermäßigung und Befreiung", "paras": [
+          "Den ermäßigten Beitrag erhalten Schülerinnen und Schüler, Auszubildende, Studierende, Rentnerinnen und Rentner sowie Empfängerinnen und Empfänger von Sozialleistungen. Der Nachweis ist dem Vorstand jährlich unaufgefordert vorzulegen.",
+          "In besonderen Härtefällen kann der Vorstand auf Antrag den Beitrag stunden, weiter ermäßigen oder erlassen. Der Antrag wird vertraulich behandelt."
+        ]},
+        { "id": "b7", "title": "§ 7 Zahlungsverzug", "paras": [
+          "Ist ein Beitrag zwei Monate nach Fälligkeit nicht gezahlt, erinnert der Verein in Textform. Nach erfolgloser zweiter Mahnung kann der Vorstand das Mitglied nach § 6 der Satzung ausschließen.",
+          "Mahngebühren werden nicht erhoben. [Platzhalter – vom Verein festzulegen]"
+        ]},
+        { "id": "b8", "title": "§ 8 Inkrafttreten", "paras": [
+          "Diese Beitragsordnung tritt mit Beschluss der Mitgliederversammlung am {site:documents.fees_date} in Kraft."
+        ]}
+      ]
+    },
+
+    "membership": {
+      "title": "Mitglied werden",
+      "description": "Mitglied werden bei Skills Lab e.V.: Vorteile, Beiträge und Mitgliedsantrag online – mit optionalem SEPA-Lastschriftmandat.",
+      "h1": "Mitglied werden",
+      "lead": "Als Mitglied tragen Sie den Verein mit, lernen günstiger und gestalten das Programm mit. Der Antrag dauert etwa drei Minuten.",
+      "benefits_h2": "Ihre Vorteile",
+      "benefits": [
+        { "t": "Günstiger lernen", "d": "Ermäßigte Preise für alle Kurse und Workshops." },
+        { "t": "Mitbestimmen", "d": "Stimmrecht in der Mitgliederversammlung und Einfluss auf das Kursprogramm." },
+        { "t": "Früher informiert", "d": "Neue Termine erfahren Mitglieder zuerst." },
+        { "t": "Gutes bewirken", "d": "Ihr Beitrag finanziert ermäßigte Plätze für Menschen mit wenig Geld." }
+      ],
+      "fees_h2": "Beiträge",
+      "fees_link": "Alle Regeln in der Beitragsordnung",
+      "form_h2": "Mitgliedsantrag",
+      "form_intro": "Bitte füllen Sie den Antrag aus. Er geht an den Vorstand, der über die Aufnahme entscheidet. Wir melden uns per E-Mail.",
+      "personal_legend": "Persönliche Angaben",
+      "membership_legend": "Mitgliedschaft",
+      "f_type": "Mitgliedsart",
+      "f_payment": "Zahlungsweise",
+      "payment": { "sepa": "SEPA-Lastschrift (empfohlen)", "transfer": "Überweisung" },
+      "sepa_legend": "SEPA-Lastschriftmandat",
+      "sepa_hint": "Nur ausfüllen, wenn Sie SEPA-Lastschrift gewählt haben.",
+      "f_holder": "Kontoinhaberin / Kontoinhaber",
+      "f_iban": "IBAN",
+      "iban_hint": "z. B. DE12 3456 7890 1234 5678 90 – Leerzeichen sind erlaubt.",
+      "mandate_text": "Gläubiger-Identifikationsnummer: {site:org.creditor_id} · Mandatsreferenz: wird separat mitgeteilt. Ich ermächtige den Skills Lab e.V., Zahlungen von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die vom Skills Lab e.V. auf mein Konto gezogenen Lastschriften einzulösen. Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit meinem Kreditinstitut vereinbarten Bedingungen. [Mustertext – vom Verein zu prüfen]",
+      "mandate_consent": "Ich erteile das SEPA-Lastschriftmandat zu den oben genannten Bedingungen.",
+      "consents_legend": "Einverständnis",
+      "statutes_consent": "Ich erkenne die <a href='{p:statutes}'>Satzung</a> und die <a href='{p:fees}'>Beitragsordnung</a> an.",
+      "privacy_consent": "Ich bin einverstanden, dass der Verein meine Angaben zur Mitgliederverwaltung verarbeitet. Details in der <a href='{p:privacy}'>Datenschutzerklärung</a>.",
+      "no_payment": "<strong>Keine Zahlung über diese Website</strong>Mit dem Absenden stellen Sie einen Antrag. Es wird nichts abgebucht, bevor der Vorstand Sie aufgenommen und Ihnen den ersten Einzug angekündigt hat."
+    },
+
+    "donate": {
+      "title": "Spenden",
+      "description": "Spenden Sie an Skills Lab e.V. per Überweisung oder GiroCode. Bankverbindung, Spendenanfrage und Hinweise zur Spendenbescheinigung.",
+      "h1": "Spenden",
+      "lead": "Bildung sollte nicht am Geld scheitern. Mit Ihrer Spende ermöglichen Sie kostenlose und ermäßigte Kursplätze, Lernmaterial und neue Angebote im Odenwald.",
+      "impact_h2": "Was Ihre Spende bewirkt",
+      "impact": [
+        { "t": "25 €", "d": "Lernmaterial für einen ganzen Kurs" },
+        { "t": "50 €", "d": "Ein kostenloser Kursplatz für eine Person mit wenig Einkommen" },
+        { "t": "100 €", "d": "Ein zusätzlicher Termin „Digital fit“ für ältere Menschen" }
+      ],
+      "impact_placeholder": "Beispiele sind Platzhalter und vom Verein anzupassen.",
+      "bank_h2": "Bankverbindung",
+      "holder": "Kontoinhaber",
+      "iban": "IBAN",
+      "bic": "BIC",
+      "bank": "Bank",
+      "reference": "Verwendungszweck",
+      "copy": "Kopieren",
+      "copied": "Kopiert",
+      "copy_label": "{field} kopieren",
+      "bank_placeholder": "<strong>Beispiel-Bankverbindung</strong>Die angezeigte IBAN ist ein öffentliches Testbeispiel mit gültiger Prüfsumme und kein Konto des Vereins. Bitte noch nicht überweisen.",
+      "giro_h2": "Überweisen mit GiroCode",
+      "giro_text": "Wählen Sie einen Betrag und scannen Sie den Code mit Ihrer Banking-App. Alle Daten werden automatisch übernommen – Sie müssen nur noch bestätigen. Der Code entsteht direkt in Ihrem Browser; es werden keine Daten übertragen.",
+      "amount_legend": "Betrag wählen",
+      "amount_other": "Anderer Betrag",
+      "amount_other_label": "Anderer Betrag in Euro",
+      "giro_alt": "GiroCode für eine Überweisung über {amount} an {name}",
+      "giro_alt_open": "GiroCode für eine Überweisung an {name}, Betrag frei wählbar",
+      "giro_text_h": "Die Daten des Codes als Text",
+      "giro_recipient": "Empfänger",
+      "giro_amount": "Betrag",
+      "giro_open_amount": "frei wählbar",
+      "giro_download": "GiroCode als SVG speichern",
+      "giro_nojs": "Der GiroCode wird mit JavaScript erzeugt. Sie können die Bankverbindung oben auch abschreiben oder kopieren.",
+      "tax_h2": "Spendenbescheinigung",
+      "tax_text": "Skills Lab e.V. ist als gemeinnützig anerkannt [Platzhalter: {site:org.tax_office}, Bescheid vom {site:org.tax_notice_date}]. Ihre Spende ist steuerlich absetzbar. Bis 300 € je Spende genügen in der Regel Ihr Kontoauszug und unser vereinfachter Spendennachweis. Für höhere Beträge oder auf Wunsch stellen wir Ihnen eine Zuwendungsbestätigung aus – kreuzen Sie dazu im Formular unten das Feld an. [Vom Verein bzw. Steuerberatung zu prüfen.]",
+      "tax_template": "Vereinfachter Spendennachweis (Vorlage, PDF)",
+      "form_h2": "Spendenanfrage",
+      "form_intro": "Sie möchten regelmäßig spenden oder eine Spendenbescheinigung erhalten? Schicken Sie uns Ihre Angaben. Es erfolgt keine Zahlung über die Website – Sie erhalten danach die Überweisungsdaten und den passenden GiroCode.",
+      "f_amount": "Betrag in Euro",
+      "f_interval": "Wie oft?",
+      "interval": { "once": "Einmalig", "monthly": "Monatlich", "quarterly": "Vierteljährlich", "yearly": "Jährlich" },
+      "f_receipt": "Ich möchte eine Spendenbescheinigung (Zuwendungsbestätigung).",
+      "address_legend": "Anschrift für die Spendenbescheinigung",
+      "address_hint": "Nur nötig, wenn Sie eine Spendenbescheinigung möchten.",
+      "f_message": "Nachricht",
+      "confirm_h": "Vielen Dank!",
+      "confirm_text": "Bitte überweisen Sie Ihre Spende mit diesen Daten oder scannen Sie den GiroCode:",
+      "confirm_interval": "Für regelmäßige Spenden richten Sie bitte einen Dauerauftrag in Ihrem Online-Banking ein.",
+      "providers_h": "Zahlungsweg",
+      "provider_transfer": "Überweisung / GiroCode"
+    },
+
+    "contact": {
+      "title": "Kontakt",
+      "description": "Kontakt zu Skills Lab e.V.: Kontaktformular, E-Mail, Telefon und Adresse in Erbach (Odenwald).",
+      "h1": "Kontakt",
+      "lead": "Fragen zu Kursen, Mitgliedschaft oder Spenden? Schreiben Sie uns – wir antworten in der Regel innerhalb einer Woche.",
+      "form_h2": "Nachricht schreiben",
+      "details_h2": "So erreichen Sie uns",
+      "address": "Adresse",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "phone_times": "[Telefonzeiten, z. B. Di und Do 10–12 Uhr]",
+      "map_h2": "Anfahrt",
+      "prefill": "Ich interessiere mich für den Termin: {event}"
+    },
+
+    "imprint": {
+      "title": "Impressum",
+      "description": "Impressum von Skills Lab e.V. mit Angaben nach § 5 DDG und § 18 Abs. 2 MStV.",
+      "h1": "Impressum",
+      "sections": [
+        { "id": "i1", "title": "Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)", "paras": [
+          "{address}"
+        ]},
+        { "id": "i2", "title": "Vertreten durch den Vorstand", "paras": [
+          "{board}",
+          "Vertretungsberechtigt sind jeweils zwei Vorstandsmitglieder gemeinsam (§ 26 BGB, § 10 der Satzung)."
+        ]},
+        { "id": "i3", "title": "Kontakt", "paras": [
+          "Telefon: {site:org.phone_display}<br>E-Mail: {email_link}"
+        ]},
+        { "id": "i4", "title": "Registereintrag", "paras": [
+          "Eingetragen im Vereinsregister.<br>Registergericht: {site:org.register_court}<br>Registernummer: {site:org.register_number}"
+        ]},
+        { "id": "i5", "title": "Gemeinnützigkeit", "paras": [
+          "Der Verein ist als gemeinnützig anerkannt durch das {site:org.tax_office} (Steuernummer {site:org.tax_number}, Freistellungsbescheid vom {site:org.tax_notice_date})."
+        ]},
+        { "id": "i6", "title": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV", "paras": [
+          "{site:org.content_responsible}"
+        ]},
+        { "id": "i7", "title": "Haftung für Links", "paras": [
+          "Diese Website enthält Links zu externen Websites. Für deren Inhalte sind ausschließlich die jeweiligen Betreiber verantwortlich. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar. Bei Bekanntwerden von Rechtsverletzungen entfernen wir solche Links umgehend."
+        ]},
+        { "id": "i8", "title": "Schriften und Software", "paras": [
+          "Schrift: Inter (The Inter Project Authors, SIL Open Font License 1.1). GiroCode-Erzeugung: qrcode-generator (Kazuhiko Arase, MIT-Lizenz). Die Lizenztexte liegen im Quellcode der Website."
+        ]}
+      ]
+    },
+
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "description": "Datenschutzerklärung von Skills Lab e.V.: welche Daten wir bei Kontakt, Newsletter, Mitgliedsantrag und Spenden verarbeiten und welche Rechte Sie haben.",
+      "h1": "Datenschutzerklärung",
+      "sections": [
+        { "id": "d1", "title": "1. Verantwortlicher", "paras": [
+          "Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>{address}<br>E-Mail: {email_link}<br>Vertreten durch den Vorstand (siehe <a href='{p:imprint}'>Impressum</a>).",
+          "Ein Datenschutzbeauftragter ist nicht benannt, weil die gesetzlichen Voraussetzungen (§ 38 BDSG) nicht vorliegen. [Vom Verein zu prüfen]"
+        ]},
+        { "id": "d2", "title": "2. Das Wichtigste in Kürze", "paras": [
+          "Diese Website setzt keine Cookies, verwendet kein Tracking und lädt keine Schriften oder Skripte von fremden Servern. Personenbezogene Daten verarbeiten wir nur, wenn Sie uns diese selbst über ein Formular oder per E-Mail mitteilen, sowie in den technisch notwendigen Server-Logdateien. Die Karte auf der Kontaktseite wird nur nach Ihrer Einwilligung geladen."
+        ]},
+        { "id": "d3", "title": "3. Hosting und Server-Logdateien", "paras": [
+          "Die Website wird bei [Name und Anschrift des Hosters] gehostet. Mit dem Hoster besteht ein Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO). [Platzhalter]",
+          "Beim Aufruf der Seiten speichert der Server automatisch: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, übertragene Datenmenge, Browser und Betriebssystem sowie die zuvor besuchte Seite. Das ist für den sicheren Betrieb erforderlich. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer stabilen und sicheren Website). Die Logdateien werden nach [7] Tagen gelöscht. [Platzhalter – beim Hoster erfragen]"
+        ]},
+        { "id": "d4", "title": "4. Lokale Speicherung im Browser", "paras": [
+          "Wir speichern in Ihrem Browser (localStorage) nur: die gewählte Sprache, die gewählte Darstellung (hell/dunkel) und Ihre Entscheidung zur Karte. Diese Angaben verlassen Ihr Gerät nicht. Rechtsgrundlage ist § 25 Abs. 2 Nr. 2 TDDDG (unbedingt erforderlich bzw. von Ihnen ausdrücklich gewünscht). Sie können die Angaben jederzeit über die Einstellungen Ihres Browsers löschen."
+        ]},
+        { "id": "d5", "title": "5. Kontaktformular und E-Mail", "paras": [
+          "Wenn Sie uns über das Kontaktformular oder per E-Mail schreiben, verarbeiten wir Ihren Namen, Ihre E-Mail-Adresse, das Thema und Ihre Nachricht, um Ihre Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anfragen zu Kursen und Mitgliedschaft) bzw. lit. f DSGVO (sonstige Anfragen). Wir löschen die Daten, wenn die Anfrage erledigt ist, spätestens nach [12] Monaten, sofern keine gesetzlichen Aufbewahrungspflichten bestehen."
+        ]},
+        { "id": "d6", "title": "6. Newsletter", "paras": [
+          "Für den Newsletter benötigen wir Ihre E-Mail-Adresse und Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Wir nutzen das Double-Opt-in-Verfahren: Sie erhalten eine E-Mail mit einem Bestätigungslink, erst danach werden Sie eingetragen. Wir speichern den Zeitpunkt von Anmeldung und Bestätigung als Nachweis. Sie können sich jederzeit über den Link in jedem Newsletter oder per E-Mail abmelden; dann löschen wir Ihre Adresse aus dem Verteiler.",
+          "Für den Versand nutzen wir [Name des Newsletter-Dienstes]. Mit dem Dienst besteht ein Vertrag zur Auftragsverarbeitung. [Platzhalter]"
+        ]},
+        { "id": "d7", "title": "7. Mitgliedsantrag und Mitgliederverwaltung", "paras": [
+          "Für die Mitgliedschaft verarbeiten wir: Name, Anschrift, E-Mail-Adresse, ggf. Telefonnummer, Geburtsdatum, Mitgliedsart, Eintrittsdatum, Zahlungsweise sowie Beitragszahlungen. Das Geburtsdatum benötigen wir zur Prüfung der Beitragsart und des Stimmrechts. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Mitgliedschaftsverhältnis nach der Satzung).",
+          "Zugriff haben nur die Vorstandsmitglieder, soweit sie die Daten für ihre Aufgaben benötigen. Nach Ende der Mitgliedschaft löschen wir die Daten, soweit sie nicht wegen steuerlicher Aufbewahrungspflichten (u. a. § 147 AO) noch aufbewahrt werden müssen."
+        ]},
+        { "id": "d8", "title": "8. SEPA-Lastschrift", "paras": [
+          "Wenn Sie ein SEPA-Lastschriftmandat erteilen, verarbeiten wir Kontoinhaber, IBAN und die Mandatsreferenz, um die Beiträge einzuziehen. Die Daten werden an unsere Bank [Name der Bank] zur Ausführung der Lastschrift übermittelt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Das Mandat bewahren wir nach den gesetzlichen Vorgaben auf.",
+          "Die IBAN-Prüfung im Formular findet nur in Ihrem Browser statt; dabei werden keine Daten übertragen."
+        ]},
+        { "id": "d9", "title": "9. Spenden und Zuwendungsbestätigungen", "paras": [
+          "Bei einer Spende bzw. Spendenanfrage verarbeiten wir Name, E-Mail-Adresse, Betrag, Rhythmus, ggf. Anschrift und Nachricht sowie die Angaben aus Ihrer Überweisung, um die Spende zu verbuchen, Ihnen zu danken und auf Wunsch eine Zuwendungsbestätigung auszustellen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b und lit. c DSGVO.",
+          "Spendenbelege und Doppel der Zuwendungsbestätigungen bewahren wir nach den steuerrechtlichen Vorschriften (u. a. § 147 AO, § 50 EStDV) auf – je nach Unterlage bis zu zehn Jahre. [Fristen vom Verein bzw. Steuerberatung zu prüfen]",
+          "Der GiroCode auf der Spendenseite wird vollständig in Ihrem Browser erzeugt. Dabei werden keine Daten an uns oder Dritte übertragen."
+        ]},
+        { "id": "d10", "title": "10. Versand der Formulare", "paras": [
+          "Solange kein Formular-Dienst eingerichtet ist, öffnet sich beim Absenden Ihr E-Mail-Programm mit den Formulardaten; die Übermittlung erfolgt dann per E-Mail über Ihren eigenen E-Mail-Anbieter.",
+          "[Falls ein Formular-Dienst genutzt wird: Name, Sitz, Zweck, Vertrag zur Auftragsverarbeitung und – bei Anbietern außerhalb der EU – Grundlage der Drittlandübermittlung (z. B. Angemessenheitsbeschluss oder Standardvertragsklauseln) ergänzen.]"
+        ]},
+        { "id": "d11", "title": "11. Karte (OpenStreetMap)", "paras": [
+          "Auf der Kontaktseite können Sie eine Karte von OpenStreetMap laden. Anbieter ist die OpenStreetMap Foundation, St John’s Innovation Centre, Cowley Road, Cambridge, CB4 0WS, Vereinigtes Königreich. Beim Laden wird Ihre IP-Adresse an die Server der OpenStreetMap Foundation übertragen. Für das Vereinigte Königreich besteht ein Angemessenheitsbeschluss der EU-Kommission. [Vom Verein zu prüfen]",
+          "Die Karte wird nur geladen, wenn Sie zustimmen (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ihre Einwilligung können Sie jederzeit in den <a href='{p:cookies}'>Cookie-Einstellungen</a> widerrufen."
+        ]},
+        { "id": "d12", "title": "12. Ihre Rechte", "paras": [
+          "Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21). Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3). Eine formlose Nachricht an {email_link} genügt."
+        ]},
+        { "id": "d13", "title": "13. Beschwerderecht", "paras": [
+          "Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren. Zuständig für uns ist: {site:org.supervisory_authority.name}, {site:org.supervisory_authority.address}, <a href='{site:org.supervisory_authority.url}'>{site:org.supervisory_authority.url}</a>. [Bei anderem Vereinssitz anpassen]"
+        ]},
+        { "id": "d14", "title": "14. Stand", "paras": [
+          "Stand dieser Datenschutzerklärung: [TT.MM.JJJJ]. Wir passen sie an, wenn sich unsere Website oder die Rechtslage ändert."
+        ]}
+      ]
+    },
+
+    "cookies": {
+      "title": "Cookie-Einstellungen",
+      "description": "Cookie- und Datenschutzeinstellungen von Skills Lab e.V.: Diese Website setzt keine Cookies. Hier steuern Sie, ob die Karte geladen werden darf.",
+      "h1": "Cookie-Einstellungen",
+      "lead": "Diese Website setzt keine Cookies und nutzt kein Tracking. Es gibt nur einen externen Inhalt: die Karte von OpenStreetMap auf der Kontaktseite. Hier entscheiden Sie, ob sie geladen werden darf.",
+      "necessary_h2": "Technisch notwendig (immer aktiv)",
+      "necessary_text": "Ihre Sprache, die Darstellung (hell/dunkel) und Ihre Entscheidung auf dieser Seite werden lokal in Ihrem Browser gespeichert. Diese Angaben verlassen Ihr Gerät nicht.",
+      "optional_h2": "Externe Inhalte",
+      "map_label": "Karte von OpenStreetMap laden",
+      "map_desc": "Beim Laden der Karte wird Ihre IP-Adresse an die OpenStreetMap Foundation übertragen. Details in der <a href='{p:privacy}'>Datenschutzerklärung</a>.",
+      "save": "Einstellungen speichern",
+      "saved": "Ihre Einstellungen wurden gespeichert.",
+      "current_on": "Aktuell: Karte erlaubt",
+      "current_off": "Aktuell: Karte nicht erlaubt",
+      "nojs": "Für diese Einstellungen wird JavaScript benötigt. Ohne JavaScript wird die Karte nie geladen."
+    },
+
+    "accessibility": {
+      "title": "Erklärung zur Barrierefreiheit",
+      "description": "Erklärung zur Barrierefreiheit der Website von Skills Lab e.V.: Stand der Umsetzung nach WCAG 2.2 AA, bekannte Einschränkungen und Kontakt für Rückmeldungen.",
+      "h1": "Erklärung zur Barrierefreiheit",
+      "sections": [
+        { "id": "a1", "title": "Unser Ziel", "paras": [
+          "Skills Lab e.V. möchte, dass alle Menschen diese Website nutzen können. Wir haben sie deshalb nach den Web Content Accessibility Guidelines (WCAG) 2.2, Stufe AA, gestaltet. Diese Erklärung geben wir freiwillig ab."
+        ]},
+        { "id": "a2", "title": "Stand der Vereinbarkeit", "paras": [
+          "Die Website ist nach unserer eigenen Prüfung weitgehend mit WCAG 2.2 AA vereinbar. Geprüft wurden u. a.: Bedienung nur mit der Tastatur, sichtbarer Fokus, Farbkontraste, Überschriftenstruktur, Beschriftung von Formularfeldern, Fehlermeldungen, Darstellung bei 320 px Breite und bei Vergrößerung, automatische Prüfung mit axe-core. Eine Prüfung durch externe Fachleute oder Menschen mit Behinderung steht noch aus. [Stand der Prüfung: {site:build_date}]"
+        ]},
+        { "id": "a3", "title": "Was wir umgesetzt haben", "paras": [
+          "Link „Zum Inhalt springen“ · klare Überschriften und Bereiche · alle Funktionen per Tastatur bedienbar · hohe Kontraste im hellen und dunklen Modus · Formulare mit Beschriftungen, Hinweisen und verständlichen Fehlermeldungen · Tabellen mit Spaltenüberschriften · keine Bewegung bei der Einstellung „Bewegung reduzieren“ · Textalternative zum GiroCode · Inhalte in drei Sprachen."
+        ]},
+        { "id": "a4", "title": "Bekannte Einschränkungen", "paras": [
+          "<strong>Karte:</strong> Die Karte von OpenStreetMap ist ein externer Inhalt und nicht vollständig barrierefrei. Die Adresse steht deshalb immer zusätzlich als Text auf der Seite.",
+          "<strong>PDF-Dokumente:</strong> Satzung, Beitragsordnung und Spendennachweis-Vorlage werden aus den Webseiten erzeugt. Ihre Barrierefreiheit ist nicht vollständig geprüft. Alle Inhalte stehen auch als Webseite zur Verfügung.",
+          "<strong>GiroCode:</strong> Der Code selbst ist nur optisch nutzbar. Alle enthaltenen Daten stehen daneben als Text und können kopiert werden.",
+          "<strong>Übersetzungen:</strong> Die englische und russische Fassung wurden noch nicht von Muttersprachlerinnen oder Muttersprachlern geprüft."
+        ]},
+        { "id": "a5", "title": "Barriere melden", "paras": [
+          "Ist Ihnen eine Barriere aufgefallen? Schreiben Sie uns an {email_link} oder rufen Sie uns an: {site:org.phone_display}. Wir antworten innerhalb von zwei Wochen und versuchen, das Problem zu beheben."
+        ]},
+        { "id": "a6", "title": "Erstellung dieser Erklärung", "paras": [
+          "Diese Erklärung wurde am {site:build_date} erstellt. Grundlage ist eine Selbstbewertung."
+        ]}
+      ]
+    },
+
+    "newsletter_confirmed": {
+      "title": "Newsletter bestätigt",
+      "description": "Ihre Anmeldung zum Newsletter von Skills Lab e.V. ist bestätigt.",
+      "h1": "Danke – Ihre Anmeldung ist bestätigt",
+      "text": "Sie erhalten ab jetzt etwa einmal im Monat unseren Newsletter mit neuen Kursen und Terminen. Abmelden können Sie sich jederzeit über den Link am Ende jeder E-Mail.",
+      "back": "Zu den nächsten Terminen"
+    },
+
+    "notfound": {
+      "title": "Seite nicht gefunden",
+      "h1": "Diese Seite gibt es nicht (mehr).",
+      "text": "Vielleicht hat sich die Adresse geändert. Von der Startseite aus finden Sie alle Inhalte.",
+      "back": "Zur Startseite"
+    },
+
+    "langselect": {
+      "title": "Skills Lab e.V. – Sprache wählen",
+      "text": "Bitte wählen Sie eine Sprache"
+    }
+  }
+}

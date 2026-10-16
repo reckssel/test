@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+{{alternates}}
+{{og}}
+<meta name="theme-color" content="#0e5466">
+<link rel="icon" href="{{root}}assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="{{root}}css/style.css">
+<script>
+  /* Vor dem ersten Zeichnen: JavaScript-Kennzeichen und gespeicherte Darstellung setzen (verhindert Aufflackern) */
+  document.documentElement.classList.add("js");
+  try { var t = localStorage.getItem("sl-theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+{{jsonld}}
+</head>
+<body>
+<a class="skip-link" href="#main">{{skip}}</a>
+{{header}}
+<main id="main" tabindex="-1">
+{{main}}
+</main>
+{{footer}}
+{{consent}}
+<script type="application/json" id="site-data">{{data}}</script>
+{{scripts}}
+</body>
+</html>

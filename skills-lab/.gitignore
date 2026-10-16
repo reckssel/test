@@ -1,0 +1,5 @@
+# Entwicklungswerkzeuge – nicht hochladen
+tools/tests/node_modules/
+tools/tests/output/
+tools/tests/package-lock.json
+__pycache__/

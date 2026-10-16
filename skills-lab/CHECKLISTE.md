@@ -67,67 +67,69 @@ Legende: `- [ ]` offen · `- [x]` erledigt
 - [x] Kontraste der Farbpalette berechnet (alle Text ≥ 4,5 : 1, Bedienelemente ≥ 3 : 1)
 - [x] Testplan für Phase 5 festgelegt
 - [x] Zusammenfassung → **Stopp, Freigabe abwarten**
-- [ ] Freigabe Phase 4 durch den Nutzer
+- [x] Freigabe Phase 4 durch den Nutzer
 
 ## Phase 5 – Webseite erstellen
 Voraussetzung: Phasen 3 und 4 freigegeben.
 
 ### Grundgerüst
-- [ ] Ordnerstruktur: `index.html`, `/css`, `/js`, `/assets`, `/data`, `/de`, `/en`, `/ru`, `/downloads`
-- [ ] `index.html` als Sprachweiche (Weiterleitung auf /de, Fallback-Links), `404.html`
-- [ ] Pflegeskript `tools/build.py` (i18n + data → 45 statische Seiten, Sitemap), Prüfung auf fehlende Übersetzungsschlüssel
-- [ ] Zentrale Übersetzungsstruktur (alle Texte, Formulare, Fehlermeldungen)
-- [ ] Text-Logo als SVG, Favicon
-- [ ] Lokale Schriften (woff2) inkl. Lizenzdatei
+- [x] Ordnerstruktur: `index.html`, `/css`, `/js`, `/assets`, `/data`, `/de`, `/en`, `/ru`, `/downloads`
+- [x] `index.html` als Sprachweiche (Weiterleitung auf /de, Fallback-Links), `404.html`
+- [x] Pflegeskript `tools/build.py` (i18n + data → 45 statische Seiten, Sitemap), Prüfung auf fehlende Übersetzungsschlüssel
+- [x] Zentrale Übersetzungsstruktur (alle Texte, Formulare, Fehlermeldungen)
+- [x] Text-Logo als SVG (Pfade, `tools/make_logo.py`), Favicon, Open-Graph-Bild
+- [x] Lokale Schriften (woff2) inkl. Lizenzdatei
 
 ### Design & Komponenten
-- [ ] CSS-Variablen (Farben, Typografie, Abstände), Light- und Dark-Mode
-- [ ] Wiederverwendbare Komponenten: Header mit Sprachumschalter und CTAs „Spenden“ / „Mitglied werden“, Navigation (mobil mit Menü-Button), Footer mit Rechtslinks, Buttons, Karten, Tabellen, Formulare, Hinweisboxen
-- [ ] Skip-Link, sichtbare Fokuszustände, `prefers-reduced-motion`, dezente Animationen
-- [ ] Responsive Tabellen (Beiträge, Termine) mit korrekten `<th>`/`scope`
+- [x] CSS-Variablen (Farben, Typografie, Abstände), Light- und Dark-Mode
+- [x] Wiederverwendbare Komponenten: Header mit Sprachumschalter und CTAs „Spenden“ / „Mitglied werden“, Navigation (mobil mit Menü-Button), Footer mit Rechtslinks, Buttons, Karten, Tabellen, Formulare, Hinweisboxen
+- [x] Skip-Link, sichtbare Fokuszustände, `prefers-reduced-motion`, dezente Animationen
+- [x] Responsive Tabellen (Beiträge, Termine) mit korrekten `<th>`/`scope`
 
 ### Seiten (je in DE, EN, RU)
-- [ ] Startseite (Hero, Angebotsübersicht, Über-uns-Teaser, nächste Termine, Mitgliedschaft/Spenden-Hinweis, Newsletter)
-- [ ] Über uns (Mission, Werte, Team-Platzhalter, Arbeitsweise)
-- [ ] Angebote (4–6 Kurse/Workshops, Mitgliederermäßigung)
-- [ ] Termine (Liste mit Datum, Uhrzeit, Kurs, Ort, freien Plätzen)
-- [ ] Verein (Vorstellung, Satzung mit Inhaltsverzeichnis/Ankern, Beitragsordnung mit Tabelle, Stand/Datum, Platzhalterhinweis, Hinweis „verbindlich ist die deutsche Fassung“ in EN/RU)
-- [ ] Mitglied werden (Vorteile, Beitragsübersicht, Mitgliedsantrag inkl. optionalem SEPA-Mandat)
-- [ ] Spenden (Text, Bankdaten mit Kopieren-Buttons, Betragsauswahl, Live-QR-Code als SVG mit Download und Textalternative, Spendenformular, Bestätigung mit Überweisungsdaten und QR)
-- [ ] Kontakt (Formular, Kontaktdaten, OpenStreetMap erst nach Zustimmung)
-- [ ] Impressum (Vereinsangaben)
-- [ ] Datenschutzerklärung (inkl. Mitglieds- und Spenderdaten, Aufbewahrung)
-- [ ] Cookie-Einstellungen
-- [ ] Barrierefreiheitserklärung
+- [x] Startseite (Hero, Angebotsübersicht, Über-uns-Teaser, nächste Termine, Mitgliedschaft/Spenden-Hinweis, Newsletter)
+- [x] Über uns (Mission, Werte, Team-Platzhalter, Arbeitsweise)
+- [x] Angebote (4–6 Kurse/Workshops, Mitgliederermäßigung)
+- [x] Termine (Liste mit Datum, Uhrzeit, Kurs, Ort, freien Plätzen)
+- [x] Verein (Vorstellung, Satzung mit Inhaltsverzeichnis/Ankern, Beitragsordnung mit Tabelle, Stand/Datum, Platzhalterhinweis, Hinweis „verbindlich ist die deutsche Fassung“ in EN/RU)
+- [x] Mitglied werden (Vorteile, Beitragsübersicht, Mitgliedsantrag inkl. optionalem SEPA-Mandat)
+- [x] Spenden (Text, Bankdaten mit Kopieren-Buttons, Betragsauswahl, Live-QR-Code als SVG mit Download und Textalternative, Spendenformular, Bestätigung mit Überweisungsdaten und QR)
+- [x] Kontakt (Formular, Kontaktdaten, OpenStreetMap erst nach Zustimmung)
+- [x] Impressum (Vereinsangaben)
+- [x] Datenschutzerklärung (inkl. Mitglieds- und Spenderdaten, Aufbewahrung)
+- [x] Cookie-Einstellungen
+- [x] Barrierefreiheitserklärung
 
 ### Daten & Logik
-- [ ] `data/beitraege.json` → Beitragstabelle und Auswahlfeld Mitgliedsart
-- [ ] `data/angebote.json` und `data/termine.json` (oder gleichwertig zentral)
-- [ ] `data/config.json` bzw. JS-Konfiguration (Formular-Endpunkte, Bankdaten, Vereinsdaten)
-- [ ] Formularvalidierung mehrsprachig, IBAN-Prüfsumme, Honeypot, Endpunkt/mailto-Fallback
-- [ ] Newsletter mit vorbereitetem Double-Opt-in
-- [ ] EPC-QR-Code (GiroCode) clientseitig mit lokaler, lizenzierter Bibliothek, SVG-Download
-- [ ] Kopieren-Buttons (Clipboard API mit Fallback)
-- [ ] Cookie-Banner mit Opt-in, Einstellungen änderbar
-- [ ] Erweiterungspunkte für Zahlungsanbieter vorbereitet (Schnittstelle, ohne Aktivierung)
+- [x] `data/beitraege.json` → Beitragstabelle und Auswahlfeld Mitgliedsart
+- [x] `data/angebote.json` und `data/termine.json`
+- [x] `data/config.json` bzw. JS-Konfiguration (Formular-Endpunkte, Bankdaten, Vereinsdaten)
+- [x] Formularvalidierung mehrsprachig, IBAN-Prüfsumme, Honeypot, Endpunkt/mailto-Fallback
+- [x] Newsletter mit vorbereitetem Double-Opt-in
+- [x] EPC-QR-Code (GiroCode) clientseitig mit lokaler, lizenzierter Bibliothek, SVG-Download (Abweichung vom Konzept: `qrcode-generator` (MIT) statt Nayuki, da Nayuki kein offizielles npm-Paket hat – im Konzept als Ausweichlösung vorgesehen)
+- [x] Kopieren-Buttons (Clipboard API mit Fallback)
+- [x] Cookie-Banner mit Opt-in, Einstellungen änderbar
+- [x] Erweiterungspunkte für Zahlungsanbieter vorbereitet (Schnittstelle, ohne Aktivierung)
 
 ### SEO & Dateien
-- [ ] Title, Meta-Description, Open-Graph-Tags auf jeder Seite
-- [ ] `hreflang`-Tags und korrektes `lang`-Attribut
-- [ ] schema.org-Markup (NGO)
-- [ ] `sitemap.xml`, `robots.txt`
-- [ ] PDF-Platzhalter in `/downloads` (Satzung, Beitragsordnung)
+- [x] Title, Meta-Description, Open-Graph-Tags auf jeder Seite
+- [x] `hreflang`-Tags und korrektes `lang`-Attribut
+- [x] schema.org-Markup (NGO)
+- [x] `sitemap.xml`, `robots.txt`
+- [x] PDF-Platzhalter in `/downloads` (Satzung, Beitragsordnung)
 
 ### Tests
-- [ ] Alle internen Links und Anker prüfen (automatisiert)
-- [ ] Layout in Breiten 360 / 768 / 1280 px prüfen (Screenshots per Playwright)
-- [ ] Formulare: Pflichtfelder, Fehlermeldungen je Sprache, IBAN-Prüfung, Honeypot
-- [ ] QR-Code: Inhalt nach EPC-Standard prüfen (Dekodierung, soweit möglich)
-- [ ] Tastaturbedienung, Fokus, Kontraste, Cookie-Banner, Karte erst nach Zustimmung
-- [ ] Konsole frei von JS-Fehlern, HTML-Validität grob prüfen
-- [ ] Funktionieren ohne lokalen Server klären (file:// vs. HTTP, wegen JSON-Laden) und dokumentieren
-- [ ] Gefundene Fehler beheben
-- [ ] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [x] Alle internen Links und Anker prüfen (automatisiert)
+- [x] Layout in Breiten 360 / 768 / 1280 px prüfen (Screenshots per Playwright)
+- [x] Formulare: Pflichtfelder, Fehlermeldungen je Sprache, IBAN-Prüfung, Honeypot
+- [x] QR-Code: Inhalt nach EPC-Standard prüfen (Dekodierung, soweit möglich)
+- [x] Tastaturbedienung, Fokus, Kontraste, Cookie-Banner, Karte erst nach Zustimmung
+- [x] Konsole frei von JS-Fehlern, HTML-Validität grob prüfen
+- [x] Funktionieren ohne lokalen Server klären (file:// vs. HTTP, wegen JSON-Laden) und dokumentieren
+- [x] Gefundene Fehler beheben (Überlauf RU-Vereinsseite, `dl`-Struktur Bankdaten, „Label in Name“ bei Warteliste, Betragsfeld mit Komma, Menü-Button auf Desktop, fehlendes iban.js auf Spendenseite, Ausrichtung Textspalten, mailto-Betreff kodieren)
+- [x] Ergebnis: Build-Prüfung ok · statische Prüfung 46 Seiten/1741 Links ohne Fehler · Browser-Tests 76/76 bestanden · axe-core hell/dunkel 0 Verstöße
+- [x] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [ ] Freigabe Phase 5 durch den Nutzer
 
 ## Phase 6 – Dokumentation der Webseite
 - [ ] `skills-lab/docs/03-dokumentation.md` mit allen 12 Abschnitten:
@@ -150,4 +152,4 @@ Voraussetzung: Phasen 3 und 4 freigegeben.
 - [ ] **Stopp, Abschluss**
 
 ## Laufend
-- [ ] Nach jeder Phase committen und auf Branch `versuch2` pushen
+- [ ] Nach jeder Phase committen und auf Branch `versuch2` pushen (laufend, Phasen 0–5 erledigt)

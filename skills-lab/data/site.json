@@ -1,0 +1,80 @@
+{
+  "_hinweis": "Zentrale Vereins-, Kontakt- und Bankdaten. Werte in [eckigen Klammern] sind Platzhalter und müssen ersetzt werden. Nach jeder Änderung: python3 tools/build.py",
+  "base_url": "https://www.example.org",
+  "languages": ["de", "en", "ru"],
+  "default_language": "de",
+  "build_date": "2026-10-16",
+
+  "org": {
+    "name": "Skills Lab e.V.",
+    "short_name": "Skills Lab",
+    "street": "[Musterstraße 1]",
+    "zip": "64711",
+    "city": "Erbach (Odenwald)",
+    "country": "DE",
+    "email": "[info@example.org]",
+    "phone": "[+49 6062 000000]",
+    "phone_display": "[06062 000000]",
+    "register_court": "[Amtsgericht Darmstadt]",
+    "register_number": "[VR 0000]",
+    "board": [
+      { "role": "chair", "name": "[Vorname Nachname]" },
+      { "role": "vice_chair", "name": "[Vorname Nachname]" },
+      { "role": "treasurer", "name": "[Vorname Nachname]" }
+    ],
+    "content_responsible": "[Vorname Nachname], Anschrift wie oben",
+    "tax_office": "[Finanzamt Michelstadt]",
+    "tax_notice_date": "[TT.MM.JJJJ]",
+    "tax_number": "[000/000/00000]",
+    "creditor_id": "[DE00ZZZ00000000000]",
+    "supervisory_authority": {
+      "name": "Der Hessische Beauftragte für Datenschutz und Informationsfreiheit (HBDI)",
+      "address": "Postfach 3163, 65021 Wiesbaden",
+      "url": "https://datenschutz.hessen.de"
+    }
+  },
+
+  "bank": {
+    "_hinweis": "Beispiel-IBAN mit gültiger Prüfsumme, KEIN echtes Vereinskonto. Vor Veröffentlichung ersetzen.",
+    "holder": "Skills Lab e.V.",
+    "iban": "DE89370400440532013000",
+    "bic": "COBADEFFXXX",
+    "bank_name": "[Name der Bank]",
+    "reference": "Spende Skills Lab"
+  },
+
+  "map": {
+    "_hinweis": "Koordinaten: Zentrum von Erbach (Odenwald) als Platzhalter.",
+    "lat": 49.6575,
+    "lon": 8.9944,
+    "zoom": 16
+  },
+
+  "forms": {
+    "_hinweis": "Leer = mailto-Fallback an org.email. Eine URL (z. B. Formspree oder eigenes PHP-Skript) aktiviert den Versand per POST.",
+    "contact": "",
+    "newsletter": "",
+    "membership": "",
+    "donation": ""
+  },
+
+  "booking": {
+    "_hinweis": "Später: URL eines Buchungssystems. Leer = Anfrage über das Kontaktformular.",
+    "url": ""
+  },
+
+  "payments": {
+    "_hinweis": "Erweiterungspunkt. Version 1 kennt nur 'transfer' (Überweisung/GiroCode).",
+    "donation_providers": ["transfer"],
+    "membership_methods": ["sepa", "transfer"]
+  },
+
+  "documents": {
+    "statutes_date": "[TT.MM.JJJJ]",
+    "statutes_version": "Entwurf 2026-10",
+    "fees_date": "[TT.MM.JJJJ]",
+    "fees_version": "Entwurf 2026-10"
+  },
+
+  "donation_amounts": [10, 25, 50, 100]
+}
