@@ -50,28 +50,32 @@ Legende: `- [ ]` offen · `- [x]` erledigt
 - [x] Abschnitt 5: Erkenntnisse (Muster, Best Practices, zu vermeidende Fehler)
 - [x] Abschnitt 6: Ableitung für Skills Lab (übernehmen / anders machen / warum)
 - [x] Zusammenfassung → **Stopp, Freigabe abwarten**
-- [ ] Freigabe Phase 3 durch den Nutzer
+- [x] Freigabe Phase 3 durch den Nutzer
 
 ## Phase 4 – Konzept
-- [ ] `skills-lab/docs/02-konzept.md` anlegen
-- [ ] Sitemap für alle 3 Sprachen (/de, /en, /ru) inkl. Rechtsseiten
-- [ ] Inhalte pro Seite (Startseite, Über uns, Angebote, Termine, Verein mit Satzung & Beitragsordnung, Mitglied werden, Spenden, Kontakt, Impressum, Datenschutz, Cookie-Einstellungen, Barrierefreiheit)
-- [ ] Designrichtung **deutlich schlichter** als `beispiel-webseite/` (eine Schrift, weißer Grund, eine Primärfarbe, keine Karten-/Schatten-Optik): Primärfarbe, Akzentfarbe, Neutraltöne (mit Kontrastwerten), Schriften (lokal), Abstände, Dark Mode
-- [ ] Text-Logo „Skills Lab“ als SVG skizzieren
-- [ ] Spannungsfeld „kein Build-Schritt / Sprach-URLs / zentrale Übersetzungen“ entscheiden
-- [ ] Technologieentscheidung mit Begründung (Vanilla HTML/CSS/JS, Übersetzungsstrategie ohne Build-Schritt, zentrale JSON-Daten für Beiträge/Angebote/Termine)
-- [ ] Formular-Architektur: konfigurierbarer Endpunkt, mailto-Fallback, Honeypot, Validierung, Double-Opt-in-Vorbereitung
-- [ ] Erweiterbarkeit: Platz für PayPal/Stripe/SEPA, Terminbuchung, Shop
-- [ ] Datenschutzkonzept: Cookie-Opt-in, Karte erst nach Zustimmung, keine externen Dienste
-- [ ] Ableitung aus der Recherche nachvollziehbar belegen
-- [ ] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [x] `skills-lab/docs/02-konzept.md` anlegen
+- [x] Sitemap für alle 3 Sprachen (/de, /en, /ru) inkl. Rechtsseiten
+- [x] Inhalte pro Seite (Startseite, Über uns, Angebote, Termine, Verein mit Satzung & Beitragsordnung, Mitglied werden, Spenden, Kontakt, Impressum, Datenschutz, Cookie-Einstellungen, Barrierefreiheit)
+- [x] Designrichtung **deutlich schlichter** als `beispiel-webseite/` (eine Schrift, weißer Grund, eine Primärfarbe, keine Karten-/Schatten-Optik): Primärfarbe, Akzentfarbe, Neutraltöne (mit Kontrastwerten), Schriften (lokal), Abstände, Dark Mode
+- [x] Text-Logo „Skills Lab“ als SVG skizzieren
+- [x] Spannungsfeld „kein Build-Schritt / Sprach-URLs / zentrale Übersetzungen“ entscheiden
+- [x] Technologieentscheidung mit Begründung (Vanilla HTML/CSS/JS, Übersetzungsstrategie ohne Build-Schritt, zentrale JSON-Daten für Beiträge/Angebote/Termine)
+- [x] Formular-Architektur: konfigurierbarer Endpunkt, mailto-Fallback, Honeypot, Validierung, Double-Opt-in-Vorbereitung
+- [x] Erweiterbarkeit: Platz für PayPal/Stripe/SEPA, Terminbuchung, Shop
+- [x] Datenschutzkonzept: Cookie-Opt-in, Karte erst nach Zustimmung, keine externen Dienste
+- [x] Ableitung aus der Recherche nachvollziehbar belegen
+- [x] Kontraste der Farbpalette berechnet (alle Text ≥ 4,5 : 1, Bedienelemente ≥ 3 : 1)
+- [x] Testplan für Phase 5 festgelegt
+- [x] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [ ] Freigabe Phase 4 durch den Nutzer
 
 ## Phase 5 – Webseite erstellen
 Voraussetzung: Phasen 3 und 4 freigegeben.
 
 ### Grundgerüst
 - [ ] Ordnerstruktur: `index.html`, `/css`, `/js`, `/assets`, `/data`, `/de`, `/en`, `/ru`, `/downloads`
-- [ ] `index.html` als Sprachweiche (Weiterleitung auf /de, Fallback-Links)
+- [ ] `index.html` als Sprachweiche (Weiterleitung auf /de, Fallback-Links), `404.html`
+- [ ] Pflegeskript `tools/build.py` (i18n + data → 45 statische Seiten, Sitemap), Prüfung auf fehlende Übersetzungsschlüssel
 - [ ] Zentrale Übersetzungsstruktur (alle Texte, Formulare, Fehlermeldungen)
 - [ ] Text-Logo als SVG, Favicon
 - [ ] Lokale Schriften (woff2) inkl. Lizenzdatei
