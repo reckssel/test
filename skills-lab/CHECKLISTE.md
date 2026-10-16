@@ -12,15 +12,17 @@ Legende: `- [ ]` offen · `- [x]` erledigt
 
 ## Phase 0 – Checkliste
 - [x] Checkliste `skills-lab/CHECKLISTE.md` angelegt und auf den Auftrag zugeschnitten
-- [ ] Freigabe der Checkliste durch den Nutzer
+- [x] Freigabe der Checkliste durch den Nutzer
 
 ## Phase 1 – Auftrag verstehen
-- [ ] Ziel, Zielgruppe, Inhalte, Funktionen, Stil und Einschränkungen in eigenen Worten zusammenfassen
-- [ ] Muss-Anforderungen als Liste festhalten (9 Seitenbereiche, 3 Sprachen, 4 Formulare, QR-Code, Cookie-Opt-in, WCAG 2.2 AA, SEO)
-- [ ] Ausdrücklich ausgeschlossene Punkte festhalten (Online-Zahlung, Terminbuchung, Shop, Server)
-- [ ] Annahmen dokumentieren (z. B. Hosting statisch, Vereinssitz, Bankdaten, Beträge, Schriftwahl, Umsetzung der Übersetzungen ohne Build-Schritt)
-- [ ] Offene Fragen nur stellen, wenn zwingend nötig
-- [ ] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [x] Ziel, Zielgruppe, Inhalte, Funktionen, Stil und Einschränkungen in eigenen Worten zusammenfassen
+- [x] Muss-Anforderungen als Liste festhalten (9 Seitenbereiche, 3 Sprachen, 4 Formulare, QR-Code, Cookie-Opt-in, WCAG 2.2 AA, SEO)
+- [x] Ausdrücklich ausgeschlossene Punkte festhalten (Online-Zahlung, Terminbuchung, Shop, Server)
+- [x] Annahmen dokumentieren (z. B. Hosting statisch, Vereinssitz, Bankdaten, Beträge, Schriftwahl, Umsetzung der Übersetzungen ohne Build-Schritt)
+- [x] Offene Fragen nur stellen, wenn zwingend nötig
+- [x] Ergebnis in `docs/00-auftrag.md` festgehalten (Zusatzdatei zur Nachvollziehbarkeit)
+- [x] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [ ] Freigabe Phase 1 durch den Nutzer
 
 ## Phase 2 – Recherche ähnlicher Webseiten
 - [ ] Suchbegriffe festlegen (Bildungsverein, Volkshochschule, Workshop-Verein, Spendenseite e.V., mehrsprachige Vereinsseite)
@@ -30,6 +32,8 @@ Legende: `- [ ]` offen · `- [x]` erledigt
 - [ ] Mindestens 1 mehrsprachiges Beispiel (idealerweise mit Russisch)
 - [ ] Jede Seite analysieren: Zweck/Zielgruppe, Aufbau/Navigation, Inhalte, Design, Funktionen, Stärken/Schwächen, Mobil/Ladeeindruck
 - [ ] Quellen (URLs) notieren; nicht abrufbare Seiten offen kennzeichnen
+- [ ] Rechtliche Kurzprüfung: Barrierefreiheitserklärung (BFSG/BITV) für Vereine, Zuwendungsbestätigung/vereinfachter Spendennachweis
+- [ ] Lösung für Spannungsfeld „kein Build-Schritt / Sprach-URLs / zentrale Übersetzungen“ recherchieren
 - [ ] Technische Recherche: EPC-QR-Standard (GiroCode), IBAN-Prüfsumme (ISO 13616 / Mod 97), lokale QR-Bibliothek inkl. Lizenz, Schriften mit freier Lizenz
 - [ ] Zusammenfassung → **Stopp, Freigabe abwarten**
 
