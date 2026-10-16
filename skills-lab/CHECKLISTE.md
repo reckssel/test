@@ -32,30 +32,33 @@ Legende: `- [ ]` offen · `- [x]` erledigt
 - [x] Mindestens 1 Beispiel mit Spendenseite/Bankdaten bzw. GiroCode
 - [x] Mindestens 1 mehrsprachiges Beispiel (idealerweise mit Russisch) → im Odenwaldkreis keine Vereinsseite gefunden, Lücke dokumentiert, Sparkasse Odenwaldkreis als Sprachmenü-Referenz
 - [x] Jede Seite analysieren (7 Seiten) – soweit über Websuche möglich
-- [ ] Design, Mobilansicht, Ladeeindruck per Seitenabruf prüfen → **blockiert**: Netzwerkrichtlinie erlaubt keinen Seitenabruf (nur Websuche)
+- [ ] Design, Mobilansicht, Ladeeindruck per Seitenabruf prüfen → **blockiert**: Netzwerkrichtlinie erlaubt keinen Seitenabruf (nur Websuche); am 16.10.2026 in Phase 3 erneut geprüft, weiterhin gesperrt
 - [x] Quellen (URLs) notieren; nicht abrufbare Seiten offen kennzeichnen (`docs/recherche-notizen.md`)
 - [x] Rechtliche Kurzprüfung: Barrierefreiheitserklärung (BFSG/BITV) für Vereine, Zuwendungsbestätigung/vereinfachter Spendennachweis
-- [ ] Lösung für Spannungsfeld „kein Build-Schritt / Sprach-URLs / zentrale Übersetzungen“ → wird im Konzept (Phase 4) entschieden
+- [x] Lösung für Spannungsfeld „kein Build-Schritt / Sprach-URLs / zentrale Übersetzungen“ → in Phase 4 verschoben
 - [x] Technische Recherche: EPC-QR-Standard (GiroCode), IBAN-Prüfsumme (ISO 13616 / Mod 97), lokale QR-Bibliothek inkl. Lizenz, Schriften mit freier Lizenz
 - [x] Zusammenfassung → **Stopp, Freigabe abwarten**
-- [ ] Freigabe Phase 2 durch den Nutzer
+- [x] Freigabe Phase 2 durch den Nutzer
 
 ## Phase 3 – Recherche-Dokumentation
-- [ ] `skills-lab/docs/01-recherche.md` anlegen
-- [ ] Abschnitt 1: Zusammenfassung des Auftrags
-- [ ] Abschnitt 2: Vorgehen (Suchbegriffe, Auswahlkriterien)
-- [ ] Abschnitt 3: Analyse jeder einzelnen Webseite
-- [ ] Abschnitt 4: Vergleichstabelle
-- [ ] Abschnitt 5: Erkenntnisse (Muster, Best Practices, zu vermeidende Fehler)
-- [ ] Abschnitt 6: Ableitung für Skills Lab (übernehmen / anders machen / warum)
-- [ ] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [x] Nutzerwunsch erfasst: **deutlich schlichteres Design** als `beispiel-webseite/` (Abschnitt 6.3)
+- [x] `skills-lab/docs/01-recherche.md` anlegen
+- [x] Abschnitt 1: Zusammenfassung des Auftrags
+- [x] Abschnitt 2: Vorgehen (Suchbegriffe, Auswahlkriterien)
+- [x] Abschnitt 3: Analyse jeder einzelnen Webseite
+- [x] Abschnitt 4: Vergleichstabelle
+- [x] Abschnitt 5: Erkenntnisse (Muster, Best Practices, zu vermeidende Fehler)
+- [x] Abschnitt 6: Ableitung für Skills Lab (übernehmen / anders machen / warum)
+- [x] Zusammenfassung → **Stopp, Freigabe abwarten**
+- [ ] Freigabe Phase 3 durch den Nutzer
 
 ## Phase 4 – Konzept
 - [ ] `skills-lab/docs/02-konzept.md` anlegen
 - [ ] Sitemap für alle 3 Sprachen (/de, /en, /ru) inkl. Rechtsseiten
 - [ ] Inhalte pro Seite (Startseite, Über uns, Angebote, Termine, Verein mit Satzung & Beitragsordnung, Mitglied werden, Spenden, Kontakt, Impressum, Datenschutz, Cookie-Einstellungen, Barrierefreiheit)
-- [ ] Designrichtung: Primärfarbe, Akzentfarbe, Neutraltöne (mit Kontrastwerten), Schriften (lokal), Abstände, Dark Mode
+- [ ] Designrichtung **deutlich schlichter** als `beispiel-webseite/` (eine Schrift, weißer Grund, eine Primärfarbe, keine Karten-/Schatten-Optik): Primärfarbe, Akzentfarbe, Neutraltöne (mit Kontrastwerten), Schriften (lokal), Abstände, Dark Mode
 - [ ] Text-Logo „Skills Lab“ als SVG skizzieren
+- [ ] Spannungsfeld „kein Build-Schritt / Sprach-URLs / zentrale Übersetzungen“ entscheiden
 - [ ] Technologieentscheidung mit Begründung (Vanilla HTML/CSS/JS, Übersetzungsstrategie ohne Build-Schritt, zentrale JSON-Daten für Beiträge/Angebote/Termine)
 - [ ] Formular-Architektur: konfigurierbarer Endpunkt, mailto-Fallback, Honeypot, Validierung, Double-Opt-in-Vorbereitung
 - [ ] Erweiterbarkeit: Platz für PayPal/Stripe/SEPA, Terminbuchung, Shop
