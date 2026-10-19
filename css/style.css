@@ -53,17 +53,24 @@
 
   /* Farben (Kontraste siehe docs/02-konzept.md, Abschnitt 4.2) */
   --c-bg: #ffffff;
-  --c-subtle: #f5f7f8;
+  --c-subtle: #f3f8f4;
+  --c-tint: #eef6f0;          /* zartes Grün: Kopfbereiche, Felder */
+  --c-gold-tint: #fbf4dc;     /* zartes Gold: Spendenbereich, Hinweise */
   --c-text: #1b1f23;
-  --c-muted: #57606a;
-  --c-line: #d8dde3;
-  --c-border: #8a939b;
-  --c-primary: #0e5466;
-  --c-primary-strong: #0a3f4d;
+  --c-muted: #55605a;
+  --c-line: #d6e0d9;
+  --c-border: #86948b;
+  --c-primary: #1e6b47;       /* Grün */
+  --c-primary-strong: #16533a;
   --c-on-primary: #ffffff;
-  --c-accent: #a8461b;
-  --c-accent-strong: #8a3814;
-  --c-on-accent: #ffffff;
+  --c-accent: #e2ad1f;        /* Goldgelb – nur als Fläche mit dunkler Schrift */
+  --c-accent-strong: #c99612;
+  --c-on-accent: #1b1f23;
+  --c-accent-text: #86600a;   /* Gold als Textfarbe (Kontrast 5,7 : 1) */
+  --c-footer-bg: #173f2c;
+  --c-footer-text: #e6efe9;
+  --c-footer-muted: #b5c9bd;
+  --c-footer-accent: #f2c94c;
   --c-error: #b42318;
   --c-success: #1e6b3a;
 
@@ -98,18 +105,25 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --c-bg: #22272c;
-    --c-subtle: #2a3035;
-    --c-text: #e8ebee;
-    --c-muted: #aeb7bf;
-    --c-line: #3a4148;
-    --c-border: #7d878f;
-    --c-primary: #7ccbdc;
-    --c-primary-strong: #a2dceb;
-    --c-on-primary: #0b1214;
-    --c-accent: #f2a97c;
-    --c-accent-strong: #f6bc98;
-    --c-on-accent: #1a0e07;
+    --c-bg: #212824;
+    --c-subtle: #27302b;
+    --c-tint: #27302b;
+    --c-gold-tint: #2e2c22;
+    --c-text: #e8ede9;
+    --c-muted: #adbab2;
+    --c-line: #38423c;
+    --c-border: #7f8c84;
+    --c-primary: #7fd1a1;
+    --c-primary-strong: #a3e0bb;
+    --c-on-primary: #0f1a14;
+    --c-accent: #f0c64a;
+    --c-accent-strong: #f5d677;
+    --c-on-accent: #1a1606;
+    --c-accent-text: #f0c64a;
+    --c-footer-bg: #18201b;
+    --c-footer-text: #e8ede9;
+    --c-footer-muted: #adbab2;
+    --c-footer-accent: #f0c64a;
     --c-error: #ff9a90;
     --c-success: #8ddca7;
   }
@@ -117,18 +131,25 @@
 /* … oder per Umschalter im Footer (setzt data-theme am <html>). */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --c-bg: #22272c;
-  --c-subtle: #2a3035;
-  --c-text: #e8ebee;
-  --c-muted: #aeb7bf;
-  --c-line: #3a4148;
-  --c-border: #7d878f;
-  --c-primary: #7ccbdc;
-  --c-primary-strong: #a2dceb;
-  --c-on-primary: #0b1214;
-  --c-accent: #f2a97c;
-  --c-accent-strong: #f6bc98;
-  --c-on-accent: #1a0e07;
+  --c-bg: #212824;
+  --c-subtle: #27302b;
+  --c-tint: #27302b;
+  --c-gold-tint: #2e2c22;
+  --c-text: #e8ede9;
+  --c-muted: #adbab2;
+  --c-line: #38423c;
+  --c-border: #7f8c84;
+  --c-primary: #7fd1a1;
+  --c-primary-strong: #a3e0bb;
+  --c-on-primary: #0f1a14;
+  --c-accent: #f0c64a;
+  --c-accent-strong: #f5d677;
+  --c-on-accent: #1a1606;
+  --c-accent-text: #f0c64a;
+  --c-footer-bg: #18201b;
+  --c-footer-text: #e8ede9;
+  --c-footer-muted: #adbab2;
+  --c-footer-accent: #f0c64a;
   --c-error: #ff9a90;
   --c-success: #8ddca7;
 }
@@ -239,6 +260,15 @@ small, .small { font-size: var(--fs-small); }
 .section + .section { border-top: 1px solid var(--c-line); }
 .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2) var(--s-5); margin-bottom: var(--s-5); }
 .section-head h2 { margin: 0; }
+.section h2::before {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 4px;
+  margin-bottom: var(--s-3);
+  border-radius: 2px;
+  background: var(--c-accent);
+}
 .lead { font-size: 1.1875rem; color: var(--c-muted); max-width: var(--measure); }
 .stack > * + * { margin-top: var(--s-4); }
 
@@ -248,12 +278,16 @@ small, .small { font-size: var(--fs-small); }
   .grid-2--wide-left { grid-template-columns: 3fr 2fr; }
 }
 
-.page-head { padding-block: var(--s-7) var(--s-5); }
+/* Farbige Kopfbänder (Startseite und Unterseiten): zartes Grün mit goldener Unterkante */
+.hero-band, .page-band { background: var(--c-tint); border-bottom: 3px solid var(--c-accent); }
+.page-band + .container .subnav, .page-band + .container > .notice:first-child { margin-top: var(--s-5); }
+.page-head { padding-block: var(--s-7) var(--s-6); }
 .page-head p:last-child { margin-bottom: 0; }
 
 /* 5. Header und Navigation ----------------------------------------------- */
 .site-header {
   background: var(--c-bg);
+  border-top: 4px solid var(--c-primary);
   border-bottom: 1px solid var(--c-line);
 }
 @media (min-width: 900px) {
@@ -361,7 +395,7 @@ html:not(.js) .header-inner .menu-toggle { display: none; }
 .btn:hover { background: var(--c-primary-strong); border-color: var(--c-primary-strong); color: var(--c-on-primary); text-decoration: none; }
 .btn--outline { background: transparent; color: var(--c-primary); }
 .btn--outline:hover { background: var(--c-primary); color: var(--c-on-primary); }
-.btn--accent { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-accent); }
+.btn--accent { background: var(--c-accent); border-color: var(--c-accent-strong); color: var(--c-on-accent); }
 .btn--accent:hover { background: var(--c-accent-strong); border-color: var(--c-accent-strong); color: var(--c-on-accent); }
 .btn--small { min-height: 44px; padding: var(--s-1) var(--s-3); font-size: var(--fs-small); }
 .btn--text { background: none; border-color: transparent; color: var(--c-primary); padding-inline: var(--s-2); text-decoration: underline; text-underline-offset: 0.18em; }
@@ -471,7 +505,7 @@ html:not(.js) .header-inner .menu-toggle { display: none; }
 /* Kennzeichnung (z. B. Format, Plätze) – nur Text, dezente Umrandung */
 .tag { display: inline-block; padding: 0 var(--s-2); border: 1px solid var(--c-line); border-radius: var(--radius); font-size: var(--fs-small); color: var(--c-muted); white-space: nowrap; }
 .seats--none { color: var(--c-error); font-weight: 600; }
-.seats--few { color: var(--c-accent); font-weight: 600; }
+.seats--few { color: var(--c-accent-text); font-weight: 600; }
 
 /* Tabellen */
 .table-wrap { margin: 0 0 var(--s-5); }
@@ -639,23 +673,27 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
 .support { display: grid; gap: var(--s-6); }
 @media (min-width: 900px) { .support { grid-template-columns: 1fr 1fr; gap: var(--s-7); } }
 .support h2 { font-size: var(--fs-h3); }
+.support > div { padding: var(--s-5); border-radius: 6px; background: var(--c-tint); border-top: 4px solid var(--c-primary); }
+.support > div + div { background: var(--c-gold-tint); border-top-color: var(--c-accent); }
+.support h2::before { display: none; }
 
 .filter { display: flex; flex-wrap: wrap; align-items: end; gap: var(--s-3); margin-bottom: var(--s-4); }
 .filter .field { margin: 0; min-width: 16rem; }
 .no-results { padding: var(--s-4) 0; color: var(--c-muted); }
 
 /* 8. Footer -------------------------------------------------------------- */
-.site-footer { margin-top: var(--s-8); padding-block: var(--s-7) var(--s-6); border-top: 1px solid var(--c-line); font-size: var(--fs-small); color: var(--c-muted); }
-.site-footer a { color: var(--c-text); }
-.site-footer a:hover { color: var(--c-primary); }
+.site-footer { margin-top: var(--s-8); padding-block: var(--s-7) var(--s-6); border-top: 4px solid var(--c-accent); background: var(--c-footer-bg); font-size: var(--fs-small); color: var(--c-footer-muted); }
+.site-footer a { color: var(--c-footer-text); }
+.site-footer a:hover { color: var(--c-footer-accent); }
+.site-footer :focus-visible { outline-color: var(--c-footer-accent); }
 .footer-grid { display: grid; gap: var(--s-5); }
 @media (min-width: 900px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr; } }
-.site-footer h2 { font-size: var(--fs-small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--c-muted); margin-bottom: var(--s-2); }
+.site-footer h2 { font-size: var(--fs-small); text-transform: uppercase; letter-spacing: 0.06em; color: var(--c-footer-accent); margin-bottom: var(--s-2); }
 .site-footer ul { list-style: none; margin: 0; padding: 0; }
 .site-footer li { margin: 0; }
 .site-footer li a { display: inline-flex; align-items: center; min-height: 32px; }
 .site-footer address { font-style: normal; }
-.footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); margin-top: var(--s-6); padding-top: var(--s-4); border-top: 1px solid var(--c-line); }
+.footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-3); margin-top: var(--s-6); padding-top: var(--s-4); border-top: 1px solid rgba(255, 255, 255, 0.18); }
 .theme-switch { display: flex; align-items: center; gap: var(--s-2); }
 .theme-switch select { width: auto; min-height: 36px; padding-block: var(--s-1); font-size: var(--fs-small); }
 html:not(.js) .theme-switch { display: none; }
@@ -666,7 +704,8 @@ html:not(.js) .theme-switch { display: none; }
   inset: auto 0 0 0;
   z-index: 90;
   background: var(--c-bg);
-  border-top: 1px solid var(--c-border);
+  border-top: 4px solid var(--c-accent);
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
   padding-block: var(--s-4);
 }
 .consent[hidden] { display: none; }

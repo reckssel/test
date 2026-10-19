@@ -22,7 +22,7 @@ auch ohne Vorwissen über ihre Entstehung.
 ### Kurzüberblick der Designentscheidungen
 
 - **Stil:** deutlich schlichter als der frühere Entwurf (`beispiel-webseite/`). Weißer Grund, eine Schrift, eine Primärfarbe, Linien statt Kästen, keine Schatten, keine Verläufe, keine Pflicht-Fotos.
-- **Farben:** Petrol `#0e5466` (Links, Buttons, Fokus), warmes Terrakotta `#a8461b` nur für „Spenden“ und Markierungen, dazu Neutraltöne. Dunkelmodus mit eigenen, ebenfalls geprüften Werten.
+- **Farben (seit 19.10.2026):** Grün `#1e6b47` (Links, Buttons, Fokus, Kalenderblatt) und Goldgelb `#e2ad1f` (Spenden-Button, Akzentlinien, Markierungen; immer mit dunkler Schrift), dazu zartes Grün/Gold für Kopfbänder und Flächen und ein dunkelgrüner Footer. Dunkelmodus mit eigenen, ebenfalls geprüften Werten.
 - **Schrift:** Inter (SIL OFL), lokal eingebunden, mit lateinischen und kyrillischen Zeichen.
 - **Struktur:** 15 Seiten pro Sprache, Header mit Sprachumschalter und den Buttons „Mitglied werden“ und „Spenden“, Footer mit allen Rechtslinks.
 
@@ -228,18 +228,29 @@ Alle Werte stehen als CSS-Variablen am Anfang von `css/style.css`.
 
 ### 5.1 Farben
 
+Grün und Goldgelb (Wunsch des Nutzers, 19.10.2026). Goldgelb ist hell und wird deshalb **nur als Fläche mit dunkler Schrift**
+oder als dekorative Linie verwendet; als Textfarbe dient das dunklere `--c-accent-text`.
+
 | Variable | Hell | Dunkel | Verwendung | Kontrast (hell / dunkel) |
 |---|---|---|---|---|
-| `--c-bg` | `#ffffff` | `#22272c` | Hintergrund | – |
-| `--c-subtle` | `#f5f7f8` | `#2a3035` | Hinweisflächen | – |
-| `--c-text` | `#1b1f23` | `#e8ebee` | Text | 16,6 : 1 / 12,6 : 1 |
-| `--c-muted` | `#57606a` | `#aeb7bf` | Nebentext | 6,4 : 1 / 7,4 : 1 |
-| `--c-line` | `#d8dde3` | `#3a4148` | Trennlinien (dekorativ) | – |
-| `--c-border` | `#8a939b` | `#7d878f` | Rahmen der Eingabefelder | 3,1 : 1 / 4,1 : 1 |
-| `--c-primary` | `#0e5466` | `#7ccbdc` | Links, Buttons, Fokus | 8,5 : 1 / 8,2 : 1 |
-| `--c-accent` | `#a8461b` | `#f2a97c` | Spenden-Button, Markierungen | 5,9 : 1 / 7,7 : 1 |
+| `--c-bg` | `#ffffff` | `#212824` | Hintergrund | – |
+| `--c-tint` | `#eef6f0` | `#27302b` | Kopfbänder, Fläche „Mitglied werden“ | – |
+| `--c-gold-tint` | `#fbf4dc` | `#2e2c22` | Fläche „Spenden“ | – |
+| `--c-subtle` | `#f3f8f4` | `#27302b` | Hinweisflächen | – |
+| `--c-text` | `#1b1f23` | `#e8ede9` | Text | 16,6 : 1 / 12,7 : 1 |
+| `--c-muted` | `#55605a` | `#adbab2` | Nebentext | 6,6 : 1 / 7,5 : 1 |
+| `--c-line` | `#d6e0d9` | `#38423c` | Trennlinien (dekorativ) | – |
+| `--c-border` | `#86948b` | `#7f8c84` | Rahmen der Eingabefelder | ≥ 3 : 1 / 4,3 : 1 |
+| `--c-primary` | `#1e6b47` (Grün) | `#7fd1a1` | Links, Buttons, Fokus, Kalenderblatt | 6,5 : 1 / 8,3 : 1; Schrift auf Grün 6,5 : 1 / 9,8 : 1 |
+| `--c-accent` | `#e2ad1f` (Goldgelb) | `#f0c64a` | Spenden-Button, Akzentlinien, Banner-/Footer-Kante | dunkle Schrift darauf 8,1 : 1 / 11,1 : 1 |
+| `--c-accent-text` | `#86600a` | `#f0c64a` | Gold als Textfarbe („nur noch 3 frei“) | 5,7 : 1 / 9,2 : 1 |
+| `--c-footer-bg` | `#173f2c` | `#18201b` | Footer | Text 10,0 : 1, Gold-Überschriften 7,4 : 1 |
 | `--c-error` | `#b42318` | `#ff9a90` | Fehlermeldungen | – (immer mit Text und Symbol) |
 | `--c-success` | `#1e6b3a` | `#8ddca7` | Erfolgsmeldungen | – |
+
+**Farbige Elemente:** grüne Oberkante am Header · Kopfband in zartem Grün mit goldener Unterkante (Startseite und alle Unterseiten) ·
+goldener Strich über Abschnittsüberschriften · Flächen „Mitglied werden“ (grün) und „Spenden“ (gold) auf der Startseite ·
+dunkelgrüner Footer mit goldener Oberkante und goldenen Spaltenüberschriften.
 
 Der Dunkelmodus nutzt ein weiches Schiefergrau statt fast Schwarz (geändert am 19.10.2026 auf Wunsch des Nutzers, weil das tiefe Schwarz unnatürlich wirkte). Er folgt der Systemeinstellung (`prefers-color-scheme`). Mit dem Umschalter im
 Footer lässt er sich überstimmen (`data-theme` am `<html>`, gespeichert in `localStorage`).
@@ -268,7 +279,7 @@ Schrift: `Inter` mit Fallback `system-ui`. Die woff2-Dateien werden nach Bedarf 
 
 ### 5.4 Logo
 
-Die Wortmarke „Skills Lab“ ist in Inter 700 gesetzt, davor steht ein kleines Akzent-Quadrat. Die Schrift ist in Pfade
+Die Wortmarke „Skills Lab“ ist in Inter 700 gesetzt (grün), davor steht ein kleines goldgelbes Quadrat. Die Schrift ist in Pfade
 umgewandelt (`tools/make_logo.py`), damit das Logo überall gleich aussieht. Im Header wird
 das Logo inline eingesetzt und übernimmt die Farben aus den Variablen. So passt es sich dem Dunkelmodus an.
 **Logo austauschen:** siehe [Abschnitt 8.6](#86-logo-austauschen).

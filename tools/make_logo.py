@@ -29,8 +29,8 @@ GAP = 10            # Abstand Quadrat → Schrift
 TRACKING = -0.4     # Laufweite in SVG-Einheiten
 
 COLORS = {
-    "logo.svg": {"text": "#0e5466", "accent": "#a8461b"},
-    "logo-dark.svg": {"text": "#6cc3d5", "accent": "#f0a070"},
+    "logo.svg": {"text": "#1e6b47", "accent": "#e2ad1f"},
+    "logo-dark.svg": {"text": "#7fd1a1", "accent": "#f0c64a"},
 }
 
 
@@ -70,13 +70,13 @@ def main():
                f'</svg>\n')
         (ROOT / "assets" / name).write_text(svg, encoding="utf-8")
 
-    # Favicon: Petrol-Quadrat mit weißem „S“
+    # Favicon: grünes Quadrat mit weißem „S“ und goldenem Akzent
     d_s, w_s, base_s, cap_s = text_path(font, "S", 44)
     off_x = round((64 - w_s) / 2, 2)
     off_y = round(32 - (base_s - cap_s / 2), 2)
     fav = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">\n'
-           '  <rect width="64" height="64" rx="8" fill="#0e5466"/>\n'
-           '  <rect x="46" y="46" width="10" height="10" fill="#f0a070"/>\n'
+           '  <rect width="64" height="64" rx="8" fill="#1e6b47"/>\n'
+           '  <rect x="46" y="46" width="10" height="10" fill="#f2c94c"/>\n'
            f'  <path transform="translate({off_x} {off_y})" fill="#ffffff" d="{d_s}"/>\n'
            '</svg>\n')
     (ROOT / "assets" / "favicon.svg").write_text(fav, encoding="utf-8")

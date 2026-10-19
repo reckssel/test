@@ -263,7 +263,7 @@ def notice(content, accent=False):
 def page_head(c, h1=None, lead=None):
     h1 = h1 or c.t(f"pages.{c.page}.h1")
     lead_html = f'<p class="lead">{lead}</p>' if lead else ""
-    return f'<div class="container page-head"><h1>{h1}</h1>{lead_html}</div>'
+    return f'<div class="page-band"><div class="container page-head"><h1>{h1}</h1>{lead_html}</div></div>'
 
 
 def subnav(c):
@@ -590,12 +590,12 @@ def page_home(c):
         f'<p class="small muted">{course_meta_line(c, co)}</p></li>' for co in c.b.courses["courses"])
     ev = upcoming(c.b)
     empty_hidden = "" if not ev else " hidden"
-    return f'''<div class="container hero">
+    return f'''<div class="hero-band"><div class="container hero">
 <h1>{esc(c.t(T + "h1"))}</h1>
 <p class="lead">{esc(c.t(T + "lead"))}</p>
 <div class="btn-row"><a class="btn" href="{c.url("courses")}">{esc(c.t(T + "cta_courses"))}</a>
 <a class="btn btn--outline" href="{c.url("dates")}">{esc(c.t(T + "cta_dates"))}</a></div>
-</div>
+</div></div>
 <section class="section" aria-labelledby="h-courses"><div class="container">
 <div class="section-head"><h2 id="h-courses">{esc(c.t(T + "courses_h2"))}</h2><a href="{c.url("courses")}">{esc(c.t(T + "courses_all"))}</a></div>
 <ul class="rows rows--compact">{courses}</ul>
@@ -767,9 +767,9 @@ def legal_doc_page(c, pid, pdf, date_key, ver_key, numbered=True):
     d = c.b.site["documents"]
     sections = c.t(T + "sections")
     intro = f'<p class="prose">{esc(c.t(T + "intro"))}</p>' if "intro" in c.t(f"pages.{pid}") else ""
-    return f'''<div class="container">{subnav(c)}</div>
-{page_head(c)}
+    return f'''{page_head(c)}
 <div class="container">
+{subnav(c)}
 {notice(c.t("common.placeholder_legal"), accent=True)}
 {translation_note(c)}
 <p class="doc-meta"><span>{esc(c.t("common.version_label"))}: {esc(d[ver_key])}</span><span>{esc(c.t("common.decided_label"))} {esc(d[date_key])}</span></p>
