@@ -228,18 +228,18 @@ Alle Werte stehen als CSS-Variablen am Anfang von `css/style.css`.
 
 | Variable | Hell | Dunkel | Verwendung | Kontrast (hell / dunkel) |
 |---|---|---|---|---|
-| `--c-bg` | `#ffffff` | `#111416` | Hintergrund | – |
-| `--c-subtle` | `#f5f7f8` | `#181c1f` | Hinweisflächen | – |
-| `--c-text` | `#1b1f23` | `#e6e9ec` | Text | 16,6 : 1 / 15,2 : 1 |
-| `--c-muted` | `#57606a` | `#a2abb3` | Nebentext | 6,4 : 1 / 7,9 : 1 |
-| `--c-line` | `#d8dde3` | `#2c3237` | Trennlinien (dekorativ) | – |
-| `--c-border` | `#8a939b` | `#6b747c` | Rahmen der Eingabefelder | 3,1 : 1 / 3,9 : 1 |
-| `--c-primary` | `#0e5466` | `#6cc3d5` | Links, Buttons, Fokus | 8,5 : 1 / 9,2 : 1 |
-| `--c-accent` | `#a8461b` | `#f0a070` | Spenden-Button, Markierungen | 5,9 : 1 / 8,8 : 1 |
-| `--c-error` | `#b42318` | `#ff8a80` | Fehlermeldungen | – (immer mit Text und Symbol) |
-| `--c-success` | `#1e6b3a` | `#7fd49b` | Erfolgsmeldungen | – |
+| `--c-bg` | `#ffffff` | `#22272c` | Hintergrund | – |
+| `--c-subtle` | `#f5f7f8` | `#2a3035` | Hinweisflächen | – |
+| `--c-text` | `#1b1f23` | `#e8ebee` | Text | 16,6 : 1 / 12,6 : 1 |
+| `--c-muted` | `#57606a` | `#aeb7bf` | Nebentext | 6,4 : 1 / 7,4 : 1 |
+| `--c-line` | `#d8dde3` | `#3a4148` | Trennlinien (dekorativ) | – |
+| `--c-border` | `#8a939b` | `#7d878f` | Rahmen der Eingabefelder | 3,1 : 1 / 4,1 : 1 |
+| `--c-primary` | `#0e5466` | `#7ccbdc` | Links, Buttons, Fokus | 8,5 : 1 / 8,2 : 1 |
+| `--c-accent` | `#a8461b` | `#f2a97c` | Spenden-Button, Markierungen | 5,9 : 1 / 7,7 : 1 |
+| `--c-error` | `#b42318` | `#ff9a90` | Fehlermeldungen | – (immer mit Text und Symbol) |
+| `--c-success` | `#1e6b3a` | `#8ddca7` | Erfolgsmeldungen | – |
 
-Der Dunkelmodus folgt der Systemeinstellung (`prefers-color-scheme`). Mit dem Umschalter im
+Der Dunkelmodus nutzt ein weiches Schiefergrau statt fast Schwarz (geändert am 19.10.2026 auf Wunsch des Nutzers, weil das tiefe Schwarz unnatürlich wirkte). Er folgt der Systemeinstellung (`prefers-color-scheme`). Mit dem Umschalter im
 Footer lässt er sich überstimmen (`data-theme` am `<html>`, gespeichert in `localStorage`).
 **Der GiroCode bleibt immer schwarz auf weiß**, damit Banking-Apps ihn zuverlässig lesen.
 

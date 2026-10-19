@@ -98,39 +98,39 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --c-bg: #111416;
-    --c-subtle: #181c1f;
-    --c-text: #e6e9ec;
-    --c-muted: #a2abb3;
-    --c-line: #2c3237;
-    --c-border: #6b747c;
-    --c-primary: #6cc3d5;
-    --c-primary-strong: #94d5e3;
+    --c-bg: #22272c;
+    --c-subtle: #2a3035;
+    --c-text: #e8ebee;
+    --c-muted: #aeb7bf;
+    --c-line: #3a4148;
+    --c-border: #7d878f;
+    --c-primary: #7ccbdc;
+    --c-primary-strong: #a2dceb;
     --c-on-primary: #0b1214;
-    --c-accent: #f0a070;
-    --c-accent-strong: #f5b993;
+    --c-accent: #f2a97c;
+    --c-accent-strong: #f6bc98;
     --c-on-accent: #1a0e07;
-    --c-error: #ff8a80;
-    --c-success: #7fd49b;
+    --c-error: #ff9a90;
+    --c-success: #8ddca7;
   }
 }
 /* … oder per Umschalter im Footer (setzt data-theme am <html>). */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --c-bg: #111416;
-  --c-subtle: #181c1f;
-  --c-text: #e6e9ec;
-  --c-muted: #a2abb3;
-  --c-line: #2c3237;
-  --c-border: #6b747c;
-  --c-primary: #6cc3d5;
-  --c-primary-strong: #94d5e3;
+  --c-bg: #22272c;
+  --c-subtle: #2a3035;
+  --c-text: #e8ebee;
+  --c-muted: #aeb7bf;
+  --c-line: #3a4148;
+  --c-border: #7d878f;
+  --c-primary: #7ccbdc;
+  --c-primary-strong: #a2dceb;
   --c-on-primary: #0b1214;
-  --c-accent: #f0a070;
-  --c-accent-strong: #f5b993;
+  --c-accent: #f2a97c;
+  --c-accent-strong: #f6bc98;
   --c-on-accent: #1a0e07;
-  --c-error: #ff8a80;
-  --c-success: #7fd49b;
+  --c-error: #ff9a90;
+  --c-success: #8ddca7;
 }
 
 @media (min-width: 600px) {
