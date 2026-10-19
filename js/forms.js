@@ -86,7 +86,7 @@
 
   /** Ein Feld prüfen. Gibt die Fehlermeldung zurück oder "". */
   function check(form, el) {
-    if (!isActive(el) || el.name === "website") return "";
+    if (!isActive(el) || el.name === "website" || el.hasAttribute("data-date-part")) return "";
     var required = isRequired(form, el);
     var value = (el.value || "").trim();
 
@@ -118,6 +118,67 @@
     return "";
   }
 
+  /* Datumsgruppe (Tag · Monat · Jahr) ------------------------------------- */
+  function readDate(group) {
+    var get = function (part) {
+      var el = group.querySelector('[data-date-part="' + part + '"]');
+      return el ? el.value.trim() : "";
+    };
+    return { day: get("day"), month: get("month"), year: get("year") };
+  }
+
+  /** Prüft die ganze Gruppe; gibt { message, iso, first } zurück */
+  function checkDateGroup(form, group) {
+    var parts = group.querySelectorAll("[data-date-part]");
+    if (!isActive(parts[0])) return { message: "" };
+    var required = Array.prototype.some.call(parts, function (p) { return isRequired(form, p); });
+    var v = readDate(group);
+    var firstEmpty = Array.prototype.filter.call(parts, function (p) { return !p.value.trim(); })[0];
+    if (!v.day && !v.month && !v.year) return { message: required ? ERR.date_incomplete : "", first: parts[0] };
+    if (firstEmpty) {
+      var empty = Array.prototype.filter.call(parts, function (p) { return !p.value.trim(); });
+      return { message: ERR.date_incomplete, first: firstEmpty, bad: empty };
+    }
+    var d = parseInt(v.day, 10), m = parseInt(v.month, 10), y = parseInt(v.year, 10);
+    var date = new Date(y, m - 1, d);
+    var valid = /^\d{1,2}$/.test(v.day) && /^\d{4}$/.test(v.year) && y >= 1900 &&
+      date.getFullYear() === y && date.getMonth() === m - 1 && date.getDate() === d;
+    if (!valid) return { message: ERR.date, first: parts[0] };
+    var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+    var iso = y + "-" + pad(m) + "-" + pad(d);
+    if (group.getAttribute("data-date-group") === "geburtsdatum" && iso > SL.today()) {
+      return { message: ERR.birthdate, first: parts[0] };
+    }
+    return { message: "", iso: iso };
+  }
+
+  function showDateGroup(form, group, result) {
+    var error = group.querySelector(".error-text");
+    if (error) error.textContent = result.message || "";
+    var bad = result.bad || group.querySelectorAll("[data-date-part]");
+    Array.prototype.forEach.call(group.querySelectorAll("[data-date-part]"), function (p) {
+      if (result.message && Array.prototype.indexOf.call(bad, p) !== -1) p.setAttribute("aria-invalid", "true");
+      else p.removeAttribute("aria-invalid");
+    });
+  }
+
+  /** Alter als kleine Kontrolle anzeigen (z. B. „Alter: 41 Jahre“) */
+  function showAge(group, iso) {
+    var out = group.querySelector(".date-age");
+    if (!out) return;
+    if (!iso || !S.age) { out.textContent = ""; return; }
+    var birth = new Date(iso + "T00:00:00");
+    var now = new Date();
+    var age = now.getFullYear() - birth.getFullYear();
+    if (now.getMonth() < birth.getMonth() || (now.getMonth() === birth.getMonth() && now.getDate() < birth.getDate())) age--;
+    var category = window.Intl && Intl.PluralRules ? new Intl.PluralRules(SL.data.lang).select(age) : "other";
+    out.textContent = SL.format(S.age[category] || S.age.other, { n: age });
+  }
+
+  function dateGroups(form) {
+    return Array.prototype.slice.call(form.querySelectorAll("[data-date-group]"));
+  }
+
   function controls(form) {
     return Array.prototype.filter.call(form.elements, function (el) {
       return el.name && el.type !== "submit" && el.type !== "button" && el.tagName !== "FIELDSET";
@@ -133,9 +194,22 @@
         if (seenRadio[el.name]) return;
         seenRadio[el.name] = true;
       }
+      if (el.hasAttribute("data-date-part")) return;
       var message = check(form, el);
       setError(form, el, message);
       if (message) errors.push({ el: el, message: message });
+    });
+    dateGroups(form).forEach(function (group) {
+      var result = checkDateGroup(form, group);
+      showDateGroup(form, group, result);
+      if (result.message) {
+        var legend = group.querySelector("legend");
+        errors.push({ el: result.first, message: result.message, label: legend ? legend.textContent.replace(/\*/g, "").trim() : "" });
+      }
+    });
+    // Reihenfolge wie im Formular
+    errors.sort(function (a, b) {
+      return a.el.compareDocumentPosition(b.el) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
     });
     return errors;
   }
@@ -157,7 +231,7 @@
     box.innerHTML =
       "<h3>" + escapeHtml(ERR.summary) + "</h3><ul>" +
       errors.map(function (e) {
-        return '<li><a href="#' + e.el.id + '">' + escapeHtml(labelOf(form, e.el)) + ": " + escapeHtml(e.message) + "</a></li>";
+        return '<li><a href="#' + e.el.id + '">' + escapeHtml(e.label || labelOf(form, e.el)) + ": " + escapeHtml(e.message) + "</a></li>";
       }).join("") + "</ul>";
     box.hidden = false;
     box.focus();
@@ -178,6 +252,16 @@
     var seenRadio = {};
     controls(form).forEach(function (el) {
       if (el.name === "website" || !isActive(el)) return;
+      if (el.hasAttribute("data-date-part")) {
+        var group = el.closest("[data-date-group]");
+        if (el.getAttribute("data-date-part") !== "day" || !group) return;
+        var r = checkDateGroup(form, group);
+        if (!r.iso) return;
+        var legend = group.querySelector("legend");
+        var p = r.iso.split("-");
+        lines.push((legend ? legend.textContent.replace(/\*/g, "").trim() : group.getAttribute("data-date-group")) + ": " + p[2] + "." + p[1] + "." + p[0]);
+        return;
+      }
       var value;
       if (el.type === "radio") {
         if (seenRadio[el.name]) return;
@@ -266,14 +350,32 @@
     form.addEventListener("change", function () { updateConditional(form); });
 
     // Prüfen beim Verlassen eines Feldes; Fehler beim Tippen sofort zurücknehmen
+    dateGroups(form).forEach(function (group) {
+      var update = function () {
+        var result = checkDateGroup(form, group);
+        showAge(group, result.iso);
+        // Fehler sofort zurücknehmen, sobald die Eingabe stimmt
+        if (!result.message && group.querySelector('[aria-invalid="true"]')) showDateGroup(form, group, result);
+      };
+      group.addEventListener("input", update);
+      group.addEventListener("change", update);
+      group.addEventListener("focusout", function (event) {
+        if (event.relatedTarget && group.contains(event.relatedTarget)) return; // noch in der Gruppe
+        var v = readDate(group);
+        if (v.day || v.month || v.year) showDateGroup(form, group, checkDateGroup(form, group));
+      });
+    });
+
     form.addEventListener("focusout", function (event) {
       var el = event.target;
+      if (el.hasAttribute && el.hasAttribute("data-date-part")) return;
       if (!el.name || el.type === "radio" || el.type === "checkbox") return;
       if (el.getAttribute("data-validate") === "iban" && el.value && SL.iban) el.value = SL.iban.format(el.value);
       if (el.value || el.getAttribute("aria-invalid")) setError(form, el, check(form, el));
     });
     form.addEventListener("input", function (event) {
       var el = event.target;
+      if (el.hasAttribute("data-date-part")) return; // wird von der Datumsgruppe behandelt
       if (el.getAttribute("aria-invalid") === "true" && !check(form, el)) setError(form, el, "");
     });
     form.addEventListener("change", function (event) {
@@ -316,6 +418,7 @@
           showStatus(form, html);
           form.reset();
           updateConditional(form);
+          dateGroups(form).forEach(function (group) { showAge(group, null); });
           if (donation && SL.payments) {
             var confirm = document.getElementById("donation-confirm");
             var statusLine = confirm && confirm.querySelector("[data-confirm-status]");

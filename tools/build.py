@@ -332,6 +332,30 @@ def checkbox(c, form, name, label_html_text, required=False, extra=""):
             f'<span class="error-text" id="{fid}-error"></span></div>')
 
 
+def date_group(c, form, name, legend, required=False, autocomplete_prefix="bday"):
+    """Datum als drei Felder (Tag · Monat · Jahr) statt <input type="date"> – angenehmer für Geburtsdaten,
+    unabhängig vom Browser und gut per Tastatur und Screenreader bedienbar."""
+    fid = f"{form}-{name}"
+    req = " required" if required else ""
+    months = "".join(f'<option value="{i + 1:02d}">{esc(m)}</option>' for i, m in enumerate(c.t("common.months_long")))
+    return (f'<fieldset class="field date-group" data-date-group="{name}" aria-describedby="{fid}-hint {fid}-error">'
+            f'<legend class="label">{label_html(c, legend, required)}</legend>'
+            f'<span class="hint" id="{fid}-hint">{esc(c.t("forms.birthdate_hint"))}</span>'
+            f'<div class="date-parts">'
+            f'<div class="date-part date-part--day"><label for="{fid}-tag">{esc(c.t("forms.day"))}</label>'
+            f'<input type="text" id="{fid}-tag" name="{name}_tag" inputmode="numeric" maxlength="2" pattern="[0-9]{{1,2}}" '
+            f'autocomplete="{autocomplete_prefix}-day" data-date-part="day"{req}></div>'
+            f'<div class="date-part date-part--month"><label for="{fid}-monat">{esc(c.t("forms.month"))}</label>'
+            f'<select id="{fid}-monat" name="{name}_monat" autocomplete="{autocomplete_prefix}-month" data-date-part="month"{req}>'
+            f'<option value="">–</option>{months}</select></div>'
+            f'<div class="date-part date-part--year"><label for="{fid}-jahr">{esc(c.t("forms.year"))}</label>'
+            f'<input type="text" id="{fid}-jahr" name="{name}_jahr" inputmode="numeric" maxlength="4" pattern="[0-9]{{4}}" '
+            f'autocomplete="{autocomplete_prefix}-year" data-date-part="year"{req}></div>'
+            f'</div>'
+            f'<span class="date-age small muted" id="{fid}-age" aria-live="polite"></span>'
+            f'<span class="error-text" id="{fid}-error"></span></fieldset>')
+
+
 def radios(c, form, name, legend, options, required=False, checked=None, cls="", extra=""):
     items = []
     for value, text in options:
@@ -783,7 +807,7 @@ def page_membership(c):
             + field(c, f, "email", c.t("forms.email"), "email", True, "email", validate="email")
             + field(c, f, "telefon", f'{c.t("forms.phone")} <span class="req">({esc(c.t("common.optional"))})</span>', "tel", False, "tel")
             + "</div>"
-            + field(c, f, "geburtsdatum", c.t("forms.birthdate"), "date", True, "bday", validate="birthdate")
+            + date_group(c, f, "geburtsdatum", c.t("forms.birthdate"), required=True)
             + "</fieldset>"
             + f'<fieldset><legend>{esc(c.t(T + "membership_legend"))}</legend>'
             + select(c, f, "mitgliedsart", c.t(T + "f_type"), types, True, c.t("forms.topic_choose"))
@@ -1096,6 +1120,7 @@ def page_data(c):
             "status": {k: c.fill(v) for k, v in T["forms"]["status"].items()},
             "mail_subject": T["forms"]["mail_subject"],
             "form_names": T["forms"]["form_names"],
+            "age": T["forms"]["age"],
             "menu": T["common"]["menu"],
             "menu_close": T["common"]["menu_close"],
             "filter_count": T["pages"]["dates"]["filter_count"],

@@ -245,9 +245,25 @@ async function stubEndpoint(page, formSelector) {
     await page.fill("#membership-iban", "DE8937040044053201300");
     await page.locator("#membership-iban").blur();
     check(`[${lang}] IBAN: falsche Länge erkannt`, (await page.textContent("#membership-iban-error")) === E.iban_length);
-    await page.fill("#membership-geburtsdatum", "2999-01-01");
-    await page.locator("#membership-geburtsdatum").blur();
-    check(`[${lang}] Geburtsdatum in der Zukunft wird abgelehnt`, (await page.textContent("#membership-geburtsdatum-error")) === E.birthdate);
+    // Geburtsdatum als Tag · Monat · Jahr
+    const bdErr = () => page.textContent("#membership-geburtsdatum-error");
+    await page.fill("#membership-geburtsdatum-tag", "14");
+    await page.locator("#membership-geburtsdatum-tag").blur();
+    check(`[${lang}] Geburtsdatum unvollständig → Hinweis „vollständig eingeben“`, (await bdErr()) === E.date_incomplete);
+    await page.selectOption("#membership-geburtsdatum-monat", "02");
+    await page.fill("#membership-geburtsdatum-tag", "31");
+    await page.fill("#membership-geburtsdatum-jahr", "1985");
+    await page.locator("#membership-geburtsdatum-jahr").blur();
+    check(`[${lang}] Geburtsdatum 31.02. wird als ungültig erkannt`, (await bdErr()) === E.date);
+    await page.fill("#membership-geburtsdatum-jahr", "2999");
+    await page.fill("#membership-geburtsdatum-tag", "1");
+    await page.locator("#membership-geburtsdatum-tag").blur();
+    check(`[${lang}] Geburtsdatum in der Zukunft wird abgelehnt`, (await bdErr()) === E.birthdate);
+    await page.selectOption("#membership-geburtsdatum-monat", "03");
+    await page.fill("#membership-geburtsdatum-tag", "14");
+    await page.fill("#membership-geburtsdatum-jahr", "1985");
+    const age = await page.textContent("#membership-geburtsdatum-age");
+    check(`[${lang}] Gültiges Geburtsdatum: Fehler weg, Alter wird angezeigt`, (await bdErr()) === "" && /\d{2}/.test(age) && (await page.getAttribute("#membership-geburtsdatum-tag", "aria-invalid")) === null, age);
     await page.check("#membership-zahlungsweise-transfer");
     const sepaHidden = await page.locator("#membership-sepa").isHidden();
     await page.click('#form-membership button[type="submit"]');

@@ -523,7 +523,21 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="date"], 
 }
 textarea { min-height: 8rem; resize: vertical; }
 input:focus-visible, select:focus-visible, textarea:focus-visible { outline: var(--focus); outline-offset: 1px; border-color: var(--c-primary); }
-[aria-invalid="true"] { border-color: var(--c-error); border-width: 2px; }
+/* Spezifität wie „input[type=…]“, damit der Fehlerrahmen auch bei Textfeldern greift */
+input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--c-error); border-width: 2px; }
+
+/* Datum als Tag · Monat · Jahr (z. B. Geburtsdatum) */
+.date-group .hint { margin-top: 0; margin-bottom: var(--s-2); }
+.date-parts { display: flex; align-items: flex-end; gap: var(--s-3); max-width: 24rem; }
+.date-part--month { flex: 1 1 auto; min-width: 0; }
+.date-part label { display: block; margin-bottom: var(--s-1); color: var(--c-muted); font-size: var(--fs-small); font-weight: 500; }
+.date-part input, .date-part select { text-align: center; font-variant-numeric: tabular-nums; }
+.date-part select { text-align: left; }
+.date-part--day input { width: 4.5rem; }
+.date-part--month select { width: 100%; }
+.date-part--year input { width: 6rem; }
+.date-age { display: block; margin-top: var(--s-2); }
+.date-age:empty { display: none; }
 
 .check { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; margin-bottom: var(--s-3); }
 .check input { width: 1.25rem; height: 1.25rem; margin: 0.2rem 0 0; accent-color: var(--c-primary); }
