@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://reckssel.github.io/test/sitemap.xml
