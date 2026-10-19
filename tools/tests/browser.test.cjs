@@ -318,10 +318,10 @@ async function stubEndpoint(page, formSelector) {
     const page = await ctx.newPage();
     await page.clock.setFixedTime(new Date("2026-11-20T10:00:00"));
     await page.goto(BASE + "de/termine.html");
-    const dates = await page.$$eval("#dates-table tbody tr:not([hidden])", (rows) => rows.map((r) => r.dataset.date));
+    const dates = await page.$$eval("#dates-table tbody:not([hidden]) tr[data-date]:not([hidden])", (rows) => rows.map((r) => r.dataset.date));
     check("Termine vor dem 20.11.2026 werden ausgeblendet", dates.length > 0 && dates.every((d) => d >= "2026-11-20"), dates.join(","));
     await page.selectOption("#filter-course", "digital-fit");
-    const courses = await page.$$eval("#dates-table tbody tr:not([hidden])", (rows) => rows.map((r) => r.dataset.course));
+    const courses = await page.$$eval("#dates-table tbody:not([hidden]) tr[data-date]:not([hidden])", (rows) => rows.map((r) => r.dataset.course));
     const status = await page.textContent("#filter-status");
     check("Filter nach Kurs + Ansage der Anzahl", courses.length === 1 && courses[0] === "digital-fit" && status.includes("1"), `${courses} / ${status}`);
     await page.goto(BASE + "de/termine.html?kurs=praesentieren");
@@ -393,7 +393,7 @@ async function stubEndpoint(page, formSelector) {
     const action = await page.getAttribute("#form-donation", "action");
     check("Ohne JS: Bankdaten lesbar, Hinweis statt GiroCode, Formular mit mailto-Action", bankVisible && noscript && action.startsWith("mailto:"));
     await page.goto(BASE + "de/termine.html");
-    const rows = await page.locator("#dates-table tbody tr:not([hidden])").count();
+    const rows = await page.locator("#dates-table tbody:not([hidden]) tr[data-date]:not([hidden])").count();
     check("Ohne JS: Terminliste vollständig lesbar (Stand des Builds)", rows > 0, String(rows));
     await ctx.close();
   }

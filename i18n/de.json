@@ -62,6 +62,8 @@
     },
     "weekdays": ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
     "months": ["Jan.", "Feb.", "März", "Apr.", "Mai", "Juni", "Juli", "Aug.", "Sept.", "Okt.", "Nov.", "Dez."],
+    "months_badge": ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+    "months_long": ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
     "date_pattern": "{wd}, {d}.{m}.{y}",
     "time_pattern": "{start}–{end} Uhr",
     "money_pattern": "{n} €"

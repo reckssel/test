@@ -188,7 +188,7 @@ Spenderinnen und Spender. Dazu englisch- und russischsprachige Menschen im Odenw
 | `index.html` | Hero mit Nutzenversprechen und zwei Buttons · 6 Kurse kompakt · 3 nächste Termine (live gefiltert) · Über-uns-Teaser · Mitglied werden / Spenden · Newsletter-Formular | `page_home` |
 | `ueber-uns.html` / `about.html` | Mission · 4 Werte · Arbeitsweise · Team (Initialen-Platzhalter) · Mitmach-Aufruf | `page_about` |
 | `angebote.html` / `courses.html` | Ermäßigungshinweis · 6 Kurse mit Text, Dauer, Format, Niveau, Zielgruppe, Preis/Mitgliederpreis · Links „Termine“ und „Anfragen“ · Workshop für Gruppen | `page_courses` |
-| `termine.html` / `dates.html` | Anmelde-Hinweis · Filter (nur mit JS) · Tabelle (Datum, Uhrzeit, Kurs, Ort, freie Plätze, Anfragen/Warteliste) · schema.org EducationEvent | `page_dates` |
+| `termine.html` / `dates.html` | Anmelde-Hinweis · Filter (nur mit JS) · Tabelle nach Monaten gruppiert (je Monat ein `<tbody>` mit Überschrift), Datum als Kalenderblatt, Uhrzeit, Kurs, Ort, freie Plätze mit Balken, Button „Anfragen“/„Warteliste“ · schema.org EducationEvent | `page_dates` |
 | `verein.html` / `association.html` | Unternavigation · Fakten (Name, Sitz, Register, Zweck, Gemeinnützigkeit, Vorstand) · Satzung und Beitragsordnung mit Stand, Online-Link und PDF · Gründungsgeschichte (Platzhalter) | `page_association` |
 | `satzung.html` / `statutes.html` | Prüfhinweis · Übersetzungshinweis (EN/RU) · Fassung und Beschlussdatum · PDF und Drucken · Inhaltsverzeichnis · 14 Paragraphen mit nummerierten Absätzen und „Nach oben“ | `legal_doc_page` |
 | `beitragsordnung.html` / `fees.html` | wie Satzung, mit 8 Paragraphen; in § 1 die Beitragstabelle aus `beitraege.json` | `legal_doc_page` + `fees_table` |
@@ -215,6 +215,8 @@ Spenderinnen und Spender. Dazu englisch- und russischsprachige Menschen im Odenw
 | Kopierzeile | `.copy-list`, `.copy-row`, `.copy-btn` | Bankdaten |
 | GiroCode | `.giro`, `[data-giro-code]`, `[data-giro-text]` | Spendenseite, Bestätigung |
 | Auswahl-Buttons | `.choice` (echte Radiobuttons) | Spendenbetrag |
+| Kalenderblatt | `.cal` (`cal_badge()` in `build.py`) | Datum auf Termin- und Startseite: Monat farbig, Tag groß, Wochentag; das volle Datum steht für Screenreader als Text daneben |
+| Platz-Balken | `.seats-bar` (`seats_bar()`) | Anteil freier Plätze; dekorativ, die Angabe steht immer als Text daneben |
 | Inhaltsverzeichnis | `.toc` | Satzung, Beitragsordnung, Datenschutz |
 | Unternavigation | `.subnav` | Verein → Satzung → Beitragsordnung |
 | Banner | `.consent` | Einwilligung zur Karte |
@@ -344,6 +346,7 @@ Vierergruppen formatiert. **Die Prüfung belegt nicht, dass das Konto existiert.
 - **Beim Build:** Termine vor `site.json` → `build_date` erhalten das Attribut `hidden`.
 - **Im Browser:** `main.js` blendet alle Termine vor dem **heutigen** Datum aus, auch ohne neuen Build.
 - **Startseite:** Sie zeigt die nächsten 3 kommenden Termine. Gibt es keine, erscheint ein Hinweistext.
+- **Monatsgruppen:** Monate, in denen kein Termin mehr sichtbar ist, werden samt Überschrift ausgeblendet.
 - **Filter:** Er wählt nach Kurs aus und sagt die Anzahl an (`role="status"`). Mit `?kurs=<id>` ist ein Kurs vorausgewählt.
 - **Freie Plätze:** Als Text, z. B. „4 von 10 frei“. Bei höchstens 3 freien Plätzen heißt es „nur noch n frei“ (Akzentfarbe), bei 0 „ausgebucht“ und der Link heißt „Warteliste“.
 

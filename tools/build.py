@@ -523,6 +523,24 @@ def course_meta_line(c, co):
     return f'{esc(c.t("common.formats." + co["format"]))} · {esc(co["duration"][c.lang])} · {esc(c.t("common.levels." + co["level"]))}'
 
 
+def cal_badge(c, iso, start=None):
+    """Datum als Kalenderblatt (Monat, Tag, Wochentag). Für Screenreader steht das volle Datum als Text daneben."""
+    d = dt.date.fromisoformat(iso)
+    stamp = f"{iso}T{start}" if start else iso
+    return (f'<time class="cal-wrap" datetime="{stamp}"><span class="cal" aria-hidden="true">'
+            f'<span class="cal-m">{esc(c.t("common.months_badge")[d.month - 1])}</span>'
+            f'<span class="cal-d">{d.day}</span>'
+            f'<span class="cal-w">{esc(c.t("common.weekdays")[d.weekday()])}</span></span>'
+            f'<span class="visually-hidden">{esc(c.date(iso))}</span></time>')
+
+
+def seats_bar(e):
+    """Schmaler Füllbalken: Anteil der freien Plätze (rein dekorativ, Text steht daneben)."""
+    free = round(100 * e["seats_free"] / e["seats_total"]) if e["seats_total"] else 0
+    state = "none" if e["seats_free"] == 0 else ("few" if e["seats_free"] <= 3 else "ok")
+    return f'<span class="seats-bar seats-bar--{state}" aria-hidden="true"><span style="width:{free}%"></span></span>'
+
+
 def date_rows(c, events, limit=None):
     items = []
     for i, e in enumerate(events):
@@ -530,10 +548,10 @@ def date_rows(c, events, limit=None):
         hidden = " hidden" if limit is not None and i >= limit else ""
         items.append(
             f'<li class="date-row" data-date="{e["date"]}"{hidden}>'
-            f'<time datetime="{e["date"]}T{e["start"]}">{esc(c.date(e["date"]))}<br><span class="small muted">{esc(c.time(e["start"], e["end"]))}</span></time>'
-            f'<div><a href="{c.url("courses")}#kurs-{co["id"]}">{esc(co["title"][c.lang])}</a><br>'
-            f'<span class="small muted">{esc(c.b.events["locations"][e["location"]][c.lang])}</span></div>'
-            f'<span class="small">{seats_html(c, e)}</span></li>')
+            f'{cal_badge(c, e["date"], e["start"])}'
+            f'<div class="date-row-main"><a class="date-row-title" href="{c.url("courses")}#kurs-{co["id"]}">{esc(co["title"][c.lang])}</a>'
+            f'<span class="small muted">{esc(c.time(e["start"], e["end"]))} · {esc(c.b.events["locations"][e["location"]][c.lang])}</span></div>'
+            f'<span class="date-row-seats small">{seats_bar(e)}{seats_html(c, e)}</span></li>')
     return "".join(items)
 
 
@@ -635,27 +653,39 @@ def page_courses(c):
 
 def page_dates(c):
     T = "pages.dates."
-    rows = []
-    for e in sorted(c.b.events["events"], key=lambda e: (e["date"], e["start"])):
-        co = c.course(e["course"])
-        past = " hidden" if e["date"] < c.b.site["build_date"] else ""
-        visible = c.t(T + ("waitlist" if e["seats_free"] == 0 else "request"))
-        # Zugänglicher Name beginnt mit dem sichtbaren Text (WCAG 2.5.3 „Label in Name“)
-        label = (c.t(T + "request_label").replace("{action}", visible)
-                 .replace("{course}", co["title"][c.lang]).replace("{date}", c.date(e["date"])))
-        action = (f'<a href="{c.url("contact")}?thema=kurs&amp;termin={e["id"]}" aria-label="{esc(label)}">'
-                  f'{esc(visible)}</a>')
-        rows.append(
-            f'<tr role="row" data-date="{e["date"]}" data-course="{co["id"]}"{past}>'
-            f'<th scope="row" role="rowheader"><time datetime="{e["date"]}">{esc(c.date(e["date"]))}</time></th>'
-            f'<td role="cell" data-label="{esc(c.t(T + "col_time"))}">{esc(c.time(e["start"], e["end"]))}</td>'
-            f'<td role="cell" data-label="{esc(c.t(T + "col_course"))}"><a href="{c.url("courses")}#kurs-{co["id"]}">{esc(co["title"][c.lang])}</a></td>'
-            f'<td role="cell" data-label="{esc(c.t(T + "col_place"))}">{esc(c.b.events["locations"][e["location"]][c.lang])}</td>'
-            f'<td role="cell" data-label="{esc(c.t(T + "col_seats"))}">{seats_html(c, e)}</td>'
-            f'<td role="cell" data-label="{esc(c.t(T + "col_action"))}">{action}</td></tr>')
+    events = sorted(c.b.events["events"], key=lambda e: (e["date"], e["start"]))
+    # Termine nach Monat gruppieren: je Monat ein <tbody> mit Überschriftszeile
+    groups = {}
+    for e in events:
+        groups.setdefault(e["date"][:7], []).append(e)
+    bodies = []
+    for month, evs in groups.items():
+        y, m = month.split("-")
+        title = f'{c.t("common.months_long")[int(m) - 1]} {y}'
+        all_past = all(e["date"] < c.b.site["build_date"] for e in evs)
+        rows = [f'<tr role="row" class="month-row"><th colspan="6" scope="rowgroup" role="rowheader" id="monat-{month}">{esc(title)}</th></tr>']
+        for e in evs:
+            co = c.course(e["course"])
+            past = " hidden" if e["date"] < c.b.site["build_date"] else ""
+            visible = c.t(T + ("waitlist" if e["seats_free"] == 0 else "request"))
+            # Zugänglicher Name beginnt mit dem sichtbaren Text (WCAG 2.5.3 „Label in Name“)
+            label = (c.t(T + "request_label").replace("{action}", visible)
+                     .replace("{course}", co["title"][c.lang]).replace("{date}", c.date(e["date"])))
+            action = (f'<a class="btn btn--outline btn--small" href="{c.url("contact")}?thema=kurs&amp;termin={e["id"]}" aria-label="{esc(label)}">'
+                      f'{esc(visible)}</a>')
+            rows.append(
+                f'<tr role="row" data-date="{e["date"]}" data-course="{co["id"]}"{past}>'
+                f'<th scope="row" role="rowheader" class="col-date">{cal_badge(c, e["date"])}</th>'
+                f'<td role="cell" class="col-time" data-label="{esc(c.t(T + "col_time"))}">{esc(c.time(e["start"], e["end"]))}</td>'
+                f'<td role="cell" class="col-course" data-label="{esc(c.t(T + "col_course"))}"><a href="{c.url("courses")}#kurs-{co["id"]}">{esc(co["title"][c.lang])}</a></td>'
+                f'<td role="cell" class="col-place" data-label="{esc(c.t(T + "col_place"))}">{esc(c.b.events["locations"][e["location"]][c.lang])}</td>'
+                f'<td role="cell" class="col-seats" data-label="{esc(c.t(T + "col_seats"))}">{seats_bar(e)}{seats_html(c, e)}</td>'
+                f'<td role="cell" class="col-action">{action}</td></tr>')
+        hidden = " hidden" if all_past else ""
+        bodies.append(f'<tbody role="rowgroup" data-month="{month}"{hidden}>{"".join(rows)}</tbody>')
     options = "".join(f'<option value="{co["id"]}">{esc(co["title"][c.lang])}</option>' for co in c.b.courses["courses"])
-    head = "".join(f'<th scope="col" role="columnheader">{esc(c.t(T + k))}</th>'
-                   for k in ("col_date", "col_time", "col_course", "col_place", "col_seats", "col_action"))
+    head = "".join(f'<th scope="col" role="columnheader" class="col-{k}">{esc(c.t(T + "col_" + k))}</th>'
+                   for k in ("date", "time", "course", "place", "seats", "action"))
     return f'''{page_head(c, lead=esc(c.t(T + "lead")))}
 <div class="container">
 {notice(c.t(T + "note"))}
@@ -664,10 +694,10 @@ def page_dates(c):
 <select id="filter-course" data-filter="course"><option value="">{esc(c.t(T + "filter_all"))}</option>{options}</select></div>
 <p class="small muted" id="filter-status" role="status" aria-live="polite"></p>
 </div>
-<div class="table-wrap"><table class="data-table data-table--stack" role="table" id="dates-table">
-<caption>{esc(c.t(T + "table_caption"))}</caption>
+<div class="table-wrap"><table class="data-table data-table--stack dates-table" role="table" id="dates-table">
+<caption class="visually-hidden">{esc(c.t(T + "table_caption"))}</caption>
 <thead role="rowgroup"><tr role="row">{head}</tr></thead>
-<tbody role="rowgroup">{"".join(rows)}</tbody></table>
+{"".join(bodies)}</table>
 <p class="no-results" id="dates-empty" hidden>{esc(c.t(T + "no_results"))}</p></div>
 </div>'''
 

@@ -270,7 +270,8 @@
   // Terminseite: vergangene ausblenden, Filter nach Kurs
   var table = document.getElementById("dates-table");
   if (table) {
-    var rows = table.querySelectorAll("tbody tr");
+    var rows = table.querySelectorAll("tbody tr[data-date]");
+    var months = table.querySelectorAll("tbody[data-month]");
     var filter = document.getElementById("filter-course");
     var statusEl = document.getElementById("filter-status");
     var emptyEl = document.getElementById("dates-empty");
@@ -282,6 +283,10 @@
         var visible = row.getAttribute("data-date") >= today && (!course || row.getAttribute("data-course") === course);
         row.hidden = !visible;
         if (visible) count++;
+      });
+      // Monatsüberschrift nur zeigen, wenn der Monat sichtbare Termine hat
+      Array.prototype.forEach.call(months, function (group) {
+        group.hidden = !group.querySelector("tr[data-date]:not([hidden])");
       });
       emptyEl.hidden = count > 0;
       table.hidden = count === 0;

@@ -403,10 +403,70 @@ html:not(.js) .header-inner .menu-toggle { display: none; }
   .facts dd { margin: 0; }
 }
 
+/* Kalenderblatt: Monat (farbig), Tag (groß), Wochentag ------------------- */
+.cal-wrap { display: inline-block; }
+.cal {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 3.75rem;
+  border: 1px solid var(--c-line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--c-bg);
+  text-align: center;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.cal-m { padding: 3px 0 2px; background: var(--c-primary); color: var(--c-on-primary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.cal-d { padding-top: 6px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+.cal-w { padding: 1px 0 6px; color: var(--c-muted); font-size: 0.75rem; font-weight: 500; }
+
+/* Freie Plätze als schmaler Balken (dekorativ, Text daneben) */
+.seats-bar { display: block; width: 6rem; height: 4px; margin-bottom: var(--s-1); border-radius: 2px; background: var(--c-line); overflow: hidden; }
+.seats-bar > span { display: block; height: 100%; border-radius: 2px; background: var(--c-primary); }
+.seats-bar--few > span { background: var(--c-accent); }
+
 /* Termin-Kurzliste (Startseite) */
-.date-row { display: grid; gap: var(--s-1) var(--s-5); }
-@media (min-width: 600px) { .date-row { grid-template-columns: 12rem 1fr auto; align-items: baseline; } }
-.date-row time { font-weight: 600; }
+.date-row { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: var(--s-2) var(--s-4); }
+.date-row-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.date-row-title { font-weight: 600; }
+.date-row-seats { grid-column: 2; }
+@media (min-width: 600px) {
+  .date-row { grid-template-columns: auto 1fr 10rem; gap: var(--s-2) var(--s-5); }
+  .date-row-seats { grid-column: auto; }
+}
+
+/* Terminseite: Tabelle mit Kalenderblatt und Monatsüberschriften */
+.dates-table thead th { padding-top: 0; }
+.dates-table tbody th, .dates-table tbody td { vertical-align: middle; padding-block: var(--s-4); }
+.dates-table .col-date { width: 5rem; }
+.dates-table .col-time { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.dates-table .col-course a { font-weight: 600; }
+.dates-table .col-place { color: var(--c-muted); font-size: var(--fs-small); }
+.dates-table .col-action { text-align: right; white-space: nowrap; }
+.dates-table tr[data-date] { transition: background-color var(--transition); }
+.dates-table tr[data-date]:hover { background: var(--c-subtle); }
+.dates-table .month-row th {
+  padding: var(--s-6) 0 var(--s-2);
+  border-bottom: 2px solid var(--c-text);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.dates-table tbody:first-of-type .month-row th { padding-top: var(--s-3); }
+
+@media (max-width: 599.98px) {
+  /* Mobil: Kalenderblatt links, Angaben rechts daneben */
+  .dates-table tr[data-date] { display: grid; grid-template-columns: 4.25rem 1fr; column-gap: var(--s-4); padding-block: var(--s-4); }
+  .dates-table tr[data-date] > th { grid-row: 1 / span 5; padding: 0; }
+  .dates-table tr[data-date] > td { grid-column: 2; padding: 0 0 var(--s-1); }
+  .dates-table tr[data-date] > td::before { display: none; }
+  .dates-table .col-seats .seats-bar { margin-top: var(--s-1); }
+  .dates-table .col-action { text-align: left; padding-top: var(--s-2) !important; }
+  .dates-table .month-row { display: block; }
+  .dates-table .month-row th { display: block; padding-top: var(--s-6); }
+}
 
 /* Kennzeichnung (z. B. Format, Plätze) – nur Text, dezente Umrandung */
 .tag { display: inline-block; padding: 0 var(--s-2); border: 1px solid var(--c-line); border-radius: var(--radius); font-size: var(--fs-small); color: var(--c-muted); white-space: nowrap; }
