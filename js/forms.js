@@ -357,8 +357,19 @@
         // Fehler sofort zurücknehmen, sobald die Eingabe stimmt
         if (!result.message && group.querySelector('[aria-invalid="true"]')) showDateGroup(form, group, result);
       };
+      // Tage, die es im gewählten Monat nicht gibt (z. B. 30. Februar), ausgrauen
+      var limitDays = function () {
+        var v = readDate(group);
+        var daySelect = group.querySelector('[data-date-part="day"]');
+        if (!daySelect || daySelect.tagName !== "SELECT") return;
+        var max = 31;
+        if (v.month) max = new Date(parseInt(v.year, 10) || 2000, parseInt(v.month, 10), 0).getDate(); // 2000 = Schaltjahr
+        Array.prototype.forEach.call(daySelect.options, function (o) {
+          o.disabled = o.value !== "" && parseInt(o.value, 10) > max;
+        });
+      };
       group.addEventListener("input", update);
-      group.addEventListener("change", update);
+      group.addEventListener("change", function () { limitDays(); update(); });
       group.addEventListener("focusout", function (event) {
         if (event.relatedTarget && group.contains(event.relatedTarget)) return; // noch in der Gruppe
         var v = readDate(group);

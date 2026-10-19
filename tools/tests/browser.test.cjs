@@ -245,25 +245,33 @@ async function stubEndpoint(page, formSelector) {
     await page.fill("#membership-iban", "DE8937040044053201300");
     await page.locator("#membership-iban").blur();
     check(`[${lang}] IBAN: falsche Länge erkannt`, (await page.textContent("#membership-iban-error")) === E.iban_length);
-    // Geburtsdatum als Tag · Monat · Jahr
+    // Geburtsdatum als Tag · Monat · Jahr (drei Auswahllisten)
+    await page.clock.setFixedTime(new Date("2026-10-19T10:00:00"));
+    await page.goto(BASE + `${lang}/${SLUG[lang].membership}`);
     const bdErr = () => page.textContent("#membership-geburtsdatum-error");
-    await page.fill("#membership-geburtsdatum-tag", "14");
-    await page.locator("#membership-geburtsdatum-tag").blur();
+    const sel = (part, v) => page.selectOption(`#membership-geburtsdatum-${part}`, v);
+    // Gruppe verlassen wie im echten Gebrauch: Fokus ins Feld, dann hinaus
+    const leave = async (part) => { await page.focus(`#membership-geburtsdatum-${part}`); await page.locator(`#membership-geburtsdatum-${part}`).blur(); };
+    const yearOpts = await page.$$eval("#membership-geburtsdatum-jahr option", (o) => o.map((x) => x.value).filter(Boolean));
+    check(`[${lang}] Jahr-Auswahl absteigend von 2026 bis 1900`, yearOpts[0] === "2026" && yearOpts[yearOpts.length - 1] === "1900" && yearOpts.length === 127);
+    await sel("tag", "31");
+    await leave("tag");
     check(`[${lang}] Geburtsdatum unvollständig → Hinweis „vollständig eingeben“`, (await bdErr()) === E.date_incomplete);
-    await page.selectOption("#membership-geburtsdatum-monat", "02");
-    await page.fill("#membership-geburtsdatum-tag", "31");
-    await page.fill("#membership-geburtsdatum-jahr", "1985");
-    await page.locator("#membership-geburtsdatum-jahr").blur();
-    check(`[${lang}] Geburtsdatum 31.02. wird als ungültig erkannt`, (await bdErr()) === E.date);
-    await page.fill("#membership-geburtsdatum-jahr", "2999");
-    await page.fill("#membership-geburtsdatum-tag", "1");
-    await page.locator("#membership-geburtsdatum-tag").blur();
+    await sel("monat", "02");
+    await sel("jahr", "1985");
+    await leave("jahr");
+    const day30Disabled = await page.$eval('#membership-geburtsdatum-tag option[value="30"]', (o) => o.disabled);
+    check(`[${lang}] 31.02. wird als ungültig erkannt, 30./31. Februar ausgegraut`, (await bdErr()) === E.date && day30Disabled);
+    await sel("tag", "1");
+    await sel("monat", "12");
+    await sel("jahr", "2026");
+    await leave("jahr");
     check(`[${lang}] Geburtsdatum in der Zukunft wird abgelehnt`, (await bdErr()) === E.birthdate);
-    await page.selectOption("#membership-geburtsdatum-monat", "03");
-    await page.fill("#membership-geburtsdatum-tag", "14");
-    await page.fill("#membership-geburtsdatum-jahr", "1985");
+    await sel("tag", "14");
+    await sel("monat", "03");
+    await sel("jahr", "1985");
     const age = await page.textContent("#membership-geburtsdatum-age");
-    check(`[${lang}] Gültiges Geburtsdatum: Fehler weg, Alter wird angezeigt`, (await bdErr()) === "" && /\d{2}/.test(age) && (await page.getAttribute("#membership-geburtsdatum-tag", "aria-invalid")) === null, age);
+    check(`[${lang}] Gültiges Geburtsdatum: Fehler weg, Alter wird angezeigt`, (await bdErr()) === "" && /41/.test(age) && (await page.getAttribute("#membership-geburtsdatum-tag", "aria-invalid")) === null, age);
     await page.check("#membership-zahlungsweise-transfer");
     const sepaHidden = await page.locator("#membership-sepa").isHidden();
     await page.click('#form-membership button[type="submit"]');

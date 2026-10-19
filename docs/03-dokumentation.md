@@ -305,7 +305,7 @@ Datumsformate je Sprache: `Sa, 14.11.2026` · `Sat 14 Nov 2026` · `сб, 14.11.
 | Prüfzeitpunkt | Beim Verlassen eines Feldes und beim Absenden; Fehler verschwinden beim Korrigieren sofort |
 | Fehleranzeige | Text unter dem Feld (`aria-describedby`), `aria-invalid="true"`, Fehlerübersicht oben mit Links zu den Feldern, Fokus auf der Übersicht |
 | Prüfregeln (`data-validate`) | `email` (Muster), `zip` (3–10 Zeichen), `iban` (siehe 6.3), `amount` (1–10.000 €, Komma oder Punkt) |
-| Geburtsdatum | Drei Felder **Tag · Monat (Auswahl mit Monatsnamen) · Jahr** statt `<input type="date">` (`date_group()` in `build.py`, `[data-date-group]`). Gemeinsam geprüft: vollständig, gültiges Datum (z. B. kein 31.02.), Jahr ab 1900, nicht in der Zukunft. Nur fehlerhafte bzw. leere Teilfelder werden markiert. Nach gültiger Eingabe erscheint das Alter (Pluralformen über `Intl.PluralRules`, z. B. „41 год“). Im E-Mail-Text steht das Datum als eine Zeile `TT.MM.JJJJ`; an einen Endpunkt gehen die Felder `geburtsdatum_tag`, `_monat`, `_jahr` |
+| Geburtsdatum | Drei Auswahllisten **Tag (1–31) · Monat (Monatsnamen) · Jahr (absteigend vom Build-Jahr bis 1900)** statt `<input type="date">`. Tage, die es im gewählten Monat nicht gibt, sind ausgegraut (`date_group()` in `build.py`, `[data-date-group]`). Gemeinsam geprüft: vollständig, gültiges Datum (z. B. kein 31.02.), Jahr ab 1900, nicht in der Zukunft. Nur fehlerhafte bzw. leere Teilfelder werden markiert. Nach gültiger Eingabe erscheint das Alter (Pluralformen über `Intl.PluralRules`, z. B. „41 год“). Im E-Mail-Text steht das Datum als eine Zeile `TT.MM.JJJJ`; an einen Endpunkt gehen die Felder `geburtsdatum_tag`, `_monat`, `_jahr` |
 | Bedingte Pflicht | `data-required-if="zahlungsweise=sepa"` bzw. `data-required-if="bescheinigung"` |
 | Bedingte Bereiche | `data-show-if="zahlungsweise=sepa"`: Bereich wird ein-/ausgeblendet, Felder darin deaktiviert (werden dann weder geprüft noch gesendet) |
 | Honeypot | Verstecktes Feld `website`. Ist es ausgefüllt, erscheint eine Erfolgsmeldung, gesendet wird nichts |
@@ -545,7 +545,7 @@ Der Build meldet alles, was noch fehlt.
 | PHP-Beispielskript | `php -l` + lokale Anfragen mit `curl` | 6 Fälle wie erwartet |
 | Sichtprüfung | Screenshots bei 360/375, 768, 1280 px | Layout geprüft, gefundene Fehler behoben |
 
-**Die Browser-Tests (inzwischen 85) umfassen:**
+**Die Browser-Tests (inzwischen 88) umfassen:**
 - **Layout:** alle 46 Seiten in 360, 768 und 1280 px Breite ohne horizontales Scrollen und ohne Konsolenfehler.
 - **Tastatur:** Skip-Link als erster Tab-Stopp und sichtbar, Fokus auf `<main>`. Mobiles Menü mit `aria-expanded` und Escape. Sichtbarer Fokusrahmen, Zielgrößen ≥ 24 px, „Bewegung reduzieren“.
 - **Einwilligung:** Banner, **kein Request an openstreetmap.org ohne Einwilligung**, Ablehnung, gespeicherte Entscheidung, „Karte laden“, Widerruf in den Cookie-Einstellungen.
@@ -554,7 +554,7 @@ Der Build meldet alles, was noch fehlt.
   - ungültige E-Mail und `aria-invalid`
   - Versand an den Endpunkt, Honeypot
   - IBAN: Prüfsumme, Länge, Formatierung
-  - Geburtsdatum: unvollständig, 31.02., Zukunft, Altersanzeige
+  - Geburtsdatum: Jahresliste, unvollständig, 31.02. (ausgegraut), Zukunft, Altersanzeige
   - SEPA-Bereich bei Überweisung ausgeblendet
   - Mitgliedsarten aus den Daten
 - **GiroCode:** Der Code wird **mit jsQR dekodiert und Zeichen für Zeichen verglichen**: bei 25 €, 100 €, 12,50 € und einem ungültigen Betrag. Dazu Textalternative, SVG-Download, Spendenanfrage mit Pflicht-Anschrift bei Bescheinigung, Bestätigungs-Code über 50 € mit Namen im Verwendungszweck, Hinweis auf einen Dauerauftrag, Kopieren der IBAN.
