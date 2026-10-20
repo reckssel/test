@@ -69,14 +69,15 @@
     function (el) { el.hidden = false; }
   );
 
-  /* 3. Mobiles Menü -------------------------------------------------------- */
+  /* 3. Burger-Menü (unter 900 px) ------------------------------------------- */
   var toggle = document.querySelector(".menu-toggle");
-  var nav = document.getElementById("main-nav");
-  if (toggle && nav) {
+  var panel = document.getElementById("menu-panel");
+  if (toggle && panel) {
+    var toggleLabel = toggle.querySelector(".menu-toggle-label");
     var setMenu = function (open) {
-      nav.setAttribute("data-open", open ? "true" : "false");
+      panel.setAttribute("data-open", open ? "true" : "false");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      toggle.textContent = open ? toggle.getAttribute("data-label-close") : toggle.getAttribute("data-label-open");
+      if (toggleLabel) toggleLabel.textContent = open ? toggle.getAttribute("data-label-close") : toggle.getAttribute("data-label-open");
     };
     toggle.addEventListener("click", function () {
       setMenu(toggle.getAttribute("aria-expanded") !== "true");

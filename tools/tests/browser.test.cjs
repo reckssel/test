@@ -145,16 +145,25 @@ async function stubEndpoint(page, formSelector) {
     check("Skip-Link setzt Fokus auf <main>", (await page.evaluate(() => document.activeElement.id)) === "main");
 
     const navHidden = await page.locator("#main-nav").isHidden();
+    const burgerName = await page.evaluate(() => document.querySelector(".menu-toggle").textContent.trim());
     await page.click(".menu-toggle");
     const expanded = await page.getAttribute(".menu-toggle", "aria-expanded");
     const navShown = await page.locator("#main-nav").isVisible();
     await page.keyboard.press("Escape");
     const closed = (await page.getAttribute(".menu-toggle", "aria-expanded")) === "false" && (await page.locator("#main-nav").isHidden());
     const focusBack = await page.evaluate(() => document.activeElement.classList.contains("menu-toggle"));
-    check("Mobiles Menü: zu → auf (aria-expanded) → Escape schließt, Fokus zurück", navHidden && expanded === "true" && navShown && closed && focusBack);
+    check("Burger-Menü: zu → auf (aria-expanded) → Escape schließt, Fokus zurück; Button hat Namen „Menü“", navHidden && expanded === "true" && navShown && closed && focusBack && burgerName === "Menü", burgerName);
 
-    const fv = await page.evaluate(() => { const b = document.querySelector(".btn"); b.focus(); return getComputedStyle(b).outlineStyle + " " + getComputedStyle(b).outlineWidth; });
-    check("Sichtbarer Fokusrahmen (outline) an Buttons", fv.startsWith("solid") && parseFloat(fv.split(" ")[1]) >= 2, fv);
+    // Fokusrahmen mit echter Tastaturbedienung messen: Tab → Skip-Link, Logo, Burger-Button
+    await page.goto(BASE + "de/index.html");
+    const ring = async () => page.evaluate(() => { const e = document.activeElement, st = getComputedStyle(e); return e.className + " " + st.outlineStyle + " " + st.outlineWidth; });
+    await page.keyboard.press("Tab"); await page.keyboard.press("Tab"); await page.keyboard.press("Tab");
+    const burgerRing = await ring();
+    await page.keyboard.press("Enter"); // Menü öffnen
+    await page.keyboard.press("Tab");   // erster Menüpunkt
+    const linkRing = await ring();
+    const fv = burgerRing + " | " + linkRing;
+    check("Sichtbarer Fokusrahmen per Tastatur (Burger-Button, Menüpunkte)", /^menu-toggle solid [3-9]px \| .*solid [3-9]px$/.test(fv), fv);
 
     const small = await page.evaluate(() => Array.from(document.querySelectorAll("a.btn, button.btn, .lang-switch a, .main-nav a"))
       .filter((e) => e.offsetParent).map((e) => e.getBoundingClientRect()).filter((r) => r.height < 24 || r.width < 24).length);
@@ -422,17 +431,25 @@ async function stubEndpoint(page, formSelector) {
       const rows = [];
       for (const l of ["de", "en", "ru"]) {
         await page.goto(BASE + `${l}/index.html`);
-        rows.push(await page.evaluate(() => {
-          const lang = document.querySelector(".lang-switch").getBoundingClientRect();
-          const cta = document.querySelector(".header-cta .btn:last-child").getBoundingClientRect();
-          const langs = Array.from(document.querySelectorAll(".lang-switch a")).map((a) => Math.round(a.getBoundingClientRect().top));
-          return { h: document.querySelector(".site-header").getBoundingClientRect().height,
-                   oneRow: Math.abs((lang.top + lang.bottom) / 2 - (cta.top + cta.bottom) / 2) < 12 && new Set(langs).size === 1,
-                   fits: document.documentElement.scrollWidth <= window.innerWidth };
+        const closed = await page.evaluate(() => ({
+          h: document.querySelector(".site-header").getBoundingClientRect().height,
+          ctaHidden: !document.querySelector(".header-cta .btn").offsetParent,
+          langHidden: !document.querySelector(".lang-switch a").offsetParent,
         }));
+        await page.click(".menu-toggle");
+        const open = await page.evaluate(() => {
+          const visible = (sel) => Array.from(document.querySelectorAll(sel)).every((e) => e.offsetParent);
+          return {
+            expanded: document.querySelector(".menu-toggle").getAttribute("aria-expanded"),
+            nav: visible(".main-nav a"), cta: visible(".header-cta .btn"),
+            langLong: Array.from(document.querySelectorAll(".lang-switch .lang-long")).every((e) => e.getBoundingClientRect().width > 20),
+            fits: document.documentElement.scrollWidth <= window.innerWidth,
+          };
+        });
+        rows.push({ l, ...closed, ...open });
       }
-      check(`Handy ${w}px: Kopfzeile kompakt (≤ 130 px), Sprache + Buttons in einer Zeile (DE/EN/RU)`,
-        rows.every((r) => r.h <= 130 && r.oneRow && r.fits), JSON.stringify(rows));
+      check(`Handy ${w}px: Burger-Menü – Kopfzeile schlank (≤ 80 px); Seiten, „Mitglied werden“, „Spenden“ und Sprachen (ausgeschrieben) im Menü (DE/EN/RU)`,
+        rows.every((r) => r.h <= 80 && r.ctaHidden && r.langHidden && r.expanded === "true" && r.nav && r.cta && r.langLong && r.fits), JSON.stringify(rows));
       if (w === 375) {
         await page.clock.setFixedTime(new Date("2026-11-12T10:00:00"));
         await page.goto(BASE + "de/termine.html");

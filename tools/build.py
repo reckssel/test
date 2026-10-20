@@ -544,9 +544,10 @@ def header(c):
     for lang in c.b.site["languages"]:
         T = c.b.i18n[lang]["meta"]
         cur = ' aria-current="true"' if lang == c.lang else ""
+        # Desktop: Kürzel (DE/EN/RU); im Burger-Menü: ausgeschriebene Namen
         langs.append(f'<li><a href="{c.url(c.page, lang) if lang != c.lang else SLUGS[c.page][lang]}" lang="{lang}" hreflang="{lang}" '
-                     f'data-lang="{lang}"{cur}><span aria-hidden="true">{T["short"]}</span>'
-                     f'<span class="visually-hidden">{esc(T["name"])}</span></a></li>')
+                     f'data-lang="{lang}"{cur}><span class="lang-short" aria-hidden="true">{T["short"]}</span>'
+                     f'<span class="lang-long">{esc(T["name"])}</span></a></li>')
     nav = []
     for pid in MAIN_NAV:
         cur = ' aria-current="page"' if pid == c.page or (pid == "association" and c.page in ("statutes", "fees")) else ""
@@ -556,13 +557,16 @@ def header(c):
     return f'''<header class="site-header" id="top">
 <div class="container header-inner">
 <a class="logo" href="{c.url("home")}" aria-label="{esc(c.t("common.home_link"))}">{logo_inline()}</a>
-<button type="button" class="btn btn--outline btn--small menu-toggle" aria-expanded="false" aria-controls="main-nav" data-label-open="{esc(c.t("common.menu"))}" data-label-close="{esc(c.t("common.menu_close"))}">{esc(c.t("common.menu"))}</button>
-<nav id="main-nav" class="main-nav" aria-label="{esc(c.t("common.nav_label"))}" data-open="false"><ul>{"".join(nav)}</ul></nav>
+<button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-panel" data-label-open="{esc(c.t("common.menu"))}" data-label-close="{esc(c.t("common.menu_close"))}">
+<span class="burger" aria-hidden="true"><span></span></span><span class="menu-toggle-label visually-hidden">{esc(c.t("common.menu"))}</span></button>
+<div class="menu-panel" id="menu-panel" data-open="false">
+<nav id="main-nav" class="main-nav" aria-label="{esc(c.t("common.nav_label"))}"><ul>{"".join(nav)}</ul></nav>
 <div class="header-actions">
-<nav aria-label="{esc(c.t("common.lang_label"))}"><ul class="lang-switch">{"".join(langs)}</ul></nav>
 <div class="header-cta">
 <a class="btn btn--outline btn--small" href="{c.url("membership")}"{member_cur}>{esc(c.t("common.cta_member"))}</a>
 <a class="btn btn--accent btn--small" href="{c.url("donate")}"{donate_cur}>{esc(c.t("common.cta_donate"))}</a>
+</div>
+<nav class="lang-nav" aria-label="{esc(c.t("common.lang_label"))}"><ul class="lang-switch">{"".join(langs)}</ul></nav>
 </div>
 </div>
 </div>
