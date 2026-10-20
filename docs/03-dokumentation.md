@@ -228,25 +228,29 @@ Alle Werte stehen als CSS-Variablen am Anfang von `css/style.css`.
 
 ### 5.1 Farben
 
-Grün und Goldgelb (Wunsch des Nutzers, 19.10.2026). Im Dunkelmodus bewusst gedeckt: Salbeigrün und Ocker statt leuchtender Töne (20.10.2026). Goldgelb ist hell und wird deshalb **nur als Fläche mit dunkler Schrift**
+Grün und Goldgelb (Wunsch des Nutzers, 19.10.2026). Goldgelb ist hell und wird deshalb **nur als Fläche mit dunkler Schrift**
 oder als dekorative Linie verwendet; als Textfarbe dient das dunklere `--c-accent-text`.
 
 | Variable | Hell | Dunkel | Verwendung | Kontrast (hell / dunkel) |
 |---|---|---|---|---|
-| `--c-bg` | `#ffffff` | `#212824` | Hintergrund | – |
-| `--c-tint` | `#eef6f0` | `#27302b` | Kopfbänder, Fläche „Mitglied werden“ | – |
-| `--c-gold-tint` | `#fbf4dc` | `#2c2b24` | Fläche „Spenden“ | – |
-| `--c-subtle` | `#f3f8f4` | `#27302b` | Hinweisflächen | – |
-| `--c-text` | `#1b1f23` | `#dde3df` | Text | 16,6 : 1 / 11,6 : 1 |
-| `--c-muted` | `#55605a` | `#a5b0a9` | Nebentext | 6,6 : 1 / 6,7 : 1 |
-| `--c-line` | `#d6e0d9` | `#38423c` | Trennlinien (dekorativ) | – |
-| `--c-border` | `#86948b` | `#7a867f` | Rahmen der Eingabefelder | ≥ 3 : 1 / 4,0 : 1 |
-| `--c-primary` | `#1e6b47` (Grün) | `#8fbb9f` | Links, Buttons, Fokus, Kalenderblatt | 6,5 : 1 / 7,0 : 1; Schrift auf Grün 6,5 : 1 / 8,1 : 1 |
-| `--c-accent` | `#e2ad1f` (Goldgelb) | `#cfae63` | Spenden-Button, Akzentlinien, Banner-/Footer-Kante | dunkle Schrift darauf 8,1 : 1 / 8,4 : 1 |
-| `--c-accent-text` | `#86600a` | `#cfae63` | Gold als Textfarbe („nur noch 3 frei“) | 5,7 : 1 / 7,1 : 1 |
-| `--c-footer-bg` | `#173f2c` | `#1b221e` | Footer | Text 10,0 : 1, Gold-Überschriften 7,4 : 1 |
-| `--c-error` | `#b42318` | `#e8958c` | Fehlermeldungen | – (immer mit Text und Symbol) |
-| `--c-success` | `#1e6b3a` | `#9ccaa9` | Erfolgsmeldungen | – |
+| `--c-bg` | `#ffffff` | `#232527` | Hintergrund | – |
+| `--c-tint` | `#eef6f0` | `#2a2d30` | Kopfbänder, Fläche „Mitglied werden“ | – |
+| `--c-gold-tint` | `#fbf4dc` | `#2a2d30` | Fläche „Spenden“ | – |
+| `--c-subtle` | `#f3f8f4` | `#2a2d30` | Hinweisflächen | – |
+| `--c-text` | `#1b1f23` | `#dcdfe2` | Text | 16,6 : 1 / 11,5 : 1 |
+| `--c-muted` | `#55605a` | `#a3a8ad` | Nebentext | 6,6 : 1 / 6,4 : 1 |
+| `--c-line` | `#d6e0d9` | `#3a3e42` | Trennlinien (dekorativ) | – |
+| `--c-border` | `#86948b` | `#7d8389` | Rahmen der Eingabefelder | ≥ 3 : 1 / 4,0 : 1 |
+| `--c-primary` | `#1e6b47` (Grün) | `#c3c8cc` (Hellgrau) | Links, Buttons, Fokus, Kalenderblatt | 6,5 : 1 / 9,1 : 1; Schrift darauf 6,5 : 1 / 9,8 : 1 |
+| `--c-green` | `#1e6b47` | `#7fa58d` | Grün als Akzent: Header-Oberkante, Kante „Mitglied werden“, Platz-Balken | dekorativ |
+| `--c-accent` | `#e2ad1f` (Goldgelb) | `#c2a463` (Ocker) | Spenden-Button, Akzentlinien, Banner-/Footer-Kante | dunkle Schrift darauf 8,1 : 1 / 7,3 : 1 |
+| `--c-accent-text` | `#86600a` | `#c9ab6a` | Gold als Textfarbe („nur noch 3 frei“, Footer-Überschriften) | 5,7 : 1 / 7,0 : 1 |
+| `--c-footer-bg` | `#173f2c` | `#1d1f21` | Footer | Text 10,0 : 1 / 12,4 : 1 |
+| `--c-error` | `#b42318` | `#e0948b` | Fehlermeldungen | – (immer mit Text und Symbol) |
+| `--c-success` | `#1e6b3a` | `#9bc4a8` | Erfolgsmeldungen | – |
+
+**Dunkelmodus (seit 20.10.2026, Wunsch des Nutzers):** durchgehend mattes, neutrales Grau; Links und Buttons in Hellgrau.
+Grün und Gold erscheinen nur noch als Akzente (Linien, Balken, Spenden-Button, Footer-Überschriften).
 
 **Farbige Elemente:** grüne Oberkante am Header · Kopfband in zartem Grün mit goldener Unterkante (Startseite und alle Unterseiten) ·
 goldener Strich über Abschnittsüberschriften · Flächen „Mitglied werden“ (grün) und „Spenden“ (gold) auf der Startseite ·
