@@ -4,10 +4,11 @@
    - Heute markieren, vergangene Tage/Termine abschwächen
    - Unter dem Kalender steht immer die Terminliste
    - Klick auf einen Termin öffnet ein Detailfenster (<dialog>) mit
-     „In meinen Kalender“ (.ics-Datei), „Anfragen“ und Link zum Kurs
+     „In meinen Kalender“ (.ics-Datei), „Anfragen“, „Alle Details“ (Terminseite)
+     und Link zum Kurs
    - Kursfilter (aus main.js) blendet auch Termine im Kalender aus
    Ohne JavaScript sind alle Monate untereinander sichtbar und die Termine
-   verlinken auf ihre Zeile in der Liste (mit .ics-Button).
+   verlinken auf ihre eigene Terminseite.
    ========================================================================== */
 (function () {
   "use strict";
@@ -124,6 +125,7 @@
     ics.appendChild(document.createTextNode(s.ics_add));
     actions.appendChild(ics);
     actions.appendChild(el("a", { "class": "btn btn--outline", href: e.request }, e.full ? s.waitlist : s.request));
+    actions.appendChild(el("a", { "class": "btn btn--text", href: e.page }, s.details));
     actions.appendChild(el("a", { "class": "btn btn--text", href: e.course }, s.dialog_course));
     opener = chip;
     dialog.showModal();

@@ -285,6 +285,45 @@
       "note": "<strong>So melden Sie sich an</strong>Eine Online-Buchung gibt es noch nicht. Klicken Sie bei einem Termin auf „Anfragen“ – das Kontaktformular ist dann schon vorausgefüllt. Wir bestätigen Ihren Platz per E-Mail."
     },
 
+    "event": {
+          "title": "{course} am {date}",
+          "description": "{course} bei Skills Lab e.V.: {date}, {time}, {place}. Kurzbeschreibung, freie Plätze, Anfrage und Kalendereintrag.",
+          "breadcrumb": "Brotkrumen-Navigation",
+          "request_primary": "Platz anfragen",
+          "share": "Teilen",
+          "share_copy": "Link kopieren",
+          "share_copied": "Link kopiert",
+          "share_text": "Kurs bei Skills Lab e.V.: {course} am {date}",
+          "h_glance": "Auf einen Blick",
+          "h_course": "Über den Kurs",
+          "h_place": "Ort und Anfahrt",
+          "h_more": "Weitere Termine dieses Kurses",
+          "none_more": "Für diesen Kurs sind zurzeit keine weiteren Termine geplant.",
+          "course_link": "Alles zum Kurs „{course}“",
+          "route": "Route planen (OpenStreetMap, neues Fenster)",
+          "online_note": "Dieser Termin findet online statt. Den Zugangslink erhalten Sie nach der Anmeldung per E-Mail.",
+          "hybrid_note": "Sie können vor Ort in Erbach oder online teilnehmen. Den Zugangslink erhalten Sie nach der Anmeldung.",
+          "past": "Dieser Termin hat bereits stattgefunden.",
+          "past_hint": "Die nächsten Termine finden Sie unten oder in der Terminübersicht.",
+          "countdown": {
+                "today": "Heute",
+                "tomorrow": "Morgen",
+                "one": "In {n} Tag",
+                "few": "In {n} Tagen",
+                "many": "In {n} Tagen",
+                "other": "In {n} Tagen"
+          },
+          "prev": "Vorheriger Termin",
+          "next": "Nächster Termin",
+          "all": "Alle Termine",
+          "details": "Alle Details",
+          "label_date": "Datum",
+          "label_time": "Uhrzeit",
+          "label_place": "Ort",
+          "label_format": "Format",
+          "label_seats": "Freie Plätze"
+    },
+
     "association": {
       "title": "Verein",
       "description": "Skills Lab e.V.: Vereinszweck, Gemeinnützigkeit, Vorstand, Vereinsregister sowie Satzung und Beitragsordnung zum Lesen und Herunterladen.",

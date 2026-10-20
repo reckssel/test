@@ -58,6 +58,7 @@ PAGE_SCRIPTS = {
     "donate": ["vendor/qrcode", "iban", "girocode", "payments", "forms"],  # Reihenfolge wichtig
     "contact": ["forms"],
     "dates": ["calendar"],
+    "event": ["event"],
 }
 ASSOC_SUBNAV = ["association", "statutes", "fees"]
 HOME_DATES = 3  # Anzahl „Nächste Termine“ auf der Startseite
@@ -181,6 +182,8 @@ class Ctx:
         self.lang = lang
         self.page = page
         self.T = b.i18n[lang]
+        # Termin-Detailseiten haben die Seiten-ID „event:<termin-id>“
+        self.event = b.event_by_id(page[6:]) if page.startswith("event:") else None
 
     # Texte -----------------------------------------------------------------
     def t(self, path):
@@ -527,7 +530,7 @@ def ics_calendar(b, lang, events, name):
             "SUMMARY:" + ics_escape(f'{co["title"][lang]} – Skills Lab e.V.'),
             "LOCATION:" + ics_escape(place),
             "DESCRIPTION:" + ics_escape(desc),
-            f'URL:{abs_url(b, lang, "dates")}#termin-{e["id"]}',
+            f'URL:{abs_url(b, lang, "event:" + e["id"])}',
             "STATUS:CONFIRMED",
             "TRANSP:OPAQUE",
             "END:VEVENT",
@@ -551,6 +554,8 @@ def header(c):
     nav = []
     for pid in MAIN_NAV:
         cur = ' aria-current="page"' if pid == c.page or (pid == "association" and c.page in ("statutes", "fees")) else ""
+        if pid == "dates" and c.event:
+            cur = ' aria-current="true"'  # Terminseiten gehören zum Bereich „Termine“
         nav.append(f'<li><a href="{c.url(pid)}"{cur}>{esc(c.t("nav." + pid))}</a></li>')
     member_cur = ' aria-current="page"' if c.page == "membership" else ""
     donate_cur = ' aria-current="page"' if c.page == "donate" else ""
@@ -656,7 +661,7 @@ def date_rows(c, events, limit=None):
         items.append(
             f'<li class="date-row" data-date="{e["date"]}"{hidden}>'
             f'{cal_badge(c, e["date"], e["start"])}'
-            f'<div class="date-row-main"><a class="date-row-title" href="{c.url("courses")}#kurs-{co["id"]}">{esc(co["title"][c.lang])}</a>'
+            f'<div class="date-row-main"><a class="date-row-title" href="{c.url("event:" + e["id"])}">{esc(co["title"][c.lang])}</a>'
             f'<span class="small muted">{esc(c.time(e["start"], e["end"]))} · {esc(c.b.events["locations"][e["location"]][c.lang])}</span></div>'
             f'<span class="date-row-seats small">{seats_bar(e)}{seats_html(c, e)}</span></li>')
     return "".join(items)
@@ -788,7 +793,7 @@ def month_grid(c, month, evs):
             for e in by_day.get(iso, []):
                 co = c.course(e["course"])
                 state = " cal-chip--full" if e["seats_free"] == 0 else ""
-                chips.append(f'<li><a class="cal-chip{state}" href="#termin-{e["id"]}" data-event="{e["id"]}" data-course="{co["id"]}" data-date="{iso}">'
+                chips.append(f'<li><a class="cal-chip{state}" href="{c.url("event:" + e["id"])}" data-event="{e["id"]}" data-course="{co["id"]}" data-date="{iso}">'
                              f'<span class="cal-chip-time">{esc(e["start"])}</span> <span class="cal-chip-title">{esc(co["title"][c.lang])}</span></a></li>')
             chip_html = f'<ul class="cal-chips">{"".join(chips)}</ul>' if chips else ""
             has = " mg-has" if chips else ""
@@ -835,7 +840,7 @@ def page_dates(c):
                 f'<tr role="row" id="termin-{e["id"]}" data-date="{e["date"]}" data-course="{co["id"]}"{past}>'
                 f'<th scope="row" role="rowheader" class="col-date">{cal_badge(c, e["date"])}</th>'
                 f'<td role="cell" class="col-time" data-label="{esc(c.t(T + "col_time"))}">{esc(c.time(e["start"], e["end"]))}</td>'
-                f'<td role="cell" class="col-course" data-label="{esc(c.t(T + "col_course"))}"><a href="{c.url("courses")}#kurs-{co["id"]}">{esc(co["title"][c.lang])}</a></td>'
+                f'<td role="cell" class="col-course" data-label="{esc(c.t(T + "col_course"))}"><a href="{c.url("event:" + e["id"])}">{esc(co["title"][c.lang])}</a></td>'
                 f'<td role="cell" class="col-place" data-label="{esc(c.t(T + "col_place"))}">{esc(c.b.events["locations"][e["location"]][c.lang])}</td>'
                 f'<td role="cell" class="col-seats" data-label="{esc(c.t(T + "col_seats"))}">{seats_bar(e)}{seats_html(c, e)}</td>'
                 f'<td role="cell" class="col-action">{action}</td></tr>')
@@ -890,6 +895,118 @@ def page_dates(c):
 <button type="button" class="btn btn--text btn--small event-dialog-close" data-dialog-close>{esc(c.t(T + "dialog_close"))}</button>
 </div>
 </dialog>
+</div>'''
+
+
+def page_event(c):
+    """Eigene Seite je Termin: Kopf mit Kalenderblatt, Countdown und Aktionen, Kursinfos, Ort, weitere Termine."""
+    T = "pages.event."
+    F = "common.facts."
+    e = c.event
+    co = c.course(e["course"])
+    b = c.b
+    title = co["title"][c.lang]
+    place = b.events["locations"][e["location"]][c.lang]
+    is_past = e["date"] < b.site["build_date"]
+    request_txt = c.t("pages.dates.waitlist" if e["seats_free"] == 0 else T + "request_primary")
+    request_label = (c.t("pages.dates.request_label").replace("{action}", request_txt)
+                     .replace("{course}", title).replace("{date}", c.date(e["date"])))
+    price = f'{c.money(co["price"])} · {c.money(co["member_price"])} {esc(c.t(F + "member_price"))}'
+
+    # Blättern durch alle Termine (chronologisch)
+    ordered = sorted(b.events["events"], key=lambda x: (x["date"], x["start"]))
+    i = ordered.index(e)
+
+    def pager_link(other, key):
+        if not other:
+            return '<span class="pager-link pager-link--empty"></span>'
+        label = (f'<span aria-hidden="true">‹</span> {esc(c.t(T + key))}' if key == "prev"
+                 else f'{esc(c.t(T + key))} <span aria-hidden="true">›</span>')
+        return (f'<a class="pager-link pager-link--{key}" href="{c.url("event:" + other["id"])}" rel="{key}">'
+                f'<span class="small muted">{label}</span>'
+                f'<span class="pager-title">{esc(c.course(other["course"])["title"][c.lang])}</span>'
+                f'<span class="small">{esc(c.date(other["date"]))}</span></a>')
+
+    prev_e = ordered[i - 1] if i > 0 else None
+    next_e = ordered[i + 1] if i + 1 < len(ordered) else None
+
+    more = [x for x in ordered if x["course"] == e["course"] and x["id"] != e["id"] and x["date"] >= b.site["build_date"]]
+    more_html = (f'<ul class="rows rows--compact">{date_rows(c, more)}</ul>' if more
+                 else f'<p class="muted">{esc(c.t(T + "none_more"))}</p>')
+
+    if e["location"] == "online":
+        place_html = f'<p>{esc(c.t(T + "online_note"))}</p>'
+    else:
+        m = b.site["map"]
+        route = f'https://www.openstreetmap.org/?mlat={m["lat"]}&amp;mlon={m["lon"]}#map={m["zoom"]}/{m["lat"]}/{m["lon"]}'
+        hybrid = f'<p>{esc(c.t(T + "hybrid_note"))}</p>' if e["location"] == "hybrid" else ""
+        place_html = (f'<address class="event-address">{c.address_html()}</address>{hybrid}'
+                      f'<p><a href="{route}" target="_blank" rel="noopener">{esc(c.t(T + "route"))}</a></p>')
+
+    facts = [
+        (c.t(T + "label_date"), esc(c.date(e["date"]))),
+        (c.t(T + "label_time"), esc(c.time(e["start"], e["end"]))),
+        (c.t(T + "label_place"), esc(place)),
+        (c.t(T + "label_format"), esc(c.t("common.formats." + co["format"]))),
+        (c.t(F + "level"), esc(c.t("common.levels." + co["level"]))),
+        (c.t(F + "duration"), esc(co["duration"][c.lang])),
+        (c.t(F + "audience"), esc(co["audience"][c.lang])),
+        (c.t(F + "price"), price),
+        (c.t(T + "label_seats"), seats_html(c, e)),
+    ]
+    facts_html = "".join(f"<dt>{esc(k)}</dt><dd>{v}</dd>" for k, v in facts)
+    hide_past = "" if is_past else " hidden"
+    hide_request = " hidden" if is_past else ""
+    return f'''<div class="page-band event-band"><div class="container">
+<nav class="breadcrumb" aria-label="{esc(c.t(T + "breadcrumb"))}"><ol>
+<li><a href="{c.url("home")}">{esc(c.t("nav.home"))}</a></li>
+<li><a href="{c.url("dates")}">{esc(c.t("nav.dates"))}</a></li>
+<li><a href="{c.url("event:" + e["id"])}" aria-current="page">{esc(title)}</a></li>
+</ol></nav>
+<div class="event-hero">
+<div class="event-hero-badge">{cal_badge(c, e["date"], e["start"])}</div>
+<div class="event-hero-main">
+<p class="event-countdown" data-countdown hidden></p>
+<h1>{esc(title)}</h1>
+<p class="event-when">{esc(c.date(e["date"]))} · {esc(c.time(e["start"], e["end"]))}<br>{esc(place)}</p>
+<p class="event-seats">{seats_bar(e)}{seats_html(c, e)}</p>
+<div class="notice event-past" data-event-past{hide_past}><p><strong>{esc(c.t(T + "past"))}</strong> {esc(c.t(T + "past_hint"))}</p></div>
+<p class="btn-row event-actions">
+<a class="btn" href="{c.url("contact")}?thema=kurs&amp;termin={e["id"]}" data-event-request aria-label="{esc(request_label)}"{hide_request}>{esc(request_txt)}</a>
+{ics_button(c, e, co, small=False)}
+<button type="button" class="btn btn--text" data-share hidden>{esc(c.t(T + "share"))}</button>
+</p>
+</div>
+</div>
+</div></div>
+<div class="container event-body">
+<div class="event-grid">
+<div class="event-main">
+<section aria-labelledby="h-course">
+<h2 id="h-course">{esc(c.t(T + "h_course"))}</h2>
+<p>{esc(co["text"][c.lang])}</p>
+<p><a href="{c.url("courses")}#kurs-{co["id"]}">{esc(c.t(T + "course_link").replace("{course}", title))}</a></p>
+</section>
+<section class="section" aria-labelledby="h-place">
+<h2 id="h-place">{esc(c.t(T + "h_place"))}</h2>
+{place_html}
+</section>
+</div>
+<aside class="glance" aria-labelledby="h-glance">
+<h2 id="h-glance" class="h3">{esc(c.t(T + "h_glance"))}</h2>
+<dl class="facts">{facts_html}</dl>
+<p class="small muted">{esc(c.t("pages.dates.ics_note"))}</p>
+</aside>
+</div>
+<section class="section" aria-labelledby="h-more">
+<h2 id="h-more">{esc(c.t(T + "h_more"))}</h2>
+{more_html}
+</section>
+<nav class="event-pager" aria-label="{esc(c.t(T + "all"))}">
+{pager_link(prev_e, "prev")}
+<a class="btn btn--outline btn--small pager-all" href="{c.url("dates")}">{esc(c.t(T + "all"))}</a>
+{pager_link(next_e, "next")}
+</nav>
 </div>'''
 
 
@@ -1205,7 +1322,7 @@ def meta_tags(c):
         f'<meta property="og:type" content="website">',
         f'<meta property="og:site_name" content="{esc(c.t("common.site_name"))}">',
         f'<meta property="og:title" content="{esc(title)}">',
-        f'<meta property="og:description" content="{esc(c.t(f"pages.{c.page}.description"))}">',
+        f'<meta property="og:description" content="{esc(page_description(c))}">',
         f'<meta property="og:url" content="{abs_url(b, c.lang, c.page)}">',
         f'<meta property="og:image" content="{b.site["base_url"]}/assets/og-image.png">',
         f'<meta property="og:image:width" content="1200">',
@@ -1217,8 +1334,23 @@ def meta_tags(c):
     return "\n".join(alts), "\n".join(og)
 
 
+def event_texts(c, key):
+    e = c.event
+    co = c.course(e["course"])
+    return (c.t(f"pages.event.{key}").replace("{course}", co["title"][c.lang]).replace("{date}", c.date(e["date"]))
+            .replace("{time}", c.time(e["start"], e["end"])).replace("{place}", c.b.events["locations"][e["location"]][c.lang]))
+
+
+def page_title_text(c):
+    return event_texts(c, "title") if c.event else c.t(f"pages.{c.page}.title")
+
+
+def page_description(c):
+    return event_texts(c, "description") if c.event else c.t(f"pages.{c.page}.description")
+
+
 def full_title(c):
-    t = c.t(f"pages.{c.page}.title")
+    t = page_title_text(c)
     site = c.t("common.site_name")
     return f"{site} – {t}" if c.page == "home" else f"{t} · {site}"
 
@@ -1241,32 +1373,42 @@ def jsonld(c):
     graph = []
     if c.page == "home":
         graph.append(org)
+    if c.event:
+        graph.append(edu_event(c, c.event, org))
     if c.page == "dates":
-        mode = {"vereinsraum": "OfflineEventAttendanceMode", "online": "OnlineEventAttendanceMode",
-                "hybrid": "MixedEventAttendanceMode"}
         for e in upcoming(b):
-            co = c.course(e["course"])
-            loc = ({"@type": "VirtualLocation", "url": abs_url(b, c.lang, "contact")} if e["location"] == "online"
-                   else {"@type": "Place", "name": b.events["locations"][e["location"]][c.lang], "address": org["address"]})
-            graph.append({
-                "@type": "EducationEvent",
-                "name": co["title"][c.lang],
-                "description": co["text"][c.lang],
-                "startDate": f'{e["date"]}T{e["start"]}',
-                "endDate": f'{e["date"]}T{e["end"]}',
-                "eventAttendanceMode": "https://schema.org/" + mode[e["location"]],
-                "eventStatus": "https://schema.org/EventScheduled",
-                "location": loc,
-                "organizer": {"@type": "NGO", "name": o["name"], "url": f'{b.site["base_url"]}/'},
-                "offers": {"@type": "Offer", "price": co["price"], "priceCurrency": "EUR",
-                           "availability": "https://schema.org/" + ("SoldOut" if e["seats_free"] == 0 else "InStock"),
-                           "url": abs_url(b, c.lang, "dates")},
-                "inLanguage": "de",
-            })
+            graph.append(edu_event(c, e, org))
     if not graph:
         return ""
     data = {"@context": "https://schema.org", "@graph": graph}
     return '<script type="application/ld+json">' + json_for_script(data) + "</script>"
+
+
+def edu_event(c, e, org):
+    """schema.org EducationEvent für einen Termin."""
+    b = c.b
+    o = b.site["org"]
+    mode = {"vereinsraum": "OfflineEventAttendanceMode", "online": "OnlineEventAttendanceMode",
+            "hybrid": "MixedEventAttendanceMode"}
+    co = c.course(e["course"])
+    loc = ({"@type": "VirtualLocation", "url": abs_url(b, c.lang, "contact")} if e["location"] == "online"
+           else {"@type": "Place", "name": b.events["locations"][e["location"]][c.lang], "address": org["address"]})
+    return {
+        "@type": "EducationEvent",
+        "url": abs_url(b, c.lang, f'event:{e["id"]}'),
+        "name": co["title"][c.lang],
+        "description": co["text"][c.lang],
+        "startDate": f'{e["date"]}T{e["start"]}',
+        "endDate": f'{e["date"]}T{e["end"]}',
+        "eventAttendanceMode": "https://schema.org/" + mode[e["location"]],
+        "eventStatus": "https://schema.org/EventScheduled",
+        "location": loc,
+        "organizer": {"@type": "NGO", "name": o["name"], "url": f'{b.site["base_url"]}/'},
+        "offers": {"@type": "Offer", "price": co["price"], "priceCurrency": "EUR",
+                   "availability": "https://schema.org/" + ("SoldOut" if e["seats_free"] == 0 else "InStock"),
+                   "url": abs_url(b, c.lang, f'event:{e["id"]}')},
+        "inLanguage": "de",
+    }
 
 
 def json_for_script(data):
@@ -1306,8 +1448,8 @@ def page_data(c):
     if c.page == "dates":
         D = T["pages"]["dates"]
         data["calendar"] = {
-            "strings": {k: D[k] for k in ("dialog_when", "dialog_where", "dialog_seats", "dialog_course", "ics_add",
-                                           "request", "waitlist", "today")},
+            "strings": dict({k: D[k] for k in ("dialog_when", "dialog_where", "dialog_seats", "dialog_course", "ics_add",
+                                                "request", "waitlist", "today")}, details=T["pages"]["event"]["details"]),
             "months": T["common"]["months_long"],
             "events": {
                 e["id"]: {
@@ -1320,8 +1462,19 @@ def page_data(c):
                     "ics": ics_url(c, "event", e["id"]),
                     "request": f'{c.url("contact")}?thema=kurs&termin={e["id"]}',
                     "course": f'{c.url("courses")}#kurs-{e["course"]}',
+                    "page": c.url("event:" + e["id"]),
                 } for e in b.events["events"]
             },
+        }
+    if c.event:
+        E = T["pages"]["event"]
+        co = c.course(c.event["course"])
+        data["event"] = {
+            "date": c.event["date"],
+            "countdown": E["countdown"],
+            "share": {k: E[k] for k in ("share", "share_copy", "share_copied")},
+            "share_text": E["share_text"].replace("{course}", co["title"][c.lang]).replace("{date}", c.date(c.event["date"])),
+            "title": full_title(c),
         }
     if c.page == "contact":
         data["events"] = {e["id"]: f'{c.course(e["course"])["title"][c.lang]} – {c.date(e["date"])}, {c.time(e["start"], e["end"])}'
@@ -1344,7 +1497,7 @@ def asset(rel, root=""):
 
 def scripts(c):
     root = "../"
-    names = PAGE_SCRIPTS.get(c.page, [])
+    names = PAGE_SCRIPTS.get("event" if c.event else c.page, [])
     # main.js zuerst: stellt window.SkillsLab (Seitendaten, Hilfsfunktionen) bereit
     tags = [f'<script src="{asset("js/main.js", root)}" defer></script>']
     tags += [f'<script src="{asset(f"js/{n}.js", root)}" defer></script>' for n in names]
@@ -1362,6 +1515,12 @@ class Build:
         self.events = load_json(ROOT / "data" / "termine.json")
         self.i18n = {l: load_json(ROOT / "i18n" / f"{l}.json") for l in self.site["languages"]}
         self.layout = (TEMPLATES / "layout.html").read_text(encoding="utf-8")
+        # Jede Termin-Detailseite: <sprache>/termin-<id>.html
+        for e in self.events["events"]:
+            SLUGS[f'event:{e["id"]}'] = {l: f'termin-{e["id"]}.html' for l in self.site["languages"]}
+
+    def event_by_id(self, ident):
+        return next(e for e in self.events["events"] if e["id"] == ident)
 
     def render_page(self, lang, pid):
         c = Ctx(self, lang, pid)
@@ -1369,7 +1528,7 @@ class Build:
         parts = {
             "lang": lang,
             "title": esc(full_title(c)),
-            "description": esc(c.t(f"pages.{pid}.description")),
+            "description": esc(page_description(c)),
             "canonical": abs_url(self, lang, pid),
             "alternates": alternates,
             "og": og,
@@ -1378,7 +1537,7 @@ class Build:
             "jsonld": jsonld(c),
             "skip": esc(c.t("common.skip")),
             "header": header(c),
-            "main": RENDER[pid](c),
+            "main": page_event(c) if c.event else RENDER[pid](c),
             "footer": footer(c),
             "consent": consent_banner(c),
             "data": page_data(c),
@@ -1400,6 +1559,9 @@ class Build:
         for lang in self.site["languages"]:
             for pid, slugs in PAGES:
                 self.write(f"{lang}/{slugs[lang]}", self.render_page(lang, pid))
+                count += 1
+            for e in self.events["events"]:
+                self.write(f'{lang}/termin-{e["id"]}.html', self.render_page(lang, f'event:{e["id"]}'))
                 count += 1
         self.write_calendars()
         self.write("index.html", self.root_index())
@@ -1508,9 +1670,8 @@ class Build:
 
     def sitemap(self):
         urls = []
-        for pid, _ in PAGES:
-            if pid == "newsletter_confirmed":
-                continue
+        ids = [pid for pid, _ in PAGES if pid != "newsletter_confirmed"] + [f'event:{e["id"]}' for e in self.events["events"]]
+        for pid in ids:
             for l in self.site["languages"]:
                 alts = "".join(f'<xhtml:link rel="alternate" hreflang="{a}" href="{abs_url(self, a, pid)}"/>'
                                for a in self.site["languages"])
@@ -1532,7 +1693,7 @@ def main():
     if "--check" in sys.argv:
         return
     n = b.run()
-    print(f"Fertig: {n} Seiten + index.html, 404.html, sitemap.xml, robots.txt erzeugt.")
+    print(f"Fertig: {n} Seiten (inkl. Termin-Detailseiten) + index.html, 404.html, sitemap.xml, robots.txt erzeugt.")
 
 
 if __name__ == "__main__":

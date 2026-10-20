@@ -101,7 +101,7 @@ async function stubEndpoint(page, formSelector) {
       const sw = await page.evaluate(() => document.documentElement.scrollWidth);
       if (sw > width) problems.push(`${p}: horizontaler Überlauf (${sw}px)`);
       if (errs.length) problems.push(`${p}: ${errs.join(" | ")}`);
-      if (["de/index.html", "de/spenden.html", "de/termine.html", "de/mitglied-werden.html", "ru/index.html", "de/satzung.html", "de/kontakt.html"].includes(p)) {
+      if (["de/index.html", "de/spenden.html", "de/termine.html", "de/mitglied-werden.html", "ru/index.html", "de/satzung.html", "de/kontakt.html", "de/termin-2026-11-21-praesentieren.html"].includes(p)) {
         await page.screenshot({ path: path.join(OUT, `${p.replace("/", "_")}-${width}.png`), fullPage: true });
       }
       await page.close();
@@ -419,6 +419,62 @@ async function stubEndpoint(page, formSelector) {
     check("Russische .ics: kyrillischer Titel, korrekt gefaltet (UTF-8)", ru.includes("Цифровая грамотность") && icsLinesOk(ru));
     await page.goto(BASE + "de/angebote.html");
     check("Angebote: Kalender-Link für jeden Kurs", (await page.locator('a.ics-link[href^="../kalender/de/kurs-"]').count()) === 6);
+    await ctx.close();
+  }
+
+  /* 7d. Eigene Seite je Termin ---------------------------------------------------- */
+  {
+    const EV = "2026-11-21-praesentieren";
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 1000 } });
+    await ctx.addInitScript(() => { try { localStorage.setItem("sl-consent", JSON.stringify({ map: false, version: 1 })); } catch (e) {} });
+    const page = await ctx.newPage();
+    await page.clock.setFixedTime(new Date("2026-11-09T10:00:00"));
+    const evFiles = ["de", "en", "ru"].map((l) => `${l}/termin-${EV}.html`);
+    check("Terminseiten: je Termin und Sprache eine Seite (12 × 3)",
+      ["de", "en", "ru"].every((l) => fs.readdirSync(path.join(ROOT, l)).filter((f) => f.startsWith("termin-")).length === 12) &&
+      evFiles.every((f) => fs.existsSync(path.join(ROOT, f))));
+    await page.goto(BASE + "de/termine.html");
+    await page.click(`.cal-chip[data-event="${EV}"]`);
+    await page.click("#event-dialog >> text=Alle Details");
+    check("Kalender-Detailfenster → „Alle Details“ öffnet die Terminseite", page.url().endsWith(`de/termin-${EV}.html`), page.url());
+    check("Terminseite: Überschrift, Datum, Ort, Brotkrumen",
+      (await page.textContent("h1")) === "Sicher präsentieren" && (await page.textContent(".event-when")).includes("21.11.2026") &&
+      (await page.textContent(".event-when")).includes("Vereinsraum") && (await page.locator(".breadcrumb a").count()) === 3);
+    const cd = await page.textContent("[data-countdown]");
+    check("Countdown nach heutigem Datum („In 12 Tagen“)", cd === "In 12 Tagen" && (await page.locator("[data-countdown]").isVisible()), cd);
+    check("Kommender Termin: Anfrage-Button sichtbar, Hinweis „stattgefunden“ verborgen",
+      (await page.locator("[data-event-request]").isVisible()) && (await page.locator("[data-event-past]").isHidden()) &&
+      (await page.getAttribute("[data-event-request]", "href")) === `kontakt.html?thema=kurs&termin=${EV}`);
+    check("Terminseite: .ics-Button verweist auf die Termindatei",
+      (await page.getAttribute(".event-actions .ics-btn", "href")) === `../kalender/de/termin-${EV}.ics`);
+    // Teilen ohne Web-Share-API: Link wird kopiert
+    await ctx.grantPermissions(["clipboard-read", "clipboard-write"]);
+    const shareTxt = await page.textContent("[data-share]");
+    await page.click("[data-share]");
+    await page.waitForTimeout(100);
+    check("Teilen (ohne Teilen-Menü): „Link kopieren“ → „Link kopiert“", shareTxt === "Link kopieren" && (await page.textContent("[data-share]")) === "Link kopiert");
+    const ld = JSON.parse(await page.textContent('script[type="application/ld+json"]'));
+    check("Terminseite: strukturierte Daten (EducationEvent mit eigener URL)",
+      ld["@graph"][0]["@type"] === "EducationEvent" && ld["@graph"][0].url.endsWith(`/de/termin-${EV}.html`));
+    await page.click(".pager-link--next");
+    check("Blättern: „Nächster Termin“ führt zum folgenden Termin", page.url().endsWith("de/termin-2026-11-26-ki-werkzeuge.html"), page.url());
+    await page.clock.setFixedTime(new Date("2026-11-20T10:00:00"));
+    await page.goto(BASE + `de/termin-${EV}.html`);
+    check("Countdown einen Tag vorher: „Morgen“", (await page.textContent("[data-countdown]")) === "Morgen");
+    await page.clock.setFixedTime(new Date("2026-12-01T10:00:00"));
+    await page.goto(BASE + `de/termin-${EV}.html`);
+    check("Vergangener Termin: Hinweis sichtbar, kein Anfrage-Button, kein Countdown",
+      (await page.locator("[data-event-past]").isVisible()) && (await page.locator("[data-event-request]").isHidden()) && (await page.locator("[data-countdown]").isHidden()));
+    await page.clock.setFixedTime(new Date("2026-10-28T10:00:00"));
+    await page.goto(BASE + "ru/termin-2026-11-12-zeitmanagement.html");
+    check("Russisch: Pluralform im Countdown (15 → „Через 15 дней“)", (await page.textContent("[data-countdown]")) === "Через 15 дней", await page.textContent("[data-countdown]"));
+    await page.goto(BASE + "de/index.html");
+    const homeLink = await page.getAttribute("[data-upcoming] li:not([hidden]) a.date-row-title", "href");
+    await page.goto(BASE + "de/termine.html");
+    const listLink = await page.getAttribute(`#termin-${EV} .col-course a`, "href");
+    check("Startseite und Liste verlinken auf die Terminseiten", /^termin-.+\.html$/.test(homeLink) && listLink === `termin-${EV}.html`, `${homeLink} / ${listLink}`);
+    const sm = fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8");
+    check("Sitemap enthält alle Terminseiten", (sm.match(/<loc>[^<]*\/termin-[^<]+<\/loc>/g) || []).length === 36);
     await ctx.close();
   }
 

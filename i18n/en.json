@@ -285,6 +285,45 @@
       "note": "<strong>How to register</strong>Online booking is not available yet. Click “Enquire” next to a date – the contact form will already be filled in. We will confirm your place by email."
     },
 
+    "event": {
+          "title": "{course} on {date}",
+          "description": "{course} at Skills Lab e.V.: {date}, {time}, {place}. Summary, places available, enquiry and calendar entry.",
+          "breadcrumb": "Breadcrumb",
+          "request_primary": "Request a place",
+          "share": "Share",
+          "share_copy": "Copy link",
+          "share_copied": "Link copied",
+          "share_text": "Course at Skills Lab e.V.: {course} on {date}",
+          "h_glance": "At a glance",
+          "h_course": "About the course",
+          "h_place": "Location and directions",
+          "h_more": "More dates for this course",
+          "none_more": "There are currently no further dates planned for this course.",
+          "course_link": "Everything about “{course}”",
+          "route": "Plan route (OpenStreetMap, new window)",
+          "online_note": "This session takes place online. You will receive the access link by email after registering.",
+          "hybrid_note": "You can take part on site in Erbach or online. You will receive the access link after registering.",
+          "past": "This date has already taken place.",
+          "past_hint": "You will find the next dates below or in the overview.",
+          "countdown": {
+                "today": "Today",
+                "tomorrow": "Tomorrow",
+                "one": "In {n} day",
+                "few": "In {n} days",
+                "many": "In {n} days",
+                "other": "In {n} days"
+          },
+          "prev": "Previous date",
+          "next": "Next date",
+          "all": "All dates",
+          "details": "All details",
+          "label_date": "Date",
+          "label_time": "Time",
+          "label_place": "Location",
+          "label_format": "Format",
+          "label_seats": "Places available"
+    },
+
     "association": {
       "title": "Association",
       "description": "Skills Lab e.V.: purpose, non-profit status, board, register of associations, and statutes and membership fee rules to read and download.",

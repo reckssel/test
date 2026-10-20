@@ -118,6 +118,7 @@ Spenderinnen und Spender. Dazu englisch- und russischsprachige Menschen im Odenw
 │   ├── iban.js                  IBAN-Prüfung (Länge je Land + Mod 97) und Formatierung
 │   ├── girocode.js              EPC-Datensatz, QR-SVG, Textalternative, Download, Betragswahl
 │   ├── calendar.js              Terminseite: Monatskalender, Blättern, Kalender/Liste, Detailfenster mit .ics-Download
+│   ├── event.js                 Termin-Detailseiten: Countdown, Hinweis „hat stattgefunden“, Teilen/Link kopieren
 │   ├── payments.js              Erweiterungspunkt für Zahlungswege (Version 1: nur Überweisung/GiroCode)
 │   └── vendor/
 │       ├── qrcode.js            QR-Bibliothek qrcode-generator 2.0.4 (unverändert)
@@ -192,7 +193,8 @@ Spenderinnen und Spender. Dazu englisch- und russischsprachige Menschen im Odenw
 | `index.html` | Hero mit Nutzenversprechen und zwei Buttons · 6 Kurse kompakt · 3 nächste Termine (live gefiltert) · Über-uns-Teaser · Mitglied werden / Spenden · Newsletter-Formular | `page_home` |
 | `ueber-uns.html` / `about.html` | Mission · 4 Werte · Arbeitsweise · Team (Initialen-Platzhalter) · Mitmach-Aufruf | `page_about` |
 | `angebote.html` / `courses.html` | Ermäßigungshinweis · 6 Kurse mit Text, Dauer, Format, Niveau, Zielgruppe, Preis/Mitgliederpreis · Links „Termine“, „Anfragen“ und „Termine dieses Kurses in meinen Kalender (.ics)“ · Workshop für Gruppen | `page_courses` |
-| `termine.html` / `dates.html` | Anmelde-Hinweis · Filter (nur mit JS) · **Monatskalender** (Mo–So, ein Monat sichtbar, Blättern; Termin anklicken → Detailfenster mit „In meinen Kalender“, „Anfragen“, „Mehr zum Kurs“) · **darunter immer die Terminliste** („Alle Termine als Liste“, mit „In meinen Kalender“ je Termin) · Box „Alle Termine in Ihren Kalender“ (Download aller Termine, Abo-Link `webcal://`) · Tabelle nach Monaten gruppiert (je Monat ein `<tbody>` mit Überschrift), Datum als Kalenderblatt, Uhrzeit, Kurs, Ort, freie Plätze mit Balken, Button „Anfragen“/„Warteliste“ · schema.org EducationEvent | `page_dates` |
+| `termine.html` / `dates.html` | Anmelde-Hinweis · Filter (nur mit JS) · **Monatskalender** (Mo–So, ein Monat sichtbar, Blättern; Termin anklicken → Detailfenster mit „In meinen Kalender“, „Anfragen“, „Alle Details“, „Mehr zum Kurs“) · **darunter immer die Terminliste** („Alle Termine als Liste“, mit „In meinen Kalender“ je Termin) · Box „Alle Termine in Ihren Kalender“ (Download aller Termine, Abo-Link `webcal://`) · Tabelle nach Monaten gruppiert (je Monat ein `<tbody>` mit Überschrift), Datum als Kalenderblatt, Uhrzeit, Kurs, Ort, freie Plätze mit Balken, Button „Anfragen“/„Warteliste“ · schema.org EducationEvent | `page_dates` |
+| `termin-<id>.html` (je Termin, alle Sprachen) | Brotkrumen (Start › Termine › Kurs) · Kopf mit großem Kalenderblatt, Kursname, Datum, Uhrzeit, Ort, Countdown („In 12 Tagen“, „Morgen“, „Heute“), freien Plätzen · Buttons „Platz anfragen“/„Warteliste“, „In meinen Kalender“ (.ics), „Teilen“ bzw. „Link kopieren“ · „Über den Kurs“ mit Link zur Kursbeschreibung · „Ort und Anfahrt“ (Adresse + Routenlink bzw. Online-Hinweis) · Kasten „Auf einen Blick“ · „Weitere Termine dieses Kurses“ · Blättern zum vorherigen/nächsten Termin · bei vergangenen Terminen Hinweis „hat bereits stattgefunden“ · schema.org EducationEvent | `page_event` |
 | `verein.html` / `association.html` | Unternavigation · Fakten (Name, Sitz, Register, Zweck, Gemeinnützigkeit, Vorstand) · Satzung und Beitragsordnung mit Stand, Online-Link und PDF · Gründungsgeschichte (Platzhalter) | `page_association` |
 | `satzung.html` / `statutes.html` | Prüfhinweis · Übersetzungshinweis (EN/RU) · Fassung und Beschlussdatum · PDF und Drucken · Inhaltsverzeichnis · 14 Paragraphen mit nummerierten Absätzen und „Nach oben“ | `legal_doc_page` |
 | `beitragsordnung.html` / `fees.html` | wie Satzung, mit 8 Paragraphen; in § 1 die Beitragstabelle aus `beitraege.json` | `legal_doc_page` + `fees_table` |
@@ -378,11 +380,16 @@ Vierergruppen formatiert. **Die Prüfung belegt nicht, dass das Konto existiert.
 - **Monatskalender** (`month_grid()` in `build.py`, Logik in `js/calendar.js`): Tabelle Mo–So je Monat mit Terminen.
   Mit JavaScript ist ein Monat sichtbar (Start: aktueller Monat bzw. erster Monat mit kommenden Terminen),
   Blättern per Buttons mit Ansage, heutiger Tag markiert (`aria-current="date"`), Vergangenes abgeschwächt,
-  Kursfilter wirkt mit. Ohne JavaScript stehen alle Monate untereinander, Termine verlinken auf ihre Zeile in der Liste.
+  Kursfilter wirkt mit. Ohne JavaScript stehen alle Monate untereinander, Termine verlinken auf ihre Terminseite.
   Mobil erscheinen Termine als Punkte (24 px Zielfläche, Name bleibt für Screenreader lesbar).
 - **Detailfenster** (`<dialog>`, `showModal()`): Kurs, Wann, Wo, freie Plätze, Hinweis „erster Termin“, Buttons
   „In meinen Kalender“, „Anfragen“/„Warteliste“, „Mehr zum Kurs“. Escape oder Klick auf den Hintergrund schließt,
   der Fokus kehrt zum Termin zurück.
+- **Eigene Seite je Termin** (`page_event()` in `build.py`, Logik in `js/event.js`): wird bei jedem Build für jeden Termin
+  aus `termine.json` in allen Sprachen erzeugt (`<sprache>/termin-<id>.html`) und steht in der Sitemap.
+  Kalender (Detailfenster „Alle Details“, ohne JS direkt), Terminliste und „Nächste Termine“ auf der Startseite verlinken dorthin.
+  Countdown und Hinweis „hat bereits stattgefunden“ richten sich nach dem heutigen Datum im Browser (ohne JS: nach `build_date`);
+  bei vergangenen Terminen verschwindet der Anfrage-Button. „Teilen“ nutzt das Teilen-Menü des Geräts, sonst wird der Link kopiert.
 - **Liste unter dem Kalender** (Wunsch des Nutzers): Die Terminliste steht immer unterhalb des Kalenders; auf Smartphone und Tablet (unter 900 px) als Blöcke mit Kalenderblatt.
 - **.ics-Dateien** (RFC 5545, `ics_calendar()` in `build.py`), erzeugt bei jedem Build unter `kalender/<sprache>/`:
   `termin-<id>.ics` (ein Termin), `kurs-<id>.ics` (alle Termine eines Kurses), `alle-termine.ics` (alle Termine).
@@ -531,7 +538,7 @@ In `data/termine.json` → `events`:
 { "id": "2027-04-10-kommunikation", "date": "2027-04-10", "start": "09:30", "end": "12:30",
   "course": "kommunikation", "location": "vereinsraum", "seats_total": 12, "seats_free": 12 }
 ```
-`course` muss eine `id` aus `angebote.json` sein, `location` ein Schlüssel aus `locations`. Die `id` dient auch als feste Kennung (`UID`) in den Kalenderdateien: **bei Änderungen eines Termins die `id` nicht ändern**, dann aktualisieren Abonnenten den Termin, statt ihn doppelt zu bekommen.
+`course` muss eine `id` aus `angebote.json` sein, `location` ein Schlüssel aus `locations`. Die `id` dient auch als Adresse der Terminseite (`termin-<id>.html`) und als feste Kennung (`UID`) in den Kalenderdateien: **bei Änderungen eines Termins die `id` nicht ändern**, dann aktualisieren Abonnenten den Termin, statt ihn doppelt zu bekommen.
 Freie Plätze bitte aktuell halten (Build ausführen). **Vergangene Termine verschwinden im Browser von selbst**,
 ein Aufräumen ist nur gelegentlich nötig. Außerdem `build_date` in `site.json` auf das aktuelle Datum setzen.
 Es bestimmt, was ohne JavaScript und in den schema.org-Daten als „kommend“ gilt.
