@@ -2,7 +2,7 @@
    Skills Lab e.V. – calendar.js (nur Terminseite)
    - Monatskalender: ein Monat sichtbar, Blättern mit „Vorheriger/Nächster Monat“
    - Heute markieren, vergangene Tage/Termine abschwächen
-   - Umschalten Kalender ↔ Liste (Wahl wird gemerkt)
+   - Unter dem Kalender steht immer die Terminliste
    - Klick auf einen Termin öffnet ein Detailfenster (<dialog>) mit
      „In meinen Kalender“ (.ics-Datei), „Anfragen“ und Link zum Kurs
    - Kursfilter (aus main.js) blendet auch Termine im Kalender aus
@@ -18,8 +18,6 @@
 
   var forEach = function (list, fn) { Array.prototype.forEach.call(list, fn); };
   var today = SL.today();
-  var calView = document.getElementById("calendar-view");
-  var listView = document.getElementById("list-view");
   var months = Array.prototype.slice.call(document.querySelectorAll(".cal-month"));
   var prevBtn = document.querySelector("[data-cal-prev]");
   var nextBtn = document.querySelector("[data-cal-next]");
@@ -75,23 +73,6 @@
 
   if (prevBtn) prevBtn.addEventListener("click", function () { show(index - 1, true); });
   if (nextBtn) nextBtn.addEventListener("click", function () { show(index + 1, true); });
-
-  /* Ansicht Kalender ↔ Liste ------------------------------------------------- */
-  var viewButtons = document.querySelectorAll("[data-view]");
-  function setView(view, remember) {
-    calView.hidden = view !== "calendar";
-    listView.hidden = view !== "list";
-    forEach(viewButtons, function (b) {
-      b.setAttribute("aria-pressed", b.getAttribute("data-view") === view ? "true" : "false");
-    });
-    if (remember) SL.store.set("sl-dates-view", view);
-  }
-  forEach(viewButtons, function (b) {
-    b.addEventListener("click", function () { setView(b.getAttribute("data-view"), true); });
-  });
-  // Sprungziel #termin-… gehört zur Liste; sonst gespeicherte Wahl, Standard Kalender
-  var initialView = /^#termin-/.test(window.location.hash) ? "list" : (SL.store.get("sl-dates-view") === "list" ? "list" : "calendar");
-  setView(initialView, false);
 
   /* Kursfilter auch im Kalender ---------------------------------------------- */
   function filterChips(course, jump) {

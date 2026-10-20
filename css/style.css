@@ -481,7 +481,8 @@ html:not(.js) .header-inner .menu-toggle { display: none; }
 .dates-table .col-time { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .dates-table .col-course a { font-weight: 600; }
 .dates-table .col-place { color: var(--c-muted); font-size: var(--fs-small); }
-.dates-table .col-action { text-align: right; white-space: nowrap; }
+.dates-table .col-action { text-align: right; }
+.dates-table .col-action .btn { white-space: nowrap; }
 .dates-table tr[data-date] { transition: background-color var(--transition); }
 .dates-table tr[data-date]:hover { background: var(--c-subtle); }
 .dates-table .month-row th {
@@ -493,8 +494,16 @@ html:not(.js) .header-inner .menu-toggle { display: none; }
 }
 .dates-table tbody:first-of-type .month-row th { padding-top: var(--s-3); }
 
-@media (max-width: 599.98px) {
-  /* Mobil: Kalenderblatt links, Angaben rechts daneben */
+@media (max-width: 899.98px) {
+  /* Smartphone und Tablet: Terminliste als Blöcke (Tabellenrollen bleiben per role erhalten) */
+  .dates-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .dates-table, .dates-table tbody, .dates-table tr, .dates-table th, .dates-table td { display: block; width: 100%; }
+  .dates-table tbody[hidden], .dates-table tr[hidden] { display: none; }
+  .dates-table.data-table td, .dates-table.data-table tr[data-date] > th { border: 0; }
+  .dates-table tr[data-date] { border-bottom: 1px solid var(--c-line); }
+  .dates-table .col-action { display: flex !important; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+  .dates-table .col-action .btn { width: auto; }
+  /* Kalenderblatt links, Angaben rechts daneben */
   .dates-table tr[data-date] { display: grid; grid-template-columns: 4.25rem 1fr; column-gap: var(--s-4); padding-block: var(--s-4); }
   .dates-table tr[data-date] > th { grid-row: 1 / span 5; padding: 0; }
   .dates-table tr[data-date] > td { grid-column: 2; padding: 0 0 var(--s-1); }
@@ -687,13 +696,15 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
 /* Terminseite: Werkzeuge, Ansicht umschalten ------------------------------ */
 .dates-tools { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--s-3) var(--s-5); margin-bottom: var(--s-5); }
 .dates-tools .filter { margin: 0; }
-.view-switch { display: inline-flex; border: 1px solid var(--c-border); border-radius: var(--radius); overflow: hidden; }
-.view-switch .btn { border: 0; border-radius: 0; background: transparent; color: var(--c-text); }
-.view-switch .btn + .btn { border-left: 1px solid var(--c-border); }
-.view-switch .btn[aria-pressed="true"] { background: var(--c-primary); color: var(--c-on-primary); }
 .icon { flex: none; vertical-align: -0.2em; }
 .ics-link { display: inline-flex; align-items: center; gap: var(--s-1); min-height: 32px; margin-top: var(--s-1); }
-.dates-table .col-action .btn + .btn { margin-left: var(--s-2); }
+/* Aktionen untereinander: „Anfragen“ und „In meinen Kalender“ */
+@media (min-width: 900px) {
+  .dates-table .col-action { width: 1%; }
+  .dates-table .col-action .btn { display: flex; width: 100%; justify-content: center; }
+  .dates-table .col-action .btn + .btn { margin-top: var(--s-1); gap: var(--s-1); }
+}
+
 
 /* Monatskalender ------------------------------------------------------------ */
 .cal-nav { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-3); }
@@ -746,6 +757,7 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
 }
 
 /* Kalender-Abo-Box */
+.list-view { margin-top: var(--s-7); padding-top: var(--s-6); border-top: 1px solid var(--c-line); }
 .ics-box { margin-top: var(--s-7); padding: var(--s-5); border-radius: 6px; background: var(--c-tint); border-top: 4px solid var(--c-accent); max-width: 48rem; }
 .ics-box h2::before { display: none; }
 .ics-box .btn { gap: var(--s-2); }

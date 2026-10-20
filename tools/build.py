@@ -853,10 +853,6 @@ def page_dates(c):
 <select id="filter-course" data-filter="course"><option value="">{esc(c.t(T + "filter_all"))}</option>{options}</select></div>
 <p class="small muted" id="filter-status" role="status" aria-live="polite"></p>
 </div>
-<div class="view-switch" role="group" aria-label="{esc(c.t(T + "view_label"))}" data-js-only hidden>
-<button type="button" class="btn btn--small" data-view="calendar" aria-pressed="true">{esc(c.t(T + "view_calendar"))}</button>
-<button type="button" class="btn btn--small" data-view="list" aria-pressed="false">{esc(c.t(T + "view_list"))}</button>
-</div>
 </div>
 <div id="calendar-view">
 <div class="cal-nav" data-js-only hidden>
@@ -866,13 +862,14 @@ def page_dates(c):
 </div>
 {grids}
 </div>
-<div id="list-view">
+<section id="list-view" class="list-view" aria-labelledby="h-list">
+<h2 id="h-list">{esc(c.t(T + "list_h2"))}</h2>
 <div class="table-wrap"><table class="data-table data-table--stack dates-table" role="table" id="dates-table">
 <caption class="visually-hidden">{esc(c.t(T + "table_caption"))}</caption>
 <thead role="rowgroup"><tr role="row">{head}</tr></thead>
 {"".join(bodies)}</table>
 <p class="no-results" id="dates-empty" hidden>{esc(c.t(T + "no_results"))}</p></div>
-</div>
+</section>
 <section class="ics-box" aria-labelledby="h-ics">
 <h2 id="h-ics">{esc(c.t(T + "ics_all_h"))}</h2>
 <p>{esc(c.t(T + "ics_all_text"))}</p>
@@ -1306,7 +1303,7 @@ def page_data(c):
         D = T["pages"]["dates"]
         data["calendar"] = {
             "strings": {k: D[k] for k in ("dialog_when", "dialog_where", "dialog_seats", "dialog_course", "ics_add",
-                                           "request", "waitlist", "today", "view_calendar", "view_list")},
+                                           "request", "waitlist", "today")},
             "months": T["common"]["months_long"],
             "events": {
                 e["id"]: {

@@ -369,8 +369,9 @@ async function stubEndpoint(page, formSelector) {
     await page.clock.setFixedTime(new Date("2026-11-20T10:00:00"));
     await page.goto(BASE + "de/termine.html");
     const visibleMonths = await page.$$eval(".cal-month:not([hidden])", (m) => m.map((x) => x.dataset.month));
-    check("Kalender: Standardansicht, aktueller Monat (Nov 2026) sichtbar, Liste ausgeblendet",
-      visibleMonths.join() === "2026-11" && (await page.locator("#list-view").isHidden()) && (await page.isDisabled("[data-cal-prev]")));
+    check("Kalender: aktueller Monat (Nov 2026) sichtbar, darunter die Terminliste",
+      visibleMonths.join() === "2026-11" && (await page.locator("#dates-table").isVisible()) && (await page.isDisabled("[data-cal-prev]")) &&
+      (await page.evaluate(() => document.getElementById("calendar-view").compareDocumentPosition(document.getElementById("list-view")) & Node.DOCUMENT_POSITION_FOLLOWING)) > 0);
     check("Kalender: heutiger Tag markiert", (await page.getAttribute('.mg-day[data-date="2026-11-20"]', "aria-current")) === "date");
     await page.click("[data-cal-next]");
     const next = await page.$$eval(".cal-month:not([hidden])", (m) => m.map((x) => x.dataset.month));
@@ -397,12 +398,8 @@ async function stubEndpoint(page, formSelector) {
     await page.selectOption("#filter-course", "ki-werkzeuge");
     const shownChips = await page.$$eval(".cal-chips li:not([hidden]) .cal-chip", (c) => c.map((x) => x.dataset.course));
     check("Kursfilter wirkt auch im Kalender", shownChips.length > 0 && shownChips.every((x) => x === "ki-werkzeuge"), shownChips.join());
-    await page.click('[data-view="list"]');
-    check("Umschalten auf Liste: Tabelle sichtbar, Kalender ausgeblendet, .ics-Button je Termin",
-      (await page.locator("#dates-table").isVisible()) && (await page.locator("#calendar-view").isHidden()) &&
-      (await page.locator("#dates-table tr[data-date] .ics-btn").count()) === 12);
-    await page.reload();
-    check("Gewählte Ansicht wird gemerkt", await page.locator("#list-view").isVisible());
+    check("Liste unter dem Kalender: .ics-Button je Termin",
+      (await page.locator("#dates-table tr[data-date] .ics-btn").count()) === 12 && (await page.locator("#calendar-view").isVisible()));
 
     // Sammeldateien und Sprachen
     const all = fs.readFileSync(path.join(ROOT, "kalender/de/alle-termine.ics"), "utf8");

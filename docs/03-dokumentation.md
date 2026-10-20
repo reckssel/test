@@ -192,7 +192,7 @@ Spenderinnen und Spender. Dazu englisch- und russischsprachige Menschen im Odenw
 | `index.html` | Hero mit Nutzenversprechen und zwei Buttons · 6 Kurse kompakt · 3 nächste Termine (live gefiltert) · Über-uns-Teaser · Mitglied werden / Spenden · Newsletter-Formular | `page_home` |
 | `ueber-uns.html` / `about.html` | Mission · 4 Werte · Arbeitsweise · Team (Initialen-Platzhalter) · Mitmach-Aufruf | `page_about` |
 | `angebote.html` / `courses.html` | Ermäßigungshinweis · 6 Kurse mit Text, Dauer, Format, Niveau, Zielgruppe, Preis/Mitgliederpreis · Links „Termine“, „Anfragen“ und „Termine dieses Kurses in meinen Kalender (.ics)“ · Workshop für Gruppen | `page_courses` |
-| `termine.html` / `dates.html` | Anmelde-Hinweis · Filter (nur mit JS) · Umschalter **Kalender / Liste** · **Monatskalender** (Mo–So, ein Monat sichtbar, Blättern; Termin anklicken → Detailfenster mit „In meinen Kalender“, „Anfragen“, „Mehr zum Kurs“) · Box „Alle Termine in Ihren Kalender“ (Download aller Termine, Abo-Link `webcal://`) · Tabelle nach Monaten gruppiert (je Monat ein `<tbody>` mit Überschrift), Datum als Kalenderblatt, Uhrzeit, Kurs, Ort, freie Plätze mit Balken, Button „Anfragen“/„Warteliste“ · schema.org EducationEvent | `page_dates` |
+| `termine.html` / `dates.html` | Anmelde-Hinweis · Filter (nur mit JS) · **Monatskalender** (Mo–So, ein Monat sichtbar, Blättern; Termin anklicken → Detailfenster mit „In meinen Kalender“, „Anfragen“, „Mehr zum Kurs“) · **darunter immer die Terminliste** („Alle Termine als Liste“, mit „In meinen Kalender“ je Termin) · Box „Alle Termine in Ihren Kalender“ (Download aller Termine, Abo-Link `webcal://`) · Tabelle nach Monaten gruppiert (je Monat ein `<tbody>` mit Überschrift), Datum als Kalenderblatt, Uhrzeit, Kurs, Ort, freie Plätze mit Balken, Button „Anfragen“/„Warteliste“ · schema.org EducationEvent | `page_dates` |
 | `verein.html` / `association.html` | Unternavigation · Fakten (Name, Sitz, Register, Zweck, Gemeinnützigkeit, Vorstand) · Satzung und Beitragsordnung mit Stand, Online-Link und PDF · Gründungsgeschichte (Platzhalter) | `page_association` |
 | `satzung.html` / `statutes.html` | Prüfhinweis · Übersetzungshinweis (EN/RU) · Fassung und Beschlussdatum · PDF und Drucken · Inhaltsverzeichnis · 14 Paragraphen mit nummerierten Absätzen und „Nach oben“ | `legal_doc_page` |
 | `beitragsordnung.html` / `fees.html` | wie Satzung, mit 8 Paragraphen; in § 1 die Beitragstabelle aus `beitraege.json` | `legal_doc_page` + `fees_table` |
@@ -380,7 +380,7 @@ Vierergruppen formatiert. **Die Prüfung belegt nicht, dass das Konto existiert.
 - **Detailfenster** (`<dialog>`, `showModal()`): Kurs, Wann, Wo, freie Plätze, Hinweis „erster Termin“, Buttons
   „In meinen Kalender“, „Anfragen“/„Warteliste“, „Mehr zum Kurs“. Escape oder Klick auf den Hintergrund schließt,
   der Fokus kehrt zum Termin zurück.
-- **Kalender / Liste**: Umschalter mit `aria-pressed`; die Wahl wird gemerkt, ein Link auf `#termin-…` öffnet die Liste.
+- **Liste unter dem Kalender** (Wunsch des Nutzers): Die Terminliste steht immer unterhalb des Kalenders; auf Smartphone und Tablet (unter 900 px) als Blöcke mit Kalenderblatt.
 - **.ics-Dateien** (RFC 5545, `ics_calendar()` in `build.py`), erzeugt bei jedem Build unter `kalender/<sprache>/`:
   `termin-<id>.ics` (ein Termin), `kurs-<id>.ics` (alle Termine eines Kurses), `alle-termine.ics` (alle Termine).
   Inhalt: Zeitzone `Europe/Berlin` (mit VTIMEZONE), feste `UID` je Termin (Updates statt Dubletten beim Abo),
@@ -585,7 +585,7 @@ Der Build meldet alles, was noch fehlt.
 | PHP-Beispielskript | `php -l` + lokale Anfragen mit `curl` | 6 Fälle wie erwartet |
 | Sichtprüfung | Screenshots bei 360/375, 768, 1280 px | Layout geprüft, gefundene Fehler behoben |
 
-**Die Browser-Tests (inzwischen 101) umfassen:**
+**Die Browser-Tests (inzwischen 100) umfassen:**
 - **Layout:** alle 46 Seiten in 360, 768 und 1280 px Breite ohne horizontales Scrollen und ohne Konsolenfehler.
 - **Tastatur:** Skip-Link als erster Tab-Stopp und sichtbar, Fokus auf `<main>`. Mobiles Menü mit `aria-expanded` und Escape. Sichtbarer Fokusrahmen, Zielgrößen ≥ 24 px, „Bewegung reduzieren“.
 - **Einwilligung:** Banner, **kein Request an openstreetmap.org ohne Einwilligung**, Ablehnung, gespeicherte Entscheidung, „Karte laden“, Widerruf in den Cookie-Einstellungen.
@@ -599,7 +599,7 @@ Der Build meldet alles, was noch fehlt.
   - Mitgliedsarten aus den Daten
 - **GiroCode:** Der Code wird **mit jsQR dekodiert und Zeichen für Zeichen verglichen**: bei 25 €, 100 €, 12,50 € und einem ungültigen Betrag. Dazu Textalternative, SVG-Download, Spendenanfrage mit Pflicht-Anschrift bei Bescheinigung, Bestätigungs-Code über 50 € mit Namen im Verwendungszweck, Hinweis auf einen Dauerauftrag, Kopieren der IBAN.
 - **Termine:** vergangene ausblenden bei simuliertem Datum, Filter mit Ansage, Vorauswahl über die URL, 3 Termine auf der Startseite, Vorbelegung des Kontaktformulars.
-- **Kalender:** Standardansicht und aktueller Monat, Blättern mit Ansage, heutiger Tag, Detailfenster (Inhalt, Escape, Fokus zurück), Download und Prüfung der .ics-Datei (CRLF, ≤ 75 Byte je Zeile, Zeitzone, Start/Ende), Kursfilter im Kalender, Umschalten auf Liste und Merken der Wahl, Sammel- und Kursdateien, russische Datei (UTF-8-Faltung), Kalender-Links auf der Angebotsseite. Zusätzlich wurden alle 57 .ics-Dateien mit der Python-Bibliothek `icalendar` eingelesen (108 Termine, Zeitzonen korrekt).
+- **Kalender:** Standardansicht und aktueller Monat, Blättern mit Ansage, heutiger Tag, Detailfenster (Inhalt, Escape, Fokus zurück), Download und Prüfung der .ics-Datei (CRLF, ≤ 75 Byte je Zeile, Zeitzone, Start/Ende), Kursfilter im Kalender, Liste unter dem Kalender mit .ics-Button je Termin, Sammel- und Kursdateien, russische Datei (UTF-8-Faltung), Kalender-Links auf der Angebotsseite. Zusätzlich wurden alle 57 .ics-Dateien mit der Python-Bibliothek `icalendar` eingelesen (108 Termine, Zeitzonen korrekt).
 - **Sprachen:** Sprachweiche für en-GB, ru-RU und fr-FR, Sprachumschalter, gespeicherte Sprache, Übersetzungshinweis auf der englischen Satzung.
 - **Betrieb:** `file://` mit Skripten, GiroCode und Schrift, kyrillischer Schnitt auf russischen Seiten. Ohne JavaScript: Navigation, Bankdaten, mailto-Formular und Terminliste.
 - **Einheitstest:** IBAN-Modul mit 6 gültigen und 5 ungültigen Beispielen.
