@@ -291,6 +291,8 @@
       emptyEl.hidden = count > 0;
       table.hidden = count === 0;
       if (statusEl && announce) statusEl.textContent = SL.format(SL.data.strings.filter_count, { n: count });
+      // Kalenderansicht (calendar.js) informieren
+      if (announce) document.dispatchEvent(new CustomEvent("sl-filter", { detail: { course: course } }));
     };
 
     if (filter) {

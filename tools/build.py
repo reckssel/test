@@ -57,6 +57,7 @@ PAGE_SCRIPTS = {
     "membership": ["iban", "forms"],
     "donate": ["vendor/qrcode", "iban", "girocode", "payments", "forms"],  # Reihenfolge wichtig
     "contact": ["forms"],
+    "dates": ["calendar"],
 }
 ASSOC_SUBNAV = ["association", "statutes", "fees"]
 HOME_DATES = 3  # Anzahl „Nächste Termine“ auf der Startseite
@@ -462,6 +463,80 @@ def translation_note(c):
 
 
 # --------------------------------------------------------------------------
+# Kalenderdateien (.ics, RFC 5545) – zum Übernehmen in den persönlichen Kalender
+# --------------------------------------------------------------------------
+ICS_DIR = "kalender"
+VTIMEZONE_BERLIN = [
+    "BEGIN:VTIMEZONE", "TZID:Europe/Berlin",
+    "BEGIN:DAYLIGHT", "TZOFFSETFROM:+0100", "TZOFFSETTO:+0200", "TZNAME:CEST",
+    "DTSTART:19700329T020000", "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU", "END:DAYLIGHT",
+    "BEGIN:STANDARD", "TZOFFSETFROM:+0200", "TZOFFSETTO:+0100", "TZNAME:CET",
+    "DTSTART:19701025T030000", "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU", "END:STANDARD",
+    "END:VTIMEZONE",
+]
+
+
+def ics_escape(text):
+    return (str(text).replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,")
+            .replace("\r\n", "\\n").replace("\n", "\\n"))
+
+
+def ics_fold(line):
+    """Zeilen auf höchstens 75 Byte falten (Fortsetzung beginnt mit Leerzeichen), ohne UTF-8-Zeichen zu teilen."""
+    out, current, size = [], "", 0
+    for ch in line:
+        n = len(ch.encode("utf-8"))
+        limit = 75 if not out else 74
+        if size + n > limit:
+            out.append(current)
+            current, size = "", 0
+        current += ch
+        size += n
+    out.append(current)
+    return "\r\n ".join(out)
+
+
+def ics_file_name(kind, ident=""):
+    return {"event": f"termin-{ident}.ics", "course": f"kurs-{ident}.ics", "all": "alle-termine.ics"}[kind]
+
+
+def ics_url(c, kind, ident=""):
+    """Relativer Link von einer Sprachseite zur .ics-Datei der Sprache."""
+    return f"../{ICS_DIR}/{c.lang}/{ics_file_name(kind, ident)}"
+
+
+def ics_calendar(b, lang, events, name):
+    c = Ctx(b, lang, "dates")
+    stamp = dt.datetime.fromisoformat(b.site["build_date"]).strftime("%Y%m%dT000000Z")
+    host = urlparse(b.site["base_url"]).netloc or "skills-lab"
+    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Skills Lab e.V.//Termine//" + lang.upper(),
+             "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+             "X-WR-CALNAME:" + ics_escape(name), "X-WR-TIMEZONE:Europe/Berlin"] + VTIMEZONE_BERLIN
+    for e in events:
+        co = c.course(e["course"])
+        place = b.events["locations"][e["location"]][lang]
+        request = f'{b.site["base_url"]}/{lang}/{SLUGS["contact"][lang]}?thema=kurs&termin={e["id"]}'
+        desc = "\n\n".join([co["text"][lang], c.t("pages.dates.ics_note"),
+                             c.t("pages.dates.ics_request").replace("{url}", request)])
+        lines += [
+            "BEGIN:VEVENT",
+            f'UID:{e["id"]}@{host}',
+            f"DTSTAMP:{stamp}",
+            f'DTSTART;TZID=Europe/Berlin:{e["date"].replace("-", "")}T{e["start"].replace(":", "")}00',
+            f'DTEND;TZID=Europe/Berlin:{e["date"].replace("-", "")}T{e["end"].replace(":", "")}00',
+            "SUMMARY:" + ics_escape(f'{co["title"][lang]} – Skills Lab e.V.'),
+            "LOCATION:" + ics_escape(place),
+            "DESCRIPTION:" + ics_escape(desc),
+            f'URL:{abs_url(b, lang, "dates")}#termin-{e["id"]}',
+            "STATUS:CONFIRMED",
+            "TRANSP:OPAQUE",
+            "END:VEVENT",
+        ]
+    lines.append("END:VCALENDAR")
+    return "\r\n".join(ics_fold(l) for l in lines) + "\r\n"
+
+
+# --------------------------------------------------------------------------
 # Kopf, Fuß, Einwilligung
 # --------------------------------------------------------------------------
 def header(c):
@@ -660,7 +735,8 @@ def page_courses(c):
         price = (f'{c.money(co["price"])} · {c.money(co["member_price"])} {esc(c.t(F + "member_price"))}')
         items.append(f'''<li id="kurs-{co["id"]}" class="course">
 <div><h2 class="h3">{esc(co["title"][c.lang])}</h2><p>{esc(co["text"][c.lang])}</p>
-<p class="small"><a href="{c.url("dates")}?kurs={co["id"]}">{esc(c.t(T + "dates_link"))}</a> · <a href="{c.url("contact")}?thema=kurs&amp;kurs={co["id"]}">{esc(c.t(T + "request_link"))}</a></p></div>
+<p class="small"><a href="{c.url("dates")}?kurs={co["id"]}">{esc(c.t(T + "dates_link"))}</a> · <a href="{c.url("contact")}?thema=kurs&amp;kurs={co["id"]}">{esc(c.t(T + "request_link"))}</a><br>
+<a class="ics-link" href="{ics_url(c, "course", co["id"])}" download>{ICON_CAL}{esc(c.t(T + "ics_course"))}</a></p></div>
 <dl class="facts">
 <dt>{esc(c.t(F + "duration"))}</dt><dd>{esc(co["duration"][c.lang])}</dd>
 <dt>{esc(c.t(F + "format"))}</dt><dd>{esc(c.t("common.formats." + co["format"]))}</dd>
@@ -677,6 +753,56 @@ def page_courses(c):
 <section class="section" aria-labelledby="h-group"><div class="container prose">
 <h2 id="h-group">{esc(c.t(T + "group_h2"))}</h2><p>{esc(c.t(T + "group_text"))}</p>
 <a class="btn btn--outline" href="{c.url("contact")}?thema=workshop">{esc(c.t(T + "group_btn"))}</a></div></section>'''
+
+
+ICON_CAL = ('<svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="18" height="18">'
+            '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM12 12v5M9.5 14.5h5"/></svg>')
+
+
+def month_grid(c, month, evs):
+    """Monatskalender als Tabelle (Mo–So). Termine als Links; mit JavaScript öffnet sich ein Detailfenster."""
+    T = "pages.dates."
+    y, m = (int(x) for x in month.split("-"))
+    title = f'{c.t("common.months_long")[m - 1]} {y}'
+    first = dt.date(y, m, 1)
+    days_in_month = (dt.date(y + m // 12, m % 12 + 1, 1) - first).days
+    by_day = {}
+    for e in evs:
+        by_day.setdefault(e["date"], []).append(e)
+    cells = [""] * first.weekday() + list(range(1, days_in_month + 1))
+    while len(cells) % 7:
+        cells.append("")
+    rows = []
+    for w in range(0, len(cells), 7):
+        tds = []
+        for d in cells[w:w + 7]:
+            if d == "":
+                tds.append('<td class="mg-empty"></td>')
+                continue
+            iso = f"{y:04d}-{m:02d}-{d:02d}"
+            chips = []
+            for e in by_day.get(iso, []):
+                co = c.course(e["course"])
+                state = " cal-chip--full" if e["seats_free"] == 0 else ""
+                chips.append(f'<li><a class="cal-chip{state}" href="#termin-{e["id"]}" data-event="{e["id"]}" data-course="{co["id"]}" data-date="{iso}">'
+                             f'<span class="cal-chip-time">{esc(e["start"])}</span> <span class="cal-chip-title">{esc(co["title"][c.lang])}</span></a></li>')
+            chip_html = f'<ul class="cal-chips">{"".join(chips)}</ul>' if chips else ""
+            has = " mg-has" if chips else ""
+            tds.append(f'<td data-date="{iso}" class="mg-day{has}"><span class="mg-num">{d}</span>{chip_html}</td>')
+        rows.append(f'<tr>{"".join(tds)}</tr>')
+    heads = "".join(f'<th scope="col" abbr="{esc(c.t("common.weekdays_long")[i])}">{esc(c.t("common.weekdays")[i])}</th>' for i in range(7))
+    caption = c.t(T + "cal_caption").replace("{month}", title)
+    return (f'<section class="cal-month" data-month="{month}" aria-labelledby="calm-{month}">'
+            f'<h2 class="cal-month-title" id="calm-{month}">{esc(title)}</h2>'
+            f'<table class="month-grid"><caption class="visually-hidden">{esc(caption)}</caption>'
+            f'<thead><tr>{heads}</tr></thead><tbody>{"".join(rows)}</tbody></table></section>')
+
+
+def ics_button(c, e, co, small=True):
+    label = (c.t("pages.dates.ics_add_label").replace("{course}", co["title"][c.lang]).replace("{date}", c.date(e["date"])))
+    cls = "btn btn--text btn--small ics-btn" if small else "btn btn--outline ics-btn"
+    return (f'<a class="{cls}" href="{ics_url(c, "event", e["id"])}" download aria-label="{esc(label)}">'
+            f'{ICON_CAL}{esc(c.t("pages.dates.ics_add"))}</a>')
 
 
 def page_dates(c):
@@ -700,9 +826,9 @@ def page_dates(c):
             label = (c.t(T + "request_label").replace("{action}", visible)
                      .replace("{course}", co["title"][c.lang]).replace("{date}", c.date(e["date"])))
             action = (f'<a class="btn btn--outline btn--small" href="{c.url("contact")}?thema=kurs&amp;termin={e["id"]}" aria-label="{esc(label)}">'
-                      f'{esc(visible)}</a>')
+                      f'{esc(visible)}</a>{ics_button(c, e, co)}')
             rows.append(
-                f'<tr role="row" data-date="{e["date"]}" data-course="{co["id"]}"{past}>'
+                f'<tr role="row" id="termin-{e["id"]}" data-date="{e["date"]}" data-course="{co["id"]}"{past}>'
                 f'<th scope="row" role="rowheader" class="col-date">{cal_badge(c, e["date"])}</th>'
                 f'<td role="cell" class="col-time" data-label="{esc(c.t(T + "col_time"))}">{esc(c.time(e["start"], e["end"]))}</td>'
                 f'<td role="cell" class="col-course" data-label="{esc(c.t(T + "col_course"))}"><a href="{c.url("courses")}#kurs-{co["id"]}">{esc(co["title"][c.lang])}</a></td>'
@@ -714,19 +840,55 @@ def page_dates(c):
     options = "".join(f'<option value="{co["id"]}">{esc(co["title"][c.lang])}</option>' for co in c.b.courses["courses"])
     head = "".join(f'<th scope="col" role="columnheader" class="col-{k}">{esc(c.t(T + "col_" + k))}</th>'
                    for k in ("date", "time", "course", "place", "seats", "action"))
+    grids = "".join(month_grid(c, month, evs) for month, evs in groups.items())
+    all_ics = ics_url(c, "all")
+    feed = f'{c.b.site["base_url"]}/{ICS_DIR}/{c.lang}/{ics_file_name("all")}'
+    webcal = re.sub(r"^https?://", "webcal://", feed)
     return f'''{page_head(c, lead=esc(c.t(T + "lead")))}
 <div class="container">
 {notice(c.t(T + "note"))}
+<div class="dates-tools">
 <div class="filter" data-js-only hidden>
 <div class="field"><label for="filter-course">{esc(c.t(T + "filter_label"))}</label>
 <select id="filter-course" data-filter="course"><option value="">{esc(c.t(T + "filter_all"))}</option>{options}</select></div>
 <p class="small muted" id="filter-status" role="status" aria-live="polite"></p>
 </div>
+<div class="view-switch" role="group" aria-label="{esc(c.t(T + "view_label"))}" data-js-only hidden>
+<button type="button" class="btn btn--small" data-view="calendar" aria-pressed="true">{esc(c.t(T + "view_calendar"))}</button>
+<button type="button" class="btn btn--small" data-view="list" aria-pressed="false">{esc(c.t(T + "view_list"))}</button>
+</div>
+</div>
+<div id="calendar-view">
+<div class="cal-nav" data-js-only hidden>
+<button type="button" class="btn btn--outline btn--small" data-cal-prev><span aria-hidden="true">‹</span> {esc(c.t(T + "prev_month"))}</button>
+<p class="cal-nav-status" id="cal-status" role="status" aria-live="polite"></p>
+<button type="button" class="btn btn--outline btn--small" data-cal-next>{esc(c.t(T + "next_month"))} <span aria-hidden="true">›</span></button>
+</div>
+{grids}
+</div>
+<div id="list-view">
 <div class="table-wrap"><table class="data-table data-table--stack dates-table" role="table" id="dates-table">
 <caption class="visually-hidden">{esc(c.t(T + "table_caption"))}</caption>
 <thead role="rowgroup"><tr role="row">{head}</tr></thead>
 {"".join(bodies)}</table>
 <p class="no-results" id="dates-empty" hidden>{esc(c.t(T + "no_results"))}</p></div>
+</div>
+<section class="ics-box" aria-labelledby="h-ics">
+<h2 id="h-ics">{esc(c.t(T + "ics_all_h"))}</h2>
+<p>{esc(c.t(T + "ics_all_text"))}</p>
+<p class="btn-row"><a class="btn" href="{all_ics}" download>{ICON_CAL}{esc(c.t(T + "ics_all_download"))}</a>
+<a class="btn btn--outline" href="{esc(webcal)}">{esc(c.t(T + "ics_subscribe"))}</a></p>
+<p class="small muted">{esc(c.t(T + "ics_subscribe_hint").replace("{url}", feed))}</p>
+</section>
+<dialog class="event-dialog" id="event-dialog" aria-labelledby="event-dialog-title">
+<div class="event-dialog-inner">
+<h2 id="event-dialog-title"></h2>
+<dl class="facts" data-dialog-facts></dl>
+<p class="small muted">{esc(c.t(T + "ics_note"))}</p>
+<p class="btn-row" data-dialog-actions></p>
+<button type="button" class="btn btn--text btn--small event-dialog-close" data-dialog-close>{esc(c.t(T + "dialog_close"))}</button>
+</div>
+</dialog>
 </div>'''
 
 
@@ -1140,6 +1302,26 @@ def page_data(c):
         data["strings"]["donate"] = {k: D[k] for k in (
             "copy", "copied", "giro_alt", "giro_alt_open", "giro_recipient", "giro_amount", "giro_open_amount",
             "iban", "bic", "reference", "provider_transfer")}
+    if c.page == "dates":
+        D = T["pages"]["dates"]
+        data["calendar"] = {
+            "strings": {k: D[k] for k in ("dialog_when", "dialog_where", "dialog_seats", "dialog_course", "ics_add",
+                                           "request", "waitlist", "today", "view_calendar", "view_list")},
+            "months": T["common"]["months_long"],
+            "events": {
+                e["id"]: {
+                    "title": c.course(e["course"])["title"][c.lang],
+                    "date": c.date(e["date"]),
+                    "time": c.time(e["start"], e["end"]),
+                    "place": b.events["locations"][e["location"]][c.lang],
+                    "seats": re.sub(r"<[^>]+>", "", seats_html(c, e)),
+                    "full": e["seats_free"] == 0,
+                    "ics": ics_url(c, "event", e["id"]),
+                    "request": f'{c.url("contact")}?thema=kurs&termin={e["id"]}',
+                    "course": f'{c.url("courses")}#kurs-{e["course"]}',
+                } for e in b.events["events"]
+            },
+        }
     if c.page == "contact":
         data["events"] = {e["id"]: f'{c.course(e["course"])["title"][c.lang]} – {c.date(e["date"])}, {c.time(e["start"], e["end"])}'
                           for e in b.events["events"]}
@@ -1200,22 +1382,39 @@ class Build:
             raise SystemExit(f"Nicht ersetzte Text-Platzhalter in {lang}/{pid}: {stray}")
         return out
 
-    def write(self, rel, content):
-        path = ROOT / rel
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content, encoding="utf-8")
-
     def run(self):
         count = 0
         for lang in self.site["languages"]:
             for pid, slugs in PAGES:
                 self.write(f"{lang}/{slugs[lang]}", self.render_page(lang, pid))
                 count += 1
+        self.write_calendars()
         self.write("index.html", self.root_index())
         self.write("404.html", self.not_found())
         self.write("sitemap.xml", self.sitemap())
         self.write("robots.txt", f'User-agent: *\nAllow: /\n\nSitemap: {self.site["base_url"]}/sitemap.xml\n')
         return count
+
+    def write_calendars(self):
+        """.ics-Dateien je Sprache: jeder Termin, jeder Kurs, alle Termine."""
+        events = sorted(self.events["events"], key=lambda e: (e["date"], e["start"]))
+        for lang in self.site["languages"]:
+            c = Ctx(self, lang, "dates")
+            base = f"{ICS_DIR}/{lang}/"
+            for e in events:
+                co = c.course(e["course"])
+                self.write(base + ics_file_name("event", e["id"]), ics_calendar(self, lang, [e], f'{co["title"][lang]} – Skills Lab e.V.'))
+            for co in self.courses["courses"]:
+                evs = [e for e in events if e["course"] == co["id"]]
+                self.write(base + ics_file_name("course", co["id"]), ics_calendar(self, lang, evs, f'{co["title"][lang]} – Skills Lab e.V.'))
+            self.write(base + ics_file_name("all"), ics_calendar(self, lang, events, f'Skills Lab e.V. – {c.t("nav.dates")}'))
+
+    def write(self, rel, content):
+        path = ROOT / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        # .ics braucht CRLF-Zeilenenden – unverändert schreiben
+        with open(path, "w", encoding="utf-8", newline="") as f:
+            f.write(content)
 
     # Sprachweiche --------------------------------------------------------------
     def root_index(self):

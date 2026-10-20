@@ -359,6 +359,63 @@ async function stubEndpoint(page, formSelector) {
     await ctx.close();
   }
 
+  /* 7b. Kalenderansicht und .ics-Dateien ---------------------------------------- */
+  {
+    const icsLinesOk = (txt) => txt.startsWith("BEGIN:VCALENDAR\r\n") && txt.trimEnd().endsWith("END:VCALENDAR") &&
+      !/[^\r]\n/.test(txt) && txt.split("\r\n").every((l) => Buffer.byteLength(l, "utf8") <= 75);
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 1000 }, acceptDownloads: true });
+    await ctx.addInitScript(() => { try { localStorage.setItem("sl-consent", JSON.stringify({ map: false, version: 1 })); } catch (e) {} });
+    const page = await ctx.newPage();
+    await page.clock.setFixedTime(new Date("2026-11-20T10:00:00"));
+    await page.goto(BASE + "de/termine.html");
+    const visibleMonths = await page.$$eval(".cal-month:not([hidden])", (m) => m.map((x) => x.dataset.month));
+    check("Kalender: Standardansicht, aktueller Monat (Nov 2026) sichtbar, Liste ausgeblendet",
+      visibleMonths.join() === "2026-11" && (await page.locator("#list-view").isHidden()) && (await page.isDisabled("[data-cal-prev]")));
+    check("Kalender: heutiger Tag markiert", (await page.getAttribute('.mg-day[data-date="2026-11-20"]', "aria-current")) === "date");
+    await page.click("[data-cal-next]");
+    const next = await page.$$eval(".cal-month:not([hidden])", (m) => m.map((x) => x.dataset.month));
+    check("Kalender: „Nächster Monat“ blättert und sagt den Monat an", next.join() === "2026-12" && (await page.textContent("#cal-status")) === "Dezember 2026");
+    await page.click("[data-cal-prev]");
+    const chip = page.locator('.cal-chip[data-event="2026-11-21-praesentieren"]');
+    await chip.click();
+    const dlgOpen = await page.locator("#event-dialog").isVisible();
+    const dlgTitle = await page.textContent("#event-dialog-title");
+    const icsHref = await page.getAttribute("#event-dialog .ics-btn", "href");
+    check("Termin anklicken öffnet Detailfenster mit Kurs, Ort und Kalender-Button", dlgOpen && dlgTitle === "Sicher präsentieren" &&
+      icsHref === "../kalender/de/termin-2026-11-21-praesentieren.ics" && (await page.textContent("#event-dialog")).includes("Vereinsraum"));
+    const [dl] = await Promise.all([page.waitForEvent("download"), page.click("#event-dialog .ics-btn")]);
+    const dlPath = path.join(OUT, dl.suggestedFilename());
+    await dl.saveAs(dlPath);
+    const ics = fs.readFileSync(dlPath, "utf8");
+    check("„In meinen Kalender“ lädt gültige .ics-Datei (CRLF, ≤75 Byte/Zeile, Zeitzone, Start/Ende)",
+      dl.suggestedFilename() === "termin-2026-11-21-praesentieren.ics" && icsLinesOk(ics) &&
+      ics.includes("DTSTART;TZID=Europe/Berlin:20261121T100000") && ics.includes("DTEND;TZID=Europe/Berlin:20261121T160000") &&
+      ics.includes("BEGIN:VTIMEZONE") && (ics.match(/BEGIN:VEVENT/g) || []).length === 1, dl.suggestedFilename());
+    await page.keyboard.press("Escape");
+    const focusBack = await page.evaluate(() => document.activeElement.dataset.event);
+    check("Escape schließt das Detailfenster, Fokus zurück auf den Termin", (await page.locator("#event-dialog").isHidden()) && focusBack === "2026-11-21-praesentieren");
+    await page.selectOption("#filter-course", "ki-werkzeuge");
+    const shownChips = await page.$$eval(".cal-chips li:not([hidden]) .cal-chip", (c) => c.map((x) => x.dataset.course));
+    check("Kursfilter wirkt auch im Kalender", shownChips.length > 0 && shownChips.every((x) => x === "ki-werkzeuge"), shownChips.join());
+    await page.click('[data-view="list"]');
+    check("Umschalten auf Liste: Tabelle sichtbar, Kalender ausgeblendet, .ics-Button je Termin",
+      (await page.locator("#dates-table").isVisible()) && (await page.locator("#calendar-view").isHidden()) &&
+      (await page.locator("#dates-table tr[data-date] .ics-btn").count()) === 12);
+    await page.reload();
+    check("Gewählte Ansicht wird gemerkt", await page.locator("#list-view").isVisible());
+
+    // Sammeldateien und Sprachen
+    const all = fs.readFileSync(path.join(ROOT, "kalender/de/alle-termine.ics"), "utf8");
+    const ru = fs.readFileSync(path.join(ROOT, "kalender/ru/termin-2026-11-07-digital-fit.ics"), "utf8");
+    const course = fs.readFileSync(path.join(ROOT, "kalender/en/kurs-praesentieren.ics"), "utf8");
+    check("alle-termine.ics: 12 Termine, gültige Zeilen", (all.match(/BEGIN:VEVENT/g) || []).length === 12 && icsLinesOk(all));
+    check("Kurs-Datei (EN) enthält genau die Termine des Kurses", (course.match(/BEGIN:VEVENT/g) || []).length === 2 && course.includes("SUMMARY:Presenting with confidence"));
+    check("Russische .ics: kyrillischer Titel, korrekt gefaltet (UTF-8)", ru.includes("Цифровая грамотность") && icsLinesOk(ru));
+    await page.goto(BASE + "de/angebote.html");
+    check("Angebote: Kalender-Link für jeden Kurs", (await page.locator('a.ics-link[href^="../kalender/de/kurs-"]').count()) === 6);
+    await ctx.close();
+  }
+
   /* 8. Sprachweiche und Sprachumschalter --------------------------------------- */
   for (const [locale, expected] of [["en-GB", "en/index.html"], ["ru-RU", "ru/index.html"], ["fr-FR", "de/index.html"]]) {
     const ctx = await browser.newContext({ locale });

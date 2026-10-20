@@ -1,0 +1,235 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Skills Lab e.V.//Termine//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Skills Lab e.V. – Termine
+X-WR-TIMEZONE:Europe/Berlin
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:2026-11-07-digital-fit@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261107T100000
+DTEND;TZID=Europe/Berlin:20261107T120000
+SUMMARY:Digital fit: Smartphone und Internet – Skills Lab e.V.
+LOCATION:Vereinsraum\, [Musterstraße 1]\, Erbach
+DESCRIPTION:In Ruhe und Schritt für Schritt: Nachrichten schreiben\, Fotos
+  teilen\, sicher im Internet suchen\, Termine online vereinbaren. Bringen 
+ Sie gern Ihr eigenes Gerät mit.\n\nErster Termin des Kurses. Die weiteren
+  Termine erhalten Sie nach der Anmeldung.\n\nAnfrage und Anmeldung: https:
+ //reckssel.github.io/test/de/kontakt.html?thema=kurs&termin=2026-11-07-dig
+ ital-fit
+URL:https://reckssel.github.io/test/de/termine.html#termin-2026-11-07-digit
+ al-fit
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-12-zeitmanagement@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261112T190000
+DTEND;TZID=Europe/Berlin:20261112T203000
+SUMMARY:Zeit- und Selbstmanagement – Skills Lab e.V.
+LOCATION:Online (Zugangslink nach Anmeldung)
+DESCRIPTION:Prioritäten setzen\, Aufgaben planen\, Pausen schützen: allta
+ gstaugliche Methoden ohne Perfektionismus. Online\, mit kleinen Aufgaben z
+ wischen den Terminen.\n\nErster Termin des Kurses. Die weiteren Termine er
+ halten Sie nach der Anmeldung.\n\nAnfrage und Anmeldung: https://reckssel.
+ github.io/test/de/kontakt.html?thema=kurs&termin=2026-11-12-zeitmanagement
+URL:https://reckssel.github.io/test/de/termine.html#termin-2026-11-12-zeitm
+ anagement
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-14-kommunikation@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261114T093000
+DTEND;TZID=Europe/Berlin:20261114T123000
+SUMMARY:Klar kommunizieren im Alltag und Beruf – Skills Lab e.V.
+LOCATION:Vereinsraum\, [Musterstraße 1]\, Erbach
+DESCRIPTION:Zuhören\, nachfragen\, Ich-Botschaften: Wir üben einfache Wer
+ kzeuge für Gespräche\, die gelingen – auch wenn es schwierig wird. Mit
+  vielen kurzen Übungen in kleinen Gruppen.\n\nErster Termin des Kurses. D
+ ie weiteren Termine erhalten Sie nach der Anmeldung.\n\nAnfrage und Anmeld
+ ung: https://reckssel.github.io/test/de/kontakt.html?thema=kurs&termin=202
+ 6-11-14-kommunikation
+URL:https://reckssel.github.io/test/de/termine.html#termin-2026-11-14-kommu
+ nikation
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-21-praesentieren@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261121T100000
+DTEND;TZID=Europe/Berlin:20261121T160000
+SUMMARY:Sicher präsentieren – Skills Lab e.V.
+LOCATION:Vereinsraum\, [Musterstraße 1]\, Erbach
+DESCRIPTION:Vom Gedanken zur klaren Botschaft: Aufbau\, Folien mit wenig Te
+ xt\, Stimme und Lampenfieber. Jede Person hält eine kurze Präsentation u
+ nd erhält freundliches Feedback.\n\nErster Termin des Kurses. Die weitere
+ n Termine erhalten Sie nach der Anmeldung.\n\nAnfrage und Anmeldung: https
+ ://reckssel.github.io/test/de/kontakt.html?thema=kurs&termin=2026-11-21-pr
+ aesentieren
+URL:https://reckssel.github.io/test/de/termine.html#termin-2026-11-21-praes
+ entieren
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-26-ki-werkzeuge@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261126T180000
+DTEND;TZID=Europe/Berlin:20261126T203000
+SUMMARY:KI-Werkzeuge verstehen und nutzen – Skills Lab e.V.
+LOCATION:Vereinsraum Erbach und online
+DESCRIPTION:Was können Textgeneratoren und Bild-KI – und was nicht? Wir 
+ probieren aus\, bewerten Ergebnisse kritisch und sprechen über Datenschut
+ z und Urheberrecht.\n\nErster Termin des Kurses. Die weiteren Termine erha
+ lten Sie nach der Anmeldung.\n\nAnfrage und Anmeldung: https://reckssel.gi
+ thub.io/test/de/kontakt.html?thema=kurs&termin=2026-11-26-ki-werkzeuge
+URL:https://reckssel.github.io/test/de/termine.html#termin-2026-11-26-ki-we
+ rkzeuge
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-03-englisch-beruf@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261203T183000
+DTEND;TZID=Europe/Berlin:20261203T200000
+SUMMARY:Englisch für den Beruf – Skills Lab e.V.
+LOCATION:Online (Zugangslink nach Anmeldung)
+DESCRIPTION:E-Mails\, Telefonate und Besprechungen auf Englisch: Wir traini
+ eren typische Situationen aus dem Berufsalltag und erweitern den Wortschat
+ z gezielt.\n\nErster Termin des Kurses. Die weiteren Termine erhalten Sie 
+ nach der Anmeldung.\n\nAnfrage und Anmeldung: https://reckssel.github.io/t
+ est/de/kontakt.html?thema=kurs&termin=2026-12-03-englisch-beruf
+URL:https://reckssel.github.io/test/de/termine.html#termin-2026-12-03-engli
+ sch-beruf
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-05-digital-fit@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261205T100000
+DTEND;TZID=Europe/Berlin:20261205T120000
+SUMMARY:Digital fit: Smartphone und Internet – Skills Lab e.V.
+LOCATION:Vereinsraum\, [Musterstraße 1]\, Erbach
+DESCRIPTION:In Ruhe und Schritt für Schritt: Nachrichten schreiben\, Fotos
+  teilen\, sicher im Internet suchen\, Termine online vereinbaren. Bringen 
+ Sie gern Ihr eigenes Gerät mit.\n\nErster Termin des Kurses. Die weiteren
+  Termine erhalten Sie nach der Anmeldung.\n\nAnfrage und Anmeldung: https:
+ //reckssel.github.io/test/de/kontakt.html?thema=kurs&termin=2026-12-05-dig
+ ital-fit
+URL:https://reckssel.github.io/test/de/termine.html#termin-2026-12-05-digit
+ al-fit
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-01-16-kommunikation@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270116T093000
+DTEND;TZID=Europe/Berlin:20270116T123000
+SUMMARY:Klar kommunizieren im Alltag und Beruf – Skills Lab e.V.
+LOCATION:Vereinsraum\, [Musterstraße 1]\, Erbach
+DESCRIPTION:Zuhören\, nachfragen\, Ich-Botschaften: Wir üben einfache Wer
+ kzeuge für Gespräche\, die gelingen – auch wenn es schwierig wird. Mit
+  vielen kurzen Übungen in kleinen Gruppen.\n\nErster Termin des Kurses. D
+ ie weiteren Termine erhalten Sie nach der Anmeldung.\n\nAnfrage und Anmeld
+ ung: https://reckssel.github.io/test/de/kontakt.html?thema=kurs&termin=202
+ 7-01-16-kommunikation
+URL:https://reckssel.github.io/test/de/termine.html#termin-2027-01-16-kommu
+ nikation
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-01-21-zeitmanagement@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270121T190000
+DTEND;TZID=Europe/Berlin:20270121T203000
+SUMMARY:Zeit- und Selbstmanagement – Skills Lab e.V.
+LOCATION:Online (Zugangslink nach Anmeldung)
+DESCRIPTION:Prioritäten setzen\, Aufgaben planen\, Pausen schützen: allta
+ gstaugliche Methoden ohne Perfektionismus. Online\, mit kleinen Aufgaben z
+ wischen den Terminen.\n\nErster Termin des Kurses. Die weiteren Termine er
+ halten Sie nach der Anmeldung.\n\nAnfrage und Anmeldung: https://reckssel.
+ github.io/test/de/kontakt.html?thema=kurs&termin=2027-01-21-zeitmanagement
+URL:https://reckssel.github.io/test/de/termine.html#termin-2027-01-21-zeitm
+ anagement
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-02-06-praesentieren@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270206T100000
+DTEND;TZID=Europe/Berlin:20270206T160000
+SUMMARY:Sicher präsentieren – Skills Lab e.V.
+LOCATION:Vereinsraum\, [Musterstraße 1]\, Erbach
+DESCRIPTION:Vom Gedanken zur klaren Botschaft: Aufbau\, Folien mit wenig Te
+ xt\, Stimme und Lampenfieber. Jede Person hält eine kurze Präsentation u
+ nd erhält freundliches Feedback.\n\nErster Termin des Kurses. Die weitere
+ n Termine erhalten Sie nach der Anmeldung.\n\nAnfrage und Anmeldung: https
+ ://reckssel.github.io/test/de/kontakt.html?thema=kurs&termin=2027-02-06-pr
+ aesentieren
+URL:https://reckssel.github.io/test/de/termine.html#termin-2027-02-06-praes
+ entieren
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-02-25-ki-werkzeuge@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270225T180000
+DTEND;TZID=Europe/Berlin:20270225T203000
+SUMMARY:KI-Werkzeuge verstehen und nutzen – Skills Lab e.V.
+LOCATION:Vereinsraum Erbach und online
+DESCRIPTION:Was können Textgeneratoren und Bild-KI – und was nicht? Wir 
+ probieren aus\, bewerten Ergebnisse kritisch und sprechen über Datenschut
+ z und Urheberrecht.\n\nErster Termin des Kurses. Die weiteren Termine erha
+ lten Sie nach der Anmeldung.\n\nAnfrage und Anmeldung: https://reckssel.gi
+ thub.io/test/de/kontakt.html?thema=kurs&termin=2027-02-25-ki-werkzeuge
+URL:https://reckssel.github.io/test/de/termine.html#termin-2027-02-25-ki-we
+ rkzeuge
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-03-04-englisch-beruf@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270304T183000
+DTEND;TZID=Europe/Berlin:20270304T200000
+SUMMARY:Englisch für den Beruf – Skills Lab e.V.
+LOCATION:Online (Zugangslink nach Anmeldung)
+DESCRIPTION:E-Mails\, Telefonate und Besprechungen auf Englisch: Wir traini
+ eren typische Situationen aus dem Berufsalltag und erweitern den Wortschat
+ z gezielt.\n\nErster Termin des Kurses. Die weiteren Termine erhalten Sie 
+ nach der Anmeldung.\n\nAnfrage und Anmeldung: https://reckssel.github.io/t
+ est/de/kontakt.html?thema=kurs&termin=2027-03-04-englisch-beruf
+URL:https://reckssel.github.io/test/de/termine.html#termin-2027-03-04-engli
+ sch-beruf
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

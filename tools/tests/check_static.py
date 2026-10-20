@@ -122,7 +122,7 @@ def main():
             errors.append(f"{rel}: externe Ressourcen {p.external}")
         for href in p.links:
             u = urlparse(href)
-            if u.scheme in ("http", "https", "mailto", "tel", "data", "blob") or href.startswith("javascript:"):
+            if u.scheme in ("http", "https", "mailto", "tel", "data", "blob", "webcal") or href.startswith("javascript:"):
                 continue
             checked_links += 1
             target = (f.parent / unquote(u.path)).resolve() if u.path else f

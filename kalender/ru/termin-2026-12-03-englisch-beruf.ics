@@ -1,0 +1,44 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Skills Lab e.V.//Termine//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Английский для работы – Skills Lab e.V.
+X-WR-TIMEZONE:Europe/Berlin
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:2026-12-03-englisch-beruf@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261203T183000
+DTEND;TZID=Europe/Berlin:20261203T200000
+SUMMARY:Английский для работы – Skills Lab e.V.
+LOCATION:Онлайн (ссылка после регистрации)
+DESCRIPTION:Электронные письма\, звонки и сове
+ щания на английском: тренируем типичные 
+ рабочие ситуации и целенаправленно расш
+ иряем словарный запас.\n\nПервое занятие 
+ курса. Остальные даты вы получите после 
+ записи.\n\nЗапрос и запись: https://reckssel.github.io/
+ test/ru/contact.html?thema=kurs&termin=2026-12-03-englisch-beruf
+URL:https://reckssel.github.io/test/ru/dates.html#termin-2026-12-03-englisc
+ h-beruf
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

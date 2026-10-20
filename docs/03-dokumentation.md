@@ -117,6 +117,7 @@ Spenderinnen und Spender. Dazu englisch- und russischsprachige Menschen im Odenw
 │   ├── forms.js                 Formulare: Validierung, Fehlerübersicht, bedingte Felder, Honeypot, Versand (Endpunkt/mailto), Vorbelegung
 │   ├── iban.js                  IBAN-Prüfung (Länge je Land + Mod 97) und Formatierung
 │   ├── girocode.js              EPC-Datensatz, QR-SVG, Textalternative, Download, Betragswahl
+│   ├── calendar.js              Terminseite: Monatskalender, Blättern, Kalender/Liste, Detailfenster mit .ics-Download
 │   ├── payments.js              Erweiterungspunkt für Zahlungswege (Version 1: nur Überweisung/GiroCode)
 │   └── vendor/
 │       ├── qrcode.js            QR-Bibliothek qrcode-generator 2.0.4 (unverändert)
@@ -139,6 +140,9 @@ Spenderinnen und Spender. Dazu englisch- und russischsprachige Menschen im Odenw
 │   ├── de.json                  Deutsch (Referenz; bestimmt die Schlüssel)
 │   ├── en.json                  Englisch (gleiche Schlüssel)
 │   └── ru.json                  Russisch (gleiche Schlüssel)
+│
+├── kalender/                    Kalenderdateien (.ics, ERZEUGT von build.py) je Sprache:
+│   └── de/ en/ ru/              termin-<id>.ics (je Termin), kurs-<id>.ics (je Kurs), alle-termine.ics (Abo)
 │
 ├── downloads/                   PDFs (ERZEUGT mit tools/make_assets.cjs)
 │   ├── satzung.pdf
@@ -187,8 +191,8 @@ Spenderinnen und Spender. Dazu englisch- und russischsprachige Menschen im Odenw
 |---|---|---|
 | `index.html` | Hero mit Nutzenversprechen und zwei Buttons · 6 Kurse kompakt · 3 nächste Termine (live gefiltert) · Über-uns-Teaser · Mitglied werden / Spenden · Newsletter-Formular | `page_home` |
 | `ueber-uns.html` / `about.html` | Mission · 4 Werte · Arbeitsweise · Team (Initialen-Platzhalter) · Mitmach-Aufruf | `page_about` |
-| `angebote.html` / `courses.html` | Ermäßigungshinweis · 6 Kurse mit Text, Dauer, Format, Niveau, Zielgruppe, Preis/Mitgliederpreis · Links „Termine“ und „Anfragen“ · Workshop für Gruppen | `page_courses` |
-| `termine.html` / `dates.html` | Anmelde-Hinweis · Filter (nur mit JS) · Tabelle nach Monaten gruppiert (je Monat ein `<tbody>` mit Überschrift), Datum als Kalenderblatt, Uhrzeit, Kurs, Ort, freie Plätze mit Balken, Button „Anfragen“/„Warteliste“ · schema.org EducationEvent | `page_dates` |
+| `angebote.html` / `courses.html` | Ermäßigungshinweis · 6 Kurse mit Text, Dauer, Format, Niveau, Zielgruppe, Preis/Mitgliederpreis · Links „Termine“, „Anfragen“ und „Termine dieses Kurses in meinen Kalender (.ics)“ · Workshop für Gruppen | `page_courses` |
+| `termine.html` / `dates.html` | Anmelde-Hinweis · Filter (nur mit JS) · Umschalter **Kalender / Liste** · **Monatskalender** (Mo–So, ein Monat sichtbar, Blättern; Termin anklicken → Detailfenster mit „In meinen Kalender“, „Anfragen“, „Mehr zum Kurs“) · Box „Alle Termine in Ihren Kalender“ (Download aller Termine, Abo-Link `webcal://`) · Tabelle nach Monaten gruppiert (je Monat ein `<tbody>` mit Überschrift), Datum als Kalenderblatt, Uhrzeit, Kurs, Ort, freie Plätze mit Balken, Button „Anfragen“/„Warteliste“ · schema.org EducationEvent | `page_dates` |
 | `verein.html` / `association.html` | Unternavigation · Fakten (Name, Sitz, Register, Zweck, Gemeinnützigkeit, Vorstand) · Satzung und Beitragsordnung mit Stand, Online-Link und PDF · Gründungsgeschichte (Platzhalter) | `page_association` |
 | `satzung.html` / `statutes.html` | Prüfhinweis · Übersetzungshinweis (EN/RU) · Fassung und Beschlussdatum · PDF und Drucken · Inhaltsverzeichnis · 14 Paragraphen mit nummerierten Absätzen und „Nach oben“ | `legal_doc_page` |
 | `beitragsordnung.html` / `fees.html` | wie Satzung, mit 8 Paragraphen; in § 1 die Beitragstabelle aus `beitraege.json` | `legal_doc_page` + `fees_table` |
@@ -366,6 +370,27 @@ Vierergruppen formatiert. **Die Prüfung belegt nicht, dass das Konto existiert.
 - **Filter:** Er wählt nach Kurs aus und sagt die Anzahl an (`role="status"`). Mit `?kurs=<id>` ist ein Kurs vorausgewählt.
 - **Freie Plätze:** Als Text, z. B. „4 von 10 frei“. Bei höchstens 3 freien Plätzen heißt es „nur noch n frei“ (Akzentfarbe), bei 0 „ausgebucht“ und der Link heißt „Warteliste“.
 
+### 6.6a Kalender und persönlicher Kalender (.ics)
+
+- **Monatskalender** (`month_grid()` in `build.py`, Logik in `js/calendar.js`): Tabelle Mo–So je Monat mit Terminen.
+  Mit JavaScript ist ein Monat sichtbar (Start: aktueller Monat bzw. erster Monat mit kommenden Terminen),
+  Blättern per Buttons mit Ansage, heutiger Tag markiert (`aria-current="date"`), Vergangenes abgeschwächt,
+  Kursfilter wirkt mit. Ohne JavaScript stehen alle Monate untereinander, Termine verlinken auf ihre Zeile in der Liste.
+  Mobil erscheinen Termine als Punkte (24 px Zielfläche, Name bleibt für Screenreader lesbar).
+- **Detailfenster** (`<dialog>`, `showModal()`): Kurs, Wann, Wo, freie Plätze, Hinweis „erster Termin“, Buttons
+  „In meinen Kalender“, „Anfragen“/„Warteliste“, „Mehr zum Kurs“. Escape oder Klick auf den Hintergrund schließt,
+  der Fokus kehrt zum Termin zurück.
+- **Kalender / Liste**: Umschalter mit `aria-pressed`; die Wahl wird gemerkt, ein Link auf `#termin-…` öffnet die Liste.
+- **.ics-Dateien** (RFC 5545, `ics_calendar()` in `build.py`), erzeugt bei jedem Build unter `kalender/<sprache>/`:
+  `termin-<id>.ics` (ein Termin), `kurs-<id>.ics` (alle Termine eines Kurses), `alle-termine.ics` (alle Termine).
+  Inhalt: Zeitzone `Europe/Berlin` (mit VTIMEZONE), feste `UID` je Termin (Updates statt Dubletten beim Abo),
+  Titel, Ort, Beschreibung mit Kurstext, Hinweis „erster Termin“ und Anfrage-Link, `URL` zur Terminseite.
+  Zeilen werden nach Standard auf 75 Byte gefaltet (UTF-8-sicher), Zeilenende CRLF.
+  Funktioniert mit Apple Kalender, Google Kalender (Import bzw. „Per URL“), Outlook, Thunderbird und Smartphone-Kalendern.
+- **Abonnieren**: Link `webcal://…/kalender/<sprache>/alle-termine.ics` – Kalender-Apps prüfen die Datei regelmäßig
+  und übernehmen neue oder geänderte Termine. Funktioniert erst online (GitHub Pages bzw. eigener Webspace), nicht per `file://`.
+- Es werden keine Daten an Dritte übertragen; die Dateien liegen auf dem eigenen Webspace.
+
 ### 6.7 Weitere Funktionen
 
 - **Sprache merken:** `sl-lang` wird gesetzt, sobald eine Seite aufgerufen oder ein Sprachlink geklickt wird. Die Sprachweiche verwendet es zuerst, danach die Browsersprache, sonst Deutsch.
@@ -501,7 +526,7 @@ In `data/termine.json` → `events`:
 { "id": "2027-04-10-kommunikation", "date": "2027-04-10", "start": "09:30", "end": "12:30",
   "course": "kommunikation", "location": "vereinsraum", "seats_total": 12, "seats_free": 12 }
 ```
-`course` muss eine `id` aus `angebote.json` sein, `location` ein Schlüssel aus `locations`.
+`course` muss eine `id` aus `angebote.json` sein, `location` ein Schlüssel aus `locations`. Die `id` dient auch als feste Kennung (`UID`) in den Kalenderdateien: **bei Änderungen eines Termins die `id` nicht ändern**, dann aktualisieren Abonnenten den Termin, statt ihn doppelt zu bekommen.
 Freie Plätze bitte aktuell halten (Build ausführen). **Vergangene Termine verschwinden im Browser von selbst**,
 ein Aufräumen ist nur gelegentlich nötig. Außerdem `build_date` in `site.json` auf das aktuelle Datum setzen.
 Es bestimmt, was ohne JavaScript und in den schema.org-Daten als „kommend“ gilt.
@@ -560,7 +585,7 @@ Der Build meldet alles, was noch fehlt.
 | PHP-Beispielskript | `php -l` + lokale Anfragen mit `curl` | 6 Fälle wie erwartet |
 | Sichtprüfung | Screenshots bei 360/375, 768, 1280 px | Layout geprüft, gefundene Fehler behoben |
 
-**Die Browser-Tests (inzwischen 88) umfassen:**
+**Die Browser-Tests (inzwischen 101) umfassen:**
 - **Layout:** alle 46 Seiten in 360, 768 und 1280 px Breite ohne horizontales Scrollen und ohne Konsolenfehler.
 - **Tastatur:** Skip-Link als erster Tab-Stopp und sichtbar, Fokus auf `<main>`. Mobiles Menü mit `aria-expanded` und Escape. Sichtbarer Fokusrahmen, Zielgrößen ≥ 24 px, „Bewegung reduzieren“.
 - **Einwilligung:** Banner, **kein Request an openstreetmap.org ohne Einwilligung**, Ablehnung, gespeicherte Entscheidung, „Karte laden“, Widerruf in den Cookie-Einstellungen.
@@ -574,6 +599,7 @@ Der Build meldet alles, was noch fehlt.
   - Mitgliedsarten aus den Daten
 - **GiroCode:** Der Code wird **mit jsQR dekodiert und Zeichen für Zeichen verglichen**: bei 25 €, 100 €, 12,50 € und einem ungültigen Betrag. Dazu Textalternative, SVG-Download, Spendenanfrage mit Pflicht-Anschrift bei Bescheinigung, Bestätigungs-Code über 50 € mit Namen im Verwendungszweck, Hinweis auf einen Dauerauftrag, Kopieren der IBAN.
 - **Termine:** vergangene ausblenden bei simuliertem Datum, Filter mit Ansage, Vorauswahl über die URL, 3 Termine auf der Startseite, Vorbelegung des Kontaktformulars.
+- **Kalender:** Standardansicht und aktueller Monat, Blättern mit Ansage, heutiger Tag, Detailfenster (Inhalt, Escape, Fokus zurück), Download und Prüfung der .ics-Datei (CRLF, ≤ 75 Byte je Zeile, Zeitzone, Start/Ende), Kursfilter im Kalender, Umschalten auf Liste und Merken der Wahl, Sammel- und Kursdateien, russische Datei (UTF-8-Faltung), Kalender-Links auf der Angebotsseite. Zusätzlich wurden alle 57 .ics-Dateien mit der Python-Bibliothek `icalendar` eingelesen (108 Termine, Zeitzonen korrekt).
 - **Sprachen:** Sprachweiche für en-GB, ru-RU und fr-FR, Sprachumschalter, gespeicherte Sprache, Übersetzungshinweis auf der englischen Satzung.
 - **Betrieb:** `file://` mit Skripten, GiroCode und Schrift, kyrillischer Schnitt auf russischen Seiten. Ohne JavaScript: Navigation, Bankdaten, mailto-Formular und Terminliste.
 - **Einheitstest:** IBAN-Modul mit 6 gültigen und 5 ungültigen Beispielen.
