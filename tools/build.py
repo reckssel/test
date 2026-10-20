@@ -1010,36 +1010,50 @@ def page_event(c):
 </div>'''
 
 
+ICON_DOC = ('<svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="28" height="28">'
+            '<path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" '
+            'd="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7zM14 3v4h4M9 12h6M9 15.5h6M9 9h2"/></svg>')
+ICON_PERSON = ('<svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="24" height="24">'
+               '<path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" '
+               'd="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20a7.5 7.5 0 0 1 15 0"/></svg>')
+
+
 def page_association(c):
     T = "pages.association."
     o = c.b.site["org"]
     d = c.b.site["documents"]
     roles = c.t(T + "roles")
-    board = "<br>".join(f'{esc(roles[m["role"]])}: {esc(m["name"])}' for m in o["board"])
+    board = "".join(f'<li class="person"><span class="person-icon">{ICON_PERSON}</span>'
+                    f'<span><span class="person-role">{esc(roles[m["role"]])}</span>'
+                    f'<span class="person-name">{esc(m["name"])}</span></span></li>' for m in o["board"])
     docs = []
     for pid, text_key, pdf, date_key, ver_key in (("statutes", "docs_statutes", "satzung.pdf", "statutes_date", "statutes_version"),
                                                  ("fees", "docs_fees", "beitragsordnung.pdf", "fees_date", "fees_version")):
-        docs.append(f'''<li><h3>{esc(c.t("nav." + pid))}</h3><p>{esc(c.t(T + text_key))}</p>
-<p class="small muted">{esc(c.t("common.version_label"))}: {esc(d[ver_key])} · {esc(c.t("common.decided_label"))} {esc(d[date_key])}</p>
+        docs.append(f'''<li class="doc-card"><span class="doc-icon">{ICON_DOC}</span>
+<h3>{esc(c.t("nav." + pid))}</h3><p>{esc(c.t(T + text_key))}</p>
+<p class="small muted doc-meta">{esc(c.t("common.version_label"))}: {esc(d[ver_key])} · {esc(c.t("common.decided_label"))} {esc(d[date_key])}</p>
 <p class="btn-row"><a class="btn btn--outline btn--small" href="{c.url(pid)}">{esc(c.t(T + "read"))}</a>
 <a class="btn btn--text btn--small" href="../downloads/{pdf}" download hreflang="de">{esc(c.t("common.download_pdf"))} <span class="small muted">({esc(c.t("common.pdf_size"))})</span></a></p></li>''')
+
+    def tile(key, value, cls=""):
+        return f'<div class="assoc-tile{cls}"><dt>{esc(c.t(T + key))}</dt><dd>{value}</dd></div>'
     return f'''{page_head(c, lead=esc(c.t(T + "lead")))}
 <div class="container">{subnav(c)}</div>
 <section class="section" aria-labelledby="h-facts"><div class="container">
 <h2 id="h-facts">{esc(c.t(T + "facts_h2"))}</h2>
-<dl class="facts" style="font-size:1rem">
-<dt>{esc(c.t(T + "f_name"))}</dt><dd>{esc(o["name"])}</dd>
-<dt>{esc(c.t(T + "f_seat"))}</dt><dd>{esc(o["city"])}</dd>
-<dt>{esc(c.t(T + "f_register"))}</dt><dd>{esc(o["register_court"])}, {esc(o["register_number"])}</dd>
-<dt>{esc(c.t(T + "f_purpose"))}</dt><dd>{esc(c.t(T + "purpose_text"))}</dd>
-<dt>{esc(c.t(T + "f_nonprofit"))}</dt><dd>{c.p(T + "nonprofit_text")}</dd>
-<dt>{esc(c.t(T + "f_board"))}</dt><dd>{board}</dd>
+<dl class="assoc-facts">
+{tile("f_name", esc(o["name"]))}
+{tile("f_seat", esc(o["city"]))}
+{tile("f_register", f'{esc(o["register_court"])}, {esc(o["register_number"])}')}
+{tile("f_purpose", esc(c.t(T + "purpose_text")), " assoc-tile--wide assoc-tile--green")}
+{tile("f_nonprofit", c.p(T + "nonprofit_text"), " assoc-tile--wide assoc-tile--gold")}
+<div class="assoc-tile assoc-tile--board"><dt>{esc(c.t(T + "f_board"))}</dt><dd><ul class="board">{board}</ul></dd></div>
 </dl></div></section>
-<section class="section" aria-labelledby="h-docs"><div class="container">
+<section class="section section--tint" aria-labelledby="h-docs"><div class="container">
 <h2 id="h-docs">{esc(c.t(T + "docs_h2"))}</h2>
-<ul class="rows prose">{"".join(docs)}</ul></div></section>
-<section class="section" aria-labelledby="h-history"><div class="container prose">
-<h2 id="h-history">{esc(c.t(T + "history_h2"))}</h2><p>{esc(c.t(T + "history_text"))}</p></div></section>'''
+<ul class="doc-cards">{"".join(docs)}</ul></div></section>
+<section class="section" aria-labelledby="h-history"><div class="container">
+<div class="history-box"><h2 id="h-history">{esc(c.t(T + "history_h2"))}</h2><p>{esc(c.t(T + "history_text"))}</p></div></div></section>'''
 
 
 def legal_doc_page(c, pid, pdf, date_key, ver_key, numbered=True):

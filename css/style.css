@@ -742,10 +742,11 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
 .doc-meta { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin-bottom: var(--s-5); color: var(--c-muted); font-size: var(--fs-small); }
 
 /* Lokale Unternavigation (Verein → Satzung, Beitragsordnung) */
-.subnav { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin: 0 0 var(--s-6); padding: 0 0 var(--s-3); border-bottom: 1px solid var(--c-line); }
+.subnav { list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-2); margin: var(--s-5) 0 var(--s-2); padding: 0; }
 .subnav li + li { margin: 0; }
-.subnav a { display: inline-flex; align-items: center; min-height: 44px; }
-.subnav a[aria-current="page"] { color: var(--c-text); font-weight: 600; text-decoration: none; }
+.subnav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s-4); border: 1px solid var(--c-line); border-radius: 999px; background: var(--c-bg); text-decoration: none; font-weight: 500; }
+.subnav a:hover { border-color: var(--c-primary); }
+.subnav a[aria-current="page"] { border-color: var(--c-green); background: var(--c-tint); color: var(--c-text); font-weight: 600; box-shadow: inset 0 -3px 0 var(--c-green); }
 
 /* Team-Platzhalter mit Initialen */
 .people { list-style: none; display: grid; gap: var(--s-5); margin: 0; padding: 0; }
@@ -856,6 +857,40 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
 .event-dialog .btn-row .btn--text { padding-inline: 0; }
 .event-dialog .btn { gap: var(--s-2); }
 .event-dialog-close { position: absolute; top: var(--s-3); right: var(--s-3); }
+
+/* Vereinsseite ------------------------------------------------------------------ */
+.section--tint { background: var(--c-subtle); }
+.section + .section--tint, .section--tint + .section { border-top: 0; }
+.assoc-facts { display: grid; grid-template-columns: 1fr; gap: var(--s-4); margin: 0; }
+@media (min-width: 760px) { .assoc-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.assoc-tile { padding: var(--s-4) var(--s-5); border: 1px solid var(--c-line); border-radius: 8px; background: var(--c-bg); }
+.assoc-tile dt { margin-bottom: var(--s-1); color: var(--c-muted); font-size: var(--fs-small); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.assoc-tile dd { margin: 0; font-size: 1.0625rem; font-weight: 500; }
+.assoc-tile--wide { grid-column: 1 / -1; }
+.assoc-tile--green { border-left: 4px solid var(--c-green); background: var(--c-tint); }
+.assoc-tile--gold { border-left: 4px solid var(--c-accent); }
+.assoc-tile--wide dd { font-weight: 400; }
+.assoc-tile--board { grid-column: 1 / -1; }
+.board { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--s-3); margin: var(--s-2) 0 0; padding: 0; list-style: none; }
+.board li { margin: 0; }
+.person { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3); border-radius: 8px; background: var(--c-subtle); }
+.person-icon { display: inline-flex; align-items: center; justify-content: center; flex: none; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--c-primary); color: var(--c-on-primary); }
+.person-role { display: block; color: var(--c-muted); font-size: var(--fs-small); font-weight: 400; }
+.person-name { display: block; font-weight: 600; }
+.doc-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--s-5); margin: 0; padding: 0; list-style: none; }
+.doc-card { display: flex; flex-direction: column; margin: 0; padding: var(--s-5); border: 1px solid var(--c-line); border-top: 4px solid var(--c-green); border-radius: 8px; background: var(--c-bg); }
+.doc-card .doc-icon { display: inline-flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; margin-bottom: var(--s-3); border-radius: 8px; background: var(--c-tint); color: var(--c-green); }
+.doc-card h3 { margin-bottom: var(--s-2); }
+.doc-card .doc-meta { margin-top: auto; padding-top: var(--s-2); }
+.doc-card .btn-row { margin: var(--s-3) 0 0; align-items: center; }
+.history-box { max-width: var(--measure); padding: var(--s-5) var(--s-6); border-left: 4px solid var(--c-accent); border-radius: 0 8px 8px 0; background: var(--c-tint); }
+.history-box h2::before { display: none; }
+.history-box p { margin: 0; font-size: 1.0625rem; }
+@media (max-width: 599.98px) {
+  .assoc-tile { padding: var(--s-3) var(--s-4); }
+  .doc-card, .history-box { padding: var(--s-4); }
+  .doc-card .btn-row .btn--outline { width: 100%; justify-content: center; }
+}
 
 /* Termin-Detailseite --------------------------------------------------------- */
 .breadcrumb { padding-top: var(--s-4); font-size: var(--fs-small); }
