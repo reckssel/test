@@ -1,0 +1,672 @@
+{
+  "meta": {
+    "lang": "en",
+    "locale": "en_GB",
+    "name": "English",
+    "short": "EN"
+  },
+
+  "common": {
+    "site_name": "Skills Lab e.V.",
+    "tagline": "Courses and workshops for everyone",
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "menu_close": "Close menu",
+    "nav_label": "Main navigation",
+    "lang_label": "Choose language",
+    "lang_current": "Current language",
+    "cta_member": "Become a member",
+    "cta_donate": "Donate",
+    "home_link": "Skills Lab – go to home page",
+    "theme_label": "Appearance",
+    "theme_system": "Same as system",
+    "theme_light": "Light",
+    "theme_dark": "Dark",
+    "footer_about": "Skills Lab e.V. is a non-profit association in the Odenwald district (Germany). We offer courses and workshops for people of all ages and all levels of experience.",
+    "footer_contact": "Contact",
+    "footer_legal": "Legal",
+    "footer_association": "Association",
+    "footer_placeholder": "Note: this website contains placeholders. Information in [square brackets] must be replaced by the association.",
+    "copyright": "© {year} Skills Lab e.V.",
+    "required": "required",
+    "optional": "optional",
+    "toc": "Contents",
+    "back_to_top": "Back to top",
+    "status_label": "Status",
+    "version_label": "Version",
+    "decided_label": "Adopted by the general meeting on",
+    "download_pdf": "Download German original (PDF)",
+    "pdf_size": "PDF",
+    "print": "Print",
+    "per_year": "per year",
+    "from": "from",
+    "more": "Learn more",
+    "placeholder_legal": "<strong>Placeholder text</strong>This text is a template. It must be adopted or adapted by the association and checked by a legal professional. It is not legal advice.",
+    "translation_notice": "<strong>Translation for information only</strong>The legally binding version is the German original. This English translation is provided for information only. <a href='{de_link}' hreflang='de' lang='de'>Deutsche Fassung</a>",
+    "binding_german": "Only the German version is legally binding.",
+    "formats": { "onsite": "On site", "online": "Online", "hybrid": "On site and online" },
+    "levels": { "beginner": "Beginners", "all": "All levels", "advanced": "Advanced" },
+    "facts": {
+      "duration": "Duration",
+      "format": "Format",
+      "level": "Level",
+      "audience": "Who it’s for",
+      "price": "Price",
+      "member_price": "for members"
+    },
+    "seats": {
+      "free": "{n} of {m} free",
+      "few": "only {n} left",
+      "none": "fully booked",
+      "label": "Places available"
+    },
+    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "months_badge": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "months_long": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "date_pattern": "{wd} {d} {mon} {y}",
+    "time_pattern": "{start}–{end}",
+    "money_pattern": "€{n}"
+  },
+
+  "nav": {
+    "home": "Home",
+    "about": "About us",
+    "courses": "Courses",
+    "dates": "Dates",
+    "association": "Association",
+    "contact": "Contact",
+    "statutes": "Statutes",
+    "fees": "Membership fees",
+    "membership": "Become a member",
+    "donate": "Donate",
+    "imprint": "Legal notice",
+    "privacy": "Privacy",
+    "cookies": "Cookie settings",
+    "accessibility": "Accessibility",
+    "newsletter_confirmed": "Newsletter confirmed"
+  },
+
+  "consent": {
+    "title": "External content",
+    "text": "This website does not use cookies or tracking. Only the map on the contact page is loaded from OpenStreetMap – this transmits your IP address. Would you like to allow the map? <a href='{p:cookies}'>Settings and details</a>",
+    "accept": "Allow map",
+    "reject": "Necessary only",
+    "map_title": "Map (OpenStreetMap)",
+    "map_text": "To protect your data, the map is only loaded once you agree. Loading it transmits your IP address to the OpenStreetMap Foundation.",
+    "map_load": "Load map",
+    "map_route": "Open address on OpenStreetMap (new window)",
+    "map_iframe_title": "Map showing the location of Skills Lab e.V."
+  },
+
+  "forms": {
+    "name": "Name",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "street": "Street and house number",
+    "zip": "Postcode",
+    "city": "Town/City",
+    "email": "Email address",
+    "phone": "Phone",
+    "birthdate": "Date of birth",
+    "day": "Day",
+    "month": "Month",
+    "year": "Year",
+    "birthdate_hint": "For example: 14 · March · 1985",
+    "age": {"one": "Age: {n} year", "few": "Age: {n} years", "many": "Age: {n} years", "other": "Age: {n} years"},
+    "message": "Message",
+    "topic": "Topic",
+    "topic_choose": "Please choose",
+    "topics": {
+      "kurs": "Course enquiry",
+      "workshop": "Book a workshop",
+      "mitgliedschaft": "Membership",
+      "spenden": "Donations",
+      "allgemein": "General question",
+      "sonstiges": "Other"
+    },
+    "privacy_consent": "I have read the <a href='{p:privacy}'>privacy policy</a> and agree that my details will be processed to handle my enquiry.",
+    "newsletter_consent": "I would like to receive the Skills Lab e.V. newsletter by email. I can unsubscribe at any time. See the <a href='{p:privacy}'>privacy policy</a>.",
+    "honeypot": "Please leave this field empty",
+    "submit_contact": "Send message",
+    "submit_newsletter": "Subscribe",
+    "submit_membership": "Submit application",
+    "submit_donation": "Send donation request",
+    "required_note": "Fields marked * are required.",
+    "errors": {
+      "summary": "Please check your details:",
+      "required": "Please fill in this field.",
+      "choose": "Please choose an option.",
+      "checkbox": "Please tick this box to confirm.",
+      "email": "Please enter a valid email address, e.g. name@example.com.",
+      "zip": "Please enter a valid postcode.",
+      "date_incomplete": "Please enter the full date (day, month and year).",
+      "date": "Please enter a valid date.",
+      "birthdate": "The date of birth cannot be in the future.",
+      "iban": "This IBAN is not valid. Please check your entry (the check digits do not match).",
+      "iban_length": "This IBAN does not have the correct length for its country.",
+      "iban_country": "This IBAN does not start with a known country code.",
+      "amount": "Please enter an amount between €1 and €10,000.",
+      "send_failed": "Sorry, sending did not work. Please try again later or email us at {site:org.email}."
+    },
+    "status": {
+      "sending": "Sending …",
+      "mailto_opened": "Your email program has opened with your message. Please send the email from there. If nothing opened, email us directly at {site:org.email}.",
+      "contact": "Thank you for your message! We will get back to you as soon as possible – usually within a week.",
+      "newsletter": "Almost done: please confirm your subscription using the link in the email we are sending you.",
+      "membership": "Thank you for your application! The board will review it and get in touch. No payment is made via this website.",
+      "donation": "Thank you for wanting to donate!"
+    },
+    "mail_subject": "Website enquiry: {form}",
+    "form_names": {
+      "contact": "Contact",
+      "newsletter": "Newsletter subscription",
+      "membership": "Membership application",
+      "donation": "Donation request"
+    },
+    "yes": "yes",
+    "no": "no"
+  },
+
+  "pages": {
+    "home": {
+      "title": "Courses and workshops for everyone in the Odenwald",
+      "description": "Skills Lab e.V. is a non-profit association in the Odenwald district offering courses and workshops on communication, digital skills, presenting, time management and languages.",
+      "h1": "Learn something new. Together. For everyone.",
+      "lead": "Skills Lab e.V. offers practical courses and workshops in small groups – for beginners and advanced learners, all ages, fair prices. Non-profit and open to all.",
+      "cta_courses": "View courses",
+      "cta_dates": "Upcoming dates",
+      "courses_h2": "Our courses",
+      "courses_all": "All courses with details",
+      "about_h2": "About Skills Lab",
+      "about_text": "We are an association run by volunteers. Our course leaders pass on what they have learned at work and in life – clearly, patiently and with plenty of practice. Participants learn in small groups and can ask questions at any time.",
+      "about_link": "More about us",
+      "dates_h2": "Upcoming dates",
+      "dates_all": "All dates",
+      "dates_empty": "No dates are planned at the moment. Check back soon or subscribe to our newsletter.",
+      "member_h2": "Become a member",
+      "member_text": "Members pay less for courses, help shape the programme and strengthen local learning. Membership starts at {fee_min} per year.",
+      "member_btn": "See membership",
+      "donate_h2": "Donate",
+      "donate_text": "Your donation funds free places, materials and new courses. Transferring is easy with the GiroCode in your banking app.",
+      "donate_btn": "Donate now",
+      "newsletter_h2": "Newsletter",
+      "newsletter_text": "New courses and dates about once a month by email. You can unsubscribe at any time."
+    },
+
+    "about": {
+      "title": "About us",
+      "description": "Mission, values, team and approach of Skills Lab e.V., the non-profit education association in the Odenwald district.",
+      "h1": "About us",
+      "lead": "We believe everyone can learn something new – with the right support, in a friendly setting and at a price that excludes no one.",
+      "mission_h2": "Our mission",
+      "mission_text": "Skills Lab e.V. promotes adult and vocational education in the Odenwald district. We teach skills that help in everyday life and at work: communicating well, presenting confidently, using digital tools, organising your time and speaking languages.",
+      "values_h2": "Our values",
+      "values": [
+        { "t": "Open", "d": "Our courses are open to everyone – regardless of age, background, prior knowledge or income." },
+        { "t": "Practical", "d": "We practise with real-life examples. What you learn with us, you can use the next day." },
+        { "t": "Together", "d": "We learn in small groups and from each other. Questions are very welcome." },
+        { "t": "Non-profit", "d": "We do not aim to make a profit. Any surplus goes into new courses and reduced-price places." }
+      ],
+      "work_h2": "How we work",
+      "work_items": [
+        "Small groups with no more than 16 participants",
+        "Volunteer course leaders with professional and practical experience",
+        "Fair prices, reduced for members; reduced-price places on request",
+        "Courses on site in Erbach, online or both",
+        "Low-barrier rooms and materials in plain language [please check]"
+      ],
+      "team_h2": "Team",
+      "team_text": "The board and course leaders will introduce themselves here. [Placeholder – add names, roles and photos (with consent) if desired.]",
+      "team": [
+        { "initials": "AB", "name": "[First name Last name]", "role": "Chair" },
+        { "initials": "CD", "name": "[First name Last name]", "role": "Vice chair" },
+        { "initials": "EF", "name": "[First name Last name]", "role": "Treasurer" },
+        { "initials": "GH", "name": "[First name Last name]", "role": "Course leader, digital skills" }
+      ],
+      "cta_text": "Would you like to teach a course yourself or get involved? We look forward to hearing from you.",
+      "cta_btn": "Get in touch"
+    },
+
+    "courses": {
+      "title": "Courses",
+      "description": "Courses and workshops by Skills Lab e.V.: communication, presenting, smartphone and internet, time management, English for work and AI tools.",
+      "h1": "Courses",
+      "lead": "Six courses for everyday life and work – on site in Erbach, online or both. All prices are for the whole course. Most courses are held in German; please ask us about language support.",
+      "member_note": "<strong>Members pay less.</strong>Every course has a reduced price for members. If the price is a barrier for you, talk to us – we will find a solution. <a href='{p:membership}'>Become a member</a>",
+      "dates_link": "Dates for this course",
+      "request_link": "Enquire about this course",
+      "group_h2": "A course for your group",
+      "group_text": "We also offer all courses as workshops for associations, schools and companies – at your premises or online.",
+      "group_btn": "Enquire about a workshop",
+      "prices_placeholder": "Prices are placeholders to be set by the association."
+    },
+
+    "dates": {
+      "title": "Dates",
+      "description": "Upcoming course dates of Skills Lab e.V. with date, time, location and places available.",
+      "h1": "Dates",
+      "lead": "All upcoming course dates at a glance. Each entry shows the first session of a course.",
+      "filter_label": "Filter by course",
+      "filter_all": "All courses",
+      "filter_count": "{n} dates shown",
+      "table_caption": "Upcoming course dates",
+      "col_date": "Date",
+      "col_time": "Time",
+      "col_course": "Course",
+      "col_place": "Location",
+      "col_seats": "Places available",
+      "col_action": "Registration",
+      "request": "Enquire",
+      "request_label": "{action}: {course} on {date}",
+      "waitlist": "Waiting list",
+      "no_results": "There are currently no dates for this selection.",
+      "note": "<strong>How to register</strong>Online booking is not available yet. Click “Enquire” next to a date – the contact form will already be filled in. We will confirm your place by email."
+    },
+
+    "association": {
+      "title": "Association",
+      "description": "Skills Lab e.V.: purpose, non-profit status, board, register of associations, and statutes and membership fee rules to read and download.",
+      "h1": "The association",
+      "lead": "Skills Lab is a registered non-profit association (eingetragener Verein, e.V.) under German law. Here you will find all key information and documents.",
+      "facts_h2": "At a glance",
+      "f_name": "Name",
+      "f_seat": "Registered office",
+      "f_register": "Register of associations",
+      "f_purpose": "Purpose",
+      "purpose_text": "Promotion of adult and vocational education (section 52(2) sentence 1 no. 7 German Fiscal Code)",
+      "f_nonprofit": "Non-profit status",
+      "nonprofit_text": "Recognised as non-profit by {site:org.tax_office}, exemption notice dated {site:org.tax_notice_date} [placeholder]",
+      "f_board": "Board",
+      "roles": { "chair": "Chair", "vice_chair": "Vice chair", "treasurer": "Treasurer" },
+      "docs_h2": "Statutes and membership fee rules",
+      "docs_statutes": "Govern the purpose, membership, bodies and dissolution of the association.",
+      "docs_fees": "Govern the amount, due date and payment of membership fees.",
+      "read": "Read online",
+      "history_h2": "How it all began",
+      "history_text": "[Placeholder: year of foundation, reason and development of the association in a few sentences.]"
+    },
+
+    "statutes": {
+      "title": "Statutes",
+      "description": "Statutes of Skills Lab e.V. (English translation for information) with table of contents: name and seat, purpose, non-profit status, membership, fees, bodies, general meeting, board, dissolution.",
+      "h1": "Statutes of Skills Lab e.V.",
+      "sections": [
+        { "id": "p1", "title": "§ 1 Name, registered office, financial year", "paras": [
+          "The association is called “Skills Lab”. It is to be entered in the register of associations and will then bear the suffix “e.V.”.",
+          "The association has its registered office in Erbach (Odenwald). [Placeholder]",
+          "The financial year is the calendar year."
+        ]},
+        { "id": "p2", "title": "§ 2 Purpose of the association", "paras": [
+          "The purpose of the association is the promotion of adult and vocational education.",
+          "This purpose is achieved in particular through courses, workshops, talks and open learning activities on communication, digital skills, presenting, self-organisation and languages, which are open to anyone interested.",
+          "The association is politically and religiously neutral."
+        ]},
+        { "id": "p3", "title": "§ 3 Non-profit status", "paras": [
+          "The association pursues exclusively and directly non-profit purposes within the meaning of the section “Tax-privileged purposes” of the German Fiscal Code (Abgabenordnung).",
+          "The association acts selflessly; it does not primarily pursue its own economic purposes."
+        ]},
+        { "id": "p4", "title": "§ 4 Use of funds", "paras": [
+          "The association’s funds may only be used for the purposes set out in these statutes. Members do not receive any payments from the association’s funds.",
+          "No person may benefit from expenses that are unrelated to the purpose of the association or from disproportionately high remuneration.",
+          "Board members and course leaders may receive appropriate compensation for their expenses within the limits of the budget (e.g. under section 3 no. 26 or no. 26a German Income Tax Act). The board decides on this."
+        ]},
+        { "id": "p5", "title": "§ 5 Membership", "paras": [
+          "Any natural person and any legal entity that supports the aims of the association may become a member.",
+          "The association has full members and supporting members. Supporting members support the association financially; they have no voting rights.",
+          "The board decides on written or electronic applications for membership. Minors require the consent of their legal guardians. A rejection does not need to be justified."
+        ]},
+        { "id": "p6", "title": "§ 6 End of membership", "paras": [
+          "Membership ends through resignation, expulsion, death or, for legal entities, their dissolution.",
+          "Resignation is made by declaration in text form to the board. It is possible with three months’ notice to the end of the financial year.",
+          "A member may be expelled by resolution of the board if they act in serious breach of the association’s interests or, despite two reminders, are more than one year in arrears with their fee. Before the resolution, the member must be given the opportunity to comment. The member may appeal against the expulsion to the general meeting within one month."
+        ]},
+        { "id": "p7", "title": "§ 7 Fees", "paras": [
+          "Members pay annual fees.",
+          "The amount, due date and method of payment are set out in membership fee rules adopted by the general meeting.",
+          "In justified cases, the board may defer, reduce or waive fees in whole or in part."
+        ]},
+        { "id": "p8", "title": "§ 8 Bodies of the association", "paras": [
+          "The bodies of the association are the general meeting and the board."
+        ]},
+        { "id": "p9", "title": "§ 9 General meeting", "paras": [
+          "The ordinary general meeting takes place once a year. An extraordinary general meeting must be convened if the interests of the association require it or if one tenth of the members entitled to vote request it in text form, stating the reasons.",
+          "The board convenes the general meeting in text form (e.g. by email) with three weeks’ notice, stating the agenda. It may also take place virtually or in hybrid form; the board decides this in the invitation.",
+          "The general meeting is responsible in particular for: electing and discharging the board, electing the auditors, receiving the annual report, adopting the membership fee rules, amending the statutes and dissolving the association.",
+          "Every full member aged 16 or over has one vote. A duly convened general meeting has a quorum regardless of the number of members present.",
+          "Resolutions are passed by a simple majority of valid votes cast unless these statutes provide otherwise. Abstentions are not counted.",
+          "Minutes of the resolutions are taken and signed by the chair of the meeting and the person taking the minutes."
+        ]},
+        { "id": "p10", "title": "§ 10 Board", "paras": [
+          "The board consists of the chair, the vice chair and the treasurer.",
+          "The association is represented in and out of court by two board members jointly (board within the meaning of section 26 German Civil Code).",
+          "The board is elected by the general meeting for two years. It remains in office until a new board is elected.",
+          "The board manages the affairs of the association unless the general meeting is responsible. It may adopt rules of procedure and delegate tasks to members or working groups."
+        ]},
+        { "id": "p11", "title": "§ 11 Audit", "paras": [
+          "The general meeting elects two auditors for two years who are not members of the board.",
+          "They audit the accounts once a year and report to the general meeting."
+        ]},
+        { "id": "p12", "title": "§ 12 Data protection", "paras": [
+          "The association processes personal data of its members, participants and donors exclusively to fulfil its statutory tasks and in compliance with the General Data Protection Regulation (GDPR) and the German Federal Data Protection Act (BDSG).",
+          "The board may lay down further details in data protection rules."
+        ]},
+        { "id": "p13", "title": "§ 13 Amendments to the statutes", "paras": [
+          "Amendments to the statutes require a two-thirds majority of the valid votes cast. They can only be adopted if they were announced in the invitation to the general meeting.",
+          "The board alone may make amendments that the register court or the tax office require for formal reasons. It informs the members about this."
+        ]},
+        { "id": "p14", "title": "§ 14 Dissolution and allocation of assets", "paras": [
+          "The dissolution of the association can only be decided at a general meeting convened specifically for this purpose, by a three-quarters majority of the valid votes cast.",
+          "If the association is dissolved or its tax-privileged purposes cease to apply, its assets pass to [name of a legal entity under public law or another tax-privileged body], which must use them directly and exclusively for non-profit purposes, namely the promotion of adult and vocational education.",
+          "These statutes come into force upon entry in the register of associations."
+        ]}
+      ]
+    },
+
+    "fees": {
+      "title": "Membership fee rules",
+      "description": "Membership fee rules of Skills Lab e.V. (English translation for information): fees for individual, reduced, family, supporting and corporate members, due date, payment, joining and leaving.",
+      "h1": "Membership fee rules of Skills Lab e.V.",
+      "intro": "These membership fee rules are based on § 7 of the statutes. They do not form part of the statutes.",
+      "table_caption": "Annual fees (placeholders)",
+      "col_type": "Type of membership",
+      "col_amount": "Fee per year",
+      "col_note": "Who it’s for",
+      "amounts_placeholder": "All amounts are placeholders to be set by the general meeting.",
+      "sections": [
+        { "id": "b1", "title": "§ 1 Amount of fees", "table": true, "paras": [
+          "The association charges annual fees as shown in the following table.",
+          "For supporting and corporate members, the amount shown is a minimum fee. A higher fee is welcome."
+        ]},
+        { "id": "b2", "title": "§ 2 Due date", "paras": [
+          "The annual fee is due on 31 January of each year for the current financial year.",
+          "When joining during the year, the fee is due one month after admission."
+        ]},
+        { "id": "b3", "title": "§ 3 Method of payment", "paras": [
+          "The fee is preferably collected by SEPA direct debit. For this, the member grants a SEPA direct debit mandate. The association announces the collection at least five days in advance (pre-notification).",
+          "Alternatively, the fee may be transferred to the association’s account. Please state your name and “Membership fee [year]” as the payment reference.",
+          "Costs of returned direct debits for which the member is responsible (e.g. insufficient funds, changed bank details) are borne by the member."
+        ]},
+        { "id": "b4", "title": "§ 4 Joining during the year", "paras": [
+          "Members joining in the first half of the year pay the full annual fee; members joining from 1 July pay half the annual fee."
+        ]},
+        { "id": "b5", "title": "§ 5 Leaving", "paras": [
+          "Resignation is governed by § 6 of the statutes (three months’ notice to the end of the financial year).",
+          "Fees already paid are not refunded on resignation or expulsion."
+        ]},
+        { "id": "b6", "title": "§ 6 Reductions and exemptions", "paras": [
+          "The reduced fee applies to school pupils, apprentices, students, pensioners and recipients of social benefits. Proof must be submitted to the board every year without being asked.",
+          "In cases of particular hardship, the board may, on application, defer, further reduce or waive the fee. Applications are treated confidentially."
+        ]},
+        { "id": "b7", "title": "§ 7 Late payment", "paras": [
+          "If a fee has not been paid two months after it falls due, the association sends a reminder in text form. After a second unsuccessful reminder, the board may expel the member in accordance with § 6 of the statutes.",
+          "No reminder fees are charged. [Placeholder – to be decided by the association]"
+        ]},
+        { "id": "b8", "title": "§ 8 Entry into force", "paras": [
+          "These membership fee rules come into force by resolution of the general meeting on {site:documents.fees_date}."
+        ]}
+      ]
+    },
+
+    "membership": {
+      "title": "Become a member",
+      "description": "Become a member of Skills Lab e.V.: benefits, fees and online membership application – with optional SEPA direct debit mandate.",
+      "h1": "Become a member",
+      "lead": "As a member, you support the association, learn for less and help shape the programme. The application takes about three minutes.",
+      "benefits_h2": "Your benefits",
+      "benefits": [
+        { "t": "Learn for less", "d": "Reduced prices for all courses and workshops." },
+        { "t": "Have your say", "d": "Voting rights at the general meeting and a say in the course programme." },
+        { "t": "Be the first to know", "d": "Members hear about new dates first." },
+        { "t": "Make a difference", "d": "Your fee funds reduced-price places for people on low incomes." }
+      ],
+      "fees_h2": "Fees",
+      "fees_link": "All rules in the membership fee rules",
+      "form_h2": "Membership application",
+      "form_intro": "Please fill in the application. It goes to the board, which decides on admission. We will get back to you by email.",
+      "personal_legend": "Personal details",
+      "membership_legend": "Membership",
+      "f_type": "Type of membership",
+      "f_payment": "Method of payment",
+      "payment": { "sepa": "SEPA direct debit (recommended)", "transfer": "Bank transfer" },
+      "sepa_legend": "SEPA direct debit mandate",
+      "sepa_hint": "Only fill in if you have chosen SEPA direct debit.",
+      "f_holder": "Account holder",
+      "f_iban": "IBAN",
+      "iban_hint": "e.g. DE12 3456 7890 1234 5678 90 – spaces are allowed.",
+      "mandate_text": "Creditor identifier: {site:org.creditor_id} · Mandate reference: will be communicated separately. I authorise Skills Lab e.V. to collect payments from my account by direct debit. At the same time, I instruct my bank to honour the direct debits drawn on my account by Skills Lab e.V. Note: I can request a refund of the amount debited within eight weeks of the debit date. The terms and conditions agreed with my bank apply. [Template text – to be checked by the association]",
+      "mandate_consent": "I grant the SEPA direct debit mandate under the conditions stated above.",
+      "consents_legend": "Consent",
+      "statutes_consent": "I accept the <a href='{p:statutes}'>statutes</a> and the <a href='{p:fees}'>membership fee rules</a>.",
+      "privacy_consent": "I agree that the association processes my details for membership administration. Details in the <a href='{p:privacy}'>privacy policy</a>.",
+      "no_payment": "<strong>No payment via this website</strong>By submitting, you apply for membership. Nothing will be debited before the board has admitted you and announced the first collection."
+    },
+
+    "donate": {
+      "title": "Donate",
+      "description": "Donate to Skills Lab e.V. by bank transfer or GiroCode. Bank details, donation request and information on donation receipts.",
+      "h1": "Donate",
+      "lead": "Education should not depend on money. Your donation funds free and reduced-price course places, learning materials and new courses in the Odenwald.",
+      "impact_h2": "What your donation does",
+      "impact": [
+        { "t": "€25", "d": "Learning materials for a whole course" },
+        { "t": "€50", "d": "A free course place for one person on a low income" },
+        { "t": "€100", "d": "An extra “Digital basics” session for older people" }
+      ],
+      "impact_placeholder": "Examples are placeholders to be adapted by the association.",
+      "bank_h2": "Bank details",
+      "holder": "Account holder",
+      "iban": "IBAN",
+      "bic": "BIC",
+      "bank": "Bank",
+      "reference": "Payment reference",
+      "copy": "Copy",
+      "copied": "Copied",
+      "copy_label": "Copy {field}",
+      "bank_placeholder": "<strong>Example bank details</strong>The IBAN shown is a public test example with valid check digits and not an account of the association. Please do not transfer money yet.",
+      "giro_h2": "Transfer with GiroCode",
+      "giro_text": "Choose an amount and scan the code with your banking app (supported by most banks in the euro area). All details are filled in automatically – you only need to confirm. The code is created directly in your browser; no data is transmitted.",
+      "amount_legend": "Choose amount",
+      "amount_other": "Other amount",
+      "amount_other_label": "Other amount in euros",
+      "giro_alt": "GiroCode for a bank transfer of {amount} to {name}",
+      "giro_alt_open": "GiroCode for a bank transfer to {name}, amount of your choice",
+      "giro_text_h": "The code’s data as text",
+      "giro_recipient": "Recipient",
+      "giro_amount": "Amount",
+      "giro_open_amount": "your choice",
+      "giro_download": "Save GiroCode as SVG",
+      "giro_nojs": "The GiroCode is generated with JavaScript. You can also copy or write down the bank details above.",
+      "tax_h2": "Donation receipt",
+      "tax_text": "Skills Lab e.V. is recognised as a non-profit organisation [placeholder: {site:org.tax_office}, notice dated {site:org.tax_notice_date}]. Donations are tax-deductible in Germany. For donations of up to €300, your bank statement and our simplified donation receipt are usually sufficient. For higher amounts or on request, we will issue an official donation receipt (Zuwendungsbestätigung) – just tick the box in the form below. [To be checked by the association or a tax adviser.]",
+      "tax_template": "Simplified donation receipt (template, German, PDF)",
+      "form_h2": "Donation request",
+      "form_intro": "Would you like to donate regularly or receive a donation receipt? Send us your details. No payment is made via the website – you will then receive the transfer details and the matching GiroCode.",
+      "f_amount": "Amount in euros",
+      "f_interval": "How often?",
+      "interval": { "once": "One-off", "monthly": "Monthly", "quarterly": "Quarterly", "yearly": "Yearly" },
+      "f_receipt": "I would like a donation receipt (Zuwendungsbestätigung).",
+      "address_legend": "Address for the donation receipt",
+      "address_hint": "Only needed if you would like a donation receipt.",
+      "f_message": "Message",
+      "confirm_h": "Thank you!",
+      "confirm_text": "Please transfer your donation using these details or scan the GiroCode:",
+      "confirm_interval": "For regular donations, please set up a standing order in your online banking.",
+      "providers_h": "Payment method",
+      "provider_transfer": "Bank transfer / GiroCode"
+    },
+
+    "contact": {
+      "title": "Contact",
+      "description": "Contact Skills Lab e.V.: contact form, email, phone and address in Erbach (Odenwald), Germany.",
+      "h1": "Contact",
+      "lead": "Questions about courses, membership or donations? Write to us – we usually reply within a week.",
+      "form_h2": "Write a message",
+      "details_h2": "How to reach us",
+      "address": "Address",
+      "email": "Email",
+      "phone": "Phone",
+      "phone_times": "[Phone hours, e.g. Tue and Thu 10 am–12 noon]",
+      "map_h2": "How to find us",
+      "prefill": "I am interested in this date: {event}"
+    },
+
+    "imprint": {
+      "title": "Legal notice",
+      "description": "Legal notice (Impressum) of Skills Lab e.V. in accordance with section 5 DDG and section 18(2) MStV (English translation for information).",
+      "h1": "Legal notice (Impressum)",
+      "sections": [
+        { "id": "i1", "title": "Information pursuant to section 5 Digital Services Act (DDG)", "paras": [
+          "{address}"
+        ]},
+        { "id": "i2", "title": "Represented by the board", "paras": [
+          "{board}",
+          "The association is represented by two board members jointly (section 26 German Civil Code, § 10 of the statutes)."
+        ]},
+        { "id": "i3", "title": "Contact", "paras": [
+          "Phone: {site:org.phone_display}<br>Email: {email_link}"
+        ]},
+        { "id": "i4", "title": "Register entry", "paras": [
+          "Entered in the register of associations.<br>Register court: {site:org.register_court}<br>Register number: {site:org.register_number}"
+        ]},
+        { "id": "i5", "title": "Non-profit status", "paras": [
+          "The association is recognised as non-profit by {site:org.tax_office} (tax number {site:org.tax_number}, exemption notice dated {site:org.tax_notice_date})."
+        ]},
+        { "id": "i6", "title": "Responsible for content pursuant to section 18(2) MStV", "paras": [
+          "{site:org.content_responsible}"
+        ]},
+        { "id": "i7", "title": "Liability for links", "paras": [
+          "This website contains links to external websites. Their operators alone are responsible for their content. No legal violations were apparent at the time of linking. If we become aware of any infringements, we will remove such links immediately."
+        ]},
+        { "id": "i8", "title": "Fonts and software", "paras": [
+          "Font: Inter (The Inter Project Authors, SIL Open Font License 1.1). GiroCode generation: qrcode-generator (Kazuhiko Arase, MIT licence). The licence texts are included in the website’s source code."
+        ]}
+      ]
+    },
+
+    "privacy": {
+      "title": "Privacy policy",
+      "description": "Privacy policy of Skills Lab e.V. (English translation for information): what data we process for contact, newsletter, membership applications and donations, and your rights.",
+      "h1": "Privacy policy",
+      "sections": [
+        { "id": "d1", "title": "1. Controller", "paras": [
+          "The controller responsible for data processing on this website is:<br>{address}<br>Email: {email_link}<br>Represented by the board (see <a href='{p:imprint}'>legal notice</a>).",
+          "No data protection officer has been appointed because the legal requirements (section 38 BDSG) are not met. [To be checked by the association]"
+        ]},
+        { "id": "d2", "title": "2. Summary", "paras": [
+          "This website does not use cookies or tracking and does not load fonts or scripts from third-party servers. We only process personal data if you provide it yourself via a form or by email, and in the technically necessary server log files. The map on the contact page is only loaded with your consent."
+        ]},
+        { "id": "d3", "title": "3. Hosting and server log files", "paras": [
+          "The website is hosted by [name and address of the hosting provider]. A data processing agreement has been concluded with the host (Art. 28 GDPR). [Placeholder]",
+          "When you access the pages, the server automatically stores: IP address, date and time, page requested, amount of data transferred, browser and operating system, and the previously visited page. This is necessary for secure operation. The legal basis is Art. 6(1)(f) GDPR (legitimate interest in a stable and secure website). Log files are deleted after [7] days. [Placeholder – ask the host]"
+        ]},
+        { "id": "d4", "title": "4. Local storage in your browser", "paras": [
+          "We only store the following in your browser (localStorage): your chosen language, your chosen appearance (light/dark) and your decision about the map. This information does not leave your device. The legal basis is section 25(2) no. 2 TDDDG (strictly necessary or expressly requested by you). You can delete this information at any time via your browser settings."
+        ]},
+        { "id": "d5", "title": "5. Contact form and email", "paras": [
+          "If you write to us via the contact form or by email, we process your name, email address, topic and message in order to answer your enquiry. The legal basis is Art. 6(1)(b) GDPR (enquiries about courses and membership) or Art. 6(1)(f) GDPR (other enquiries). We delete the data once the enquiry has been dealt with, at the latest after [12] months, unless statutory retention obligations apply."
+        ]},
+        { "id": "d6", "title": "6. Newsletter", "paras": [
+          "For the newsletter, we need your email address and your consent (Art. 6(1)(a) GDPR). We use the double opt-in procedure: you receive an email with a confirmation link and are only added after confirming. We store the time of subscription and confirmation as proof. You can unsubscribe at any time via the link in every newsletter or by email; we will then delete your address from the mailing list.",
+          "We use [name of the newsletter service] for sending. A data processing agreement has been concluded with the service. [Placeholder]"
+        ]},
+        { "id": "d7", "title": "7. Membership applications and membership administration", "paras": [
+          "For membership, we process: name, address, email address, phone number if provided, date of birth, type of membership, date of joining, method of payment and fee payments. We need the date of birth to check the type of membership and voting rights. The legal basis is Art. 6(1)(b) GDPR (membership relationship under the statutes).",
+          "Only board members have access, to the extent they need the data for their tasks. After membership ends, we delete the data unless it must be retained due to tax retention obligations (including section 147 German Fiscal Code)."
+        ]},
+        { "id": "d8", "title": "8. SEPA direct debit", "paras": [
+          "If you grant a SEPA direct debit mandate, we process the account holder, IBAN and mandate reference to collect fees. The data is transmitted to our bank [name of bank] to execute the direct debit. The legal basis is Art. 6(1)(b) GDPR. We retain the mandate in accordance with legal requirements.",
+          "The IBAN check in the form only takes place in your browser; no data is transmitted."
+        ]},
+        { "id": "d9", "title": "9. Donations and donation receipts", "paras": [
+          "For a donation or donation request, we process your name, email address, amount, frequency, address and message if provided, and the details from your bank transfer, in order to record the donation, thank you and, on request, issue a donation receipt. The legal basis is Art. 6(1)(b) and (c) GDPR.",
+          "We retain donation records and copies of donation receipts in accordance with tax regulations (including section 147 German Fiscal Code, section 50 German Income Tax Implementing Ordinance) – for up to ten years depending on the document. [Periods to be checked by the association or a tax adviser]",
+          "The GiroCode on the donation page is generated entirely in your browser. No data is transmitted to us or to third parties."
+        ]},
+        { "id": "d10", "title": "10. Sending forms", "paras": [
+          "As long as no form service has been set up, submitting a form opens your email program with the form data; the data is then transmitted by email via your own email provider.",
+          "[If a form service is used: add its name, registered office, purpose, data processing agreement and – for providers outside the EU – the basis for the transfer to a third country (e.g. adequacy decision or standard contractual clauses).]"
+        ]},
+        { "id": "d11", "title": "11. Map (OpenStreetMap)", "paras": [
+          "On the contact page, you can load a map from OpenStreetMap. The provider is the OpenStreetMap Foundation, St John’s Innovation Centre, Cowley Road, Cambridge, CB4 0WS, United Kingdom. Loading the map transmits your IP address to the servers of the OpenStreetMap Foundation. An adequacy decision of the European Commission exists for the United Kingdom. [To be checked by the association]",
+          "The map is only loaded if you consent (Art. 6(1)(a) GDPR, section 25(1) TDDDG). You can withdraw your consent at any time in the <a href='{p:cookies}'>cookie settings</a>."
+        ]},
+        { "id": "d12", "title": "12. Your rights", "paras": [
+          "You have the right of access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and to object to processing based on legitimate interests (Art. 21). You can withdraw any consent given at any time with effect for the future (Art. 7(3)). An informal message to {email_link} is sufficient."
+        ]},
+        { "id": "d13", "title": "13. Right to lodge a complaint", "paras": [
+          "You can lodge a complaint with a data protection supervisory authority. The authority responsible for us is: {site:org.supervisory_authority.name}, {site:org.supervisory_authority.address}, <a href='{site:org.supervisory_authority.url}'>{site:org.supervisory_authority.url}</a>. [Adjust if the registered office differs]"
+        ]},
+        { "id": "d14", "title": "14. Status", "paras": [
+          "Status of this privacy policy: [DD.MM.YYYY]. We update it when our website or the legal situation changes."
+        ]}
+      ]
+    },
+
+    "cookies": {
+      "title": "Cookie settings",
+      "description": "Cookie and privacy settings of Skills Lab e.V.: this website does not use cookies. Here you control whether the map may be loaded.",
+      "h1": "Cookie settings",
+      "lead": "This website does not use cookies or tracking. There is only one external element: the OpenStreetMap map on the contact page. Here you decide whether it may be loaded.",
+      "necessary_h2": "Technically necessary (always active)",
+      "necessary_text": "Your language, appearance (light/dark) and your decision on this page are stored locally in your browser. This information does not leave your device.",
+      "optional_h2": "External content",
+      "map_label": "Load map from OpenStreetMap",
+      "map_desc": "Loading the map transmits your IP address to the OpenStreetMap Foundation. Details in the <a href='{p:privacy}'>privacy policy</a>.",
+      "save": "Save settings",
+      "saved": "Your settings have been saved.",
+      "current_on": "Currently: map allowed",
+      "current_off": "Currently: map not allowed",
+      "nojs": "These settings require JavaScript. Without JavaScript, the map is never loaded."
+    },
+
+    "accessibility": {
+      "title": "Accessibility statement",
+      "description": "Accessibility statement for the Skills Lab e.V. website: status of WCAG 2.2 AA implementation, known limitations and contact for feedback.",
+      "h1": "Accessibility statement",
+      "sections": [
+        { "id": "a1", "title": "Our aim", "paras": [
+          "Skills Lab e.V. wants everyone to be able to use this website. We have therefore designed it in line with the Web Content Accessibility Guidelines (WCAG) 2.2, level AA. We publish this statement voluntarily."
+        ]},
+        { "id": "a2", "title": "Compliance status", "paras": [
+          "Based on our own assessment, the website is largely compliant with WCAG 2.2 AA. Checks included: keyboard-only use, visible focus, colour contrast, heading structure, form labels, error messages, display at 320 px width and when zoomed, and automated testing with axe-core. A review by external experts or by people with disabilities is still pending. [Assessment date: {site:build_date}]"
+        ]},
+        { "id": "a3", "title": "What we have implemented", "paras": [
+          "“Skip to content” link · clear headings and regions · all functions usable with a keyboard · high contrast in light and dark mode · forms with labels, hints and clear error messages · tables with column headers · no motion when “reduce motion” is enabled · text alternative for the GiroCode · content in three languages."
+        ]},
+        { "id": "a4", "title": "Known limitations", "paras": [
+          "<strong>Map:</strong> The OpenStreetMap map is external content and not fully accessible. The address is therefore always shown as text on the page as well.",
+          "<strong>PDF documents:</strong> The statutes, membership fee rules and donation receipt template are generated from the web pages and are only available in German. Their accessibility has not been fully checked. All content is also available as web pages.",
+          "<strong>GiroCode:</strong> The code itself can only be used visually. All the data it contains is shown next to it as text and can be copied.",
+          "<strong>Translations:</strong> The English and Russian versions have not yet been reviewed by native speakers."
+        ]},
+        { "id": "a5", "title": "Report a barrier", "paras": [
+          "Have you noticed a barrier? Email us at {email_link} or call us: {site:org.phone_display}. We will reply within two weeks and try to fix the problem."
+        ]},
+        { "id": "a6", "title": "Preparation of this statement", "paras": [
+          "This statement was prepared on {site:build_date}. It is based on a self-assessment."
+        ]}
+      ]
+    },
+
+    "newsletter_confirmed": {
+      "title": "Newsletter confirmed",
+      "description": "Your subscription to the Skills Lab e.V. newsletter has been confirmed.",
+      "h1": "Thank you – your subscription is confirmed",
+      "text": "From now on, you will receive our newsletter with new courses and dates about once a month. You can unsubscribe at any time using the link at the end of every email.",
+      "back": "See upcoming dates"
+    },
+
+    "notfound": {
+      "title": "Page not found",
+      "h1": "This page does not exist (any more).",
+      "text": "The address may have changed. You can find all content from the home page.",
+      "back": "Go to home page"
+    },
+
+    "langselect": {
+      "title": "Skills Lab e.V. – choose language",
+      "text": "Please choose a language"
+    }
+  }
+}

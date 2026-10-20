@@ -1,0 +1,15 @@
+{
+  "name": "skills-lab-tests",
+  "private": true,
+  "description": "Prüfwerkzeuge für die Website Skills Lab e.V. (nur für die Entwicklung, nicht für den Betrieb nötig)",
+  "scripts": {
+    "test": "python3 ../build.py --check && python3 check_static.py && node browser.test.cjs",
+    "assets": "node ../make_assets.cjs"
+  },
+  "devDependencies": {
+    "axe-core": "4.14.0",
+    "jsqr": "1.4.0",
+    "playwright": "1.56.1",
+    "pngjs": "7.0.0"
+  }
+}
