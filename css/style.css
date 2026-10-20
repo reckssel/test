@@ -108,24 +108,24 @@
     --c-bg: #212824;
     --c-subtle: #27302b;
     --c-tint: #27302b;
-    --c-gold-tint: #2e2c22;
-    --c-text: #e8ede9;
-    --c-muted: #adbab2;
+    --c-gold-tint: #2c2b24;
+    --c-text: #dde3df;
+    --c-muted: #a5b0a9;
     --c-line: #38423c;
-    --c-border: #7f8c84;
-    --c-primary: #7fd1a1;
-    --c-primary-strong: #a3e0bb;
-    --c-on-primary: #0f1a14;
-    --c-accent: #f0c64a;
-    --c-accent-strong: #f5d677;
-    --c-on-accent: #1a1606;
-    --c-accent-text: #f0c64a;
-    --c-footer-bg: #18201b;
-    --c-footer-text: #e8ede9;
-    --c-footer-muted: #adbab2;
-    --c-footer-accent: #f0c64a;
-    --c-error: #ff9a90;
-    --c-success: #8ddca7;
+    --c-border: #7a867f;
+    --c-primary: #8fbb9f;
+    --c-primary-strong: #a9cdb5;
+    --c-on-primary: #141c17;
+    --c-accent: #cfae63;
+    --c-accent-strong: #dcbf80;
+    --c-on-accent: #1c1709;
+    --c-accent-text: #cfae63;
+    --c-footer-bg: #1b221e;
+    --c-footer-text: #dde3df;
+    --c-footer-muted: #a5b0a9;
+    --c-footer-accent: #cfae63;
+    --c-error: #e8958c;
+    --c-success: #9ccaa9;
   }
 }
 /* … oder per Umschalter im Footer (setzt data-theme am <html>). */
@@ -134,24 +134,24 @@
   --c-bg: #212824;
   --c-subtle: #27302b;
   --c-tint: #27302b;
-  --c-gold-tint: #2e2c22;
-  --c-text: #e8ede9;
-  --c-muted: #adbab2;
+  --c-gold-tint: #2c2b24;
+  --c-text: #dde3df;
+  --c-muted: #a5b0a9;
   --c-line: #38423c;
-  --c-border: #7f8c84;
-  --c-primary: #7fd1a1;
-  --c-primary-strong: #a3e0bb;
-  --c-on-primary: #0f1a14;
-  --c-accent: #f0c64a;
-  --c-accent-strong: #f5d677;
-  --c-on-accent: #1a1606;
-  --c-accent-text: #f0c64a;
-  --c-footer-bg: #18201b;
-  --c-footer-text: #e8ede9;
-  --c-footer-muted: #adbab2;
-  --c-footer-accent: #f0c64a;
-  --c-error: #ff9a90;
-  --c-success: #8ddca7;
+  --c-border: #7a867f;
+  --c-primary: #8fbb9f;
+  --c-primary-strong: #a9cdb5;
+  --c-on-primary: #141c17;
+  --c-accent: #cfae63;
+  --c-accent-strong: #dcbf80;
+  --c-on-accent: #1c1709;
+  --c-accent-text: #cfae63;
+  --c-footer-bg: #1b221e;
+  --c-footer-text: #dde3df;
+  --c-footer-muted: #a5b0a9;
+  --c-footer-accent: #cfae63;
+  --c-error: #e8958c;
+  --c-success: #9ccaa9;
 }
 
 @media (min-width: 600px) {
