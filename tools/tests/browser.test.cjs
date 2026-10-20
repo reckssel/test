@@ -474,6 +474,45 @@ async function stubEndpoint(page, formSelector) {
     }
   }
 
+  /* 7d. Laptop: Header oben groß, beim Scrollen klein ------------------------------ */
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    await ctx.addInitScript(() => { try { localStorage.setItem("sl-consent", JSON.stringify({ map: false, version: 1 })); } catch (e) {} });
+    const page = await ctx.newPage();
+    const state = () => page.evaluate(() => ({
+      h: Math.round(document.querySelector(".site-header").getBoundingClientRect().height),
+      compact: document.querySelector(".site-header").classList.contains("is-compact"),
+      h1Doc: Math.round(document.querySelector("h1").getBoundingClientRect().top + window.scrollY),
+    }));
+    await page.goto(BASE + "de/index.html");
+    await page.waitForTimeout(300);
+    const top = await state();
+    await page.mouse.wheel(0, 400); await page.waitForTimeout(400);
+    const down = await state();
+    await page.mouse.wheel(0, -2000); await page.waitForTimeout(400);
+    const back = await state();
+    check("Laptop: Header oben groß (zweizeilig), beim Scrollen klein, oben wieder groß – Inhalt springt nicht",
+      top.h > 130 && !top.compact && down.compact && down.h <= 70 && !back.compact && back.h === top.h && top.h1Doc === down.h1Doc,
+      JSON.stringify({ top, down, back }));
+    await page.goto(BASE + "de/termine.html#termin-2026-12-03-englisch-beruf");
+    await page.waitForTimeout(400);
+    const anchorPos = await page.evaluate(() => ({
+      row: document.getElementById("termin-2026-12-03-englisch-beruf").getBoundingClientRect().top,
+      hb: document.querySelector(".site-header").getBoundingClientRect().bottom,
+    }));
+    check("Laptop: Sprungziel (#termin-…) wird nicht vom Header verdeckt", anchorPos.row >= anchorPos.hb && anchorPos.row < anchorPos.hb + 60, JSON.stringify(anchorPos));
+    await ctx.close();
+
+    const m = await browser.newContext({ viewport: { width: 375, height: 740 } });
+    const mp = await m.newPage();
+    await mp.goto(BASE + "de/index.html");
+    await mp.mouse.wheel(0, 600); await mp.waitForTimeout(300);
+    const mobile = await mp.evaluate(() => ({ pos: getComputedStyle(document.querySelector(".site-header")).position,
+      compact: document.querySelector(".site-header").classList.contains("is-compact") }));
+    check("Handy: Header unverändert (nicht fixiert, kein Schrumpfen)", mobile.pos === "static" && !mobile.compact, JSON.stringify(mobile));
+    await m.close();
+  }
+
   /* 8. Sprachweiche und Sprachumschalter --------------------------------------- */
   for (const [locale, expected] of [["en-GB", "en/index.html"], ["ru-RU", "ru/index.html"], ["fr-FR", "de/index.html"]]) {
     const ctx = await browser.newContext({ locale });

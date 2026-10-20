@@ -69,7 +69,7 @@
     function (el) { el.hidden = false; }
   );
 
-  /* 3. Burger-Menü (unter 900 px) ------------------------------------------- */
+  /* 3. Burger-Menü (unter 1000 px) ------------------------------------------- */
   var toggle = document.querySelector(".menu-toggle");
   var panel = document.getElementById("menu-panel");
   if (toggle && panel) {
@@ -88,6 +88,69 @@
         toggle.focus();
       }
     });
+  }
+
+  /* 3b. Laptop/Desktop: Header oben groß, beim Runterscrollen kleiner -------- */
+  var header = document.querySelector(".site-header");
+  var wide = window.matchMedia("(min-width: 1000px)");
+  if (header) {
+    var root = document.documentElement;
+    var compact = false;
+    var limit = 0;
+    var ticking = false;
+
+    // Höhe groß/klein messen und Platz für den festen Header reservieren
+    var measure = function () {
+      if (!wide.matches) {
+        header.classList.remove("is-compact");
+        compact = false;
+        root.style.removeProperty("--header-h");
+        root.style.removeProperty("--header-hc");
+        return;
+      }
+      header.classList.add("no-anim");
+      header.classList.remove("is-compact");
+      var big = header.offsetHeight;
+      header.classList.add("is-compact");
+      var small = header.offsetHeight;
+      header.classList.toggle("is-compact", compact);
+      void header.offsetHeight; // Stil anwenden, bevor Animationen wieder erlaubt sind
+      header.classList.remove("no-anim");
+      root.style.setProperty("--header-h", big + "px");
+      root.style.setProperty("--header-hc", small + "px");
+      limit = Math.max(big - small, 24);
+    };
+
+    // Umschalten mit etwas Abstand (kein Flackern an der Grenze)
+    var update = function () {
+      ticking = false;
+      if (!wide.matches) return;
+      var y = window.scrollY || window.pageYOffset;
+      var next = compact ? y > limit - 8 : y > limit;
+      if (next !== compact) {
+        compact = next;
+        header.classList.toggle("is-compact", compact);
+      }
+    };
+
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    window.addEventListener("resize", function () { measure(); update(); });
+    // Sprungziel (#…) nach dem Reservieren des Platzes erneut ansteuern,
+    // sonst landet es durch den nachträglich eingefügten Abstand zu weit unten
+    var refocusHash = function () {
+      if (!wide.matches || !window.location.hash) return;
+      var target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+      if (target) target.scrollIntoView({ block: "start", behavior: "instant" });
+    };
+    measure();
+    refocusHash();
+    update();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); refocusHash(); update(); });
   }
 
   /* 4. Darstellung --------------------------------------------------------- */

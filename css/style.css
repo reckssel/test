@@ -293,10 +293,17 @@ small, .small { font-size: var(--fs-small); }
   border-top: 4px solid var(--c-green);
   border-bottom: 1px solid var(--c-line);
 }
-@media (min-width: 900px) {
-  /* Nur auf großen Bildschirmen fixiert, damit mobil nichts verdeckt wird */
-  .site-header { position: sticky; top: 0; z-index: 50; }
-  html { scroll-padding-top: 6rem; }
+@media (min-width: 1000px) {
+  /* Laptop/Desktop: Header bleibt oben. Handy/Tablet: nicht fixiert (nichts wird verdeckt). */
+  /* Ohne JavaScript: einfach „sticky“ */
+  html:not(.js) .site-header { position: sticky; top: 0; z-index: 50; }
+  html:not(.js) { scroll-padding-top: 6rem; }
+  /* Mit JavaScript: oben groß, beim Runterscrollen kleiner (main.js setzt .is-compact).
+     Fest positioniert + reservierter Platz (--header-h), damit der Inhalt beim Schrumpfen nicht springt. */
+  .js .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: box-shadow 220ms ease; }
+  .js body { padding-top: var(--header-h, 0px); }
+  html.js { scroll-padding-top: calc(var(--header-hc, 72px) + 1rem); }
+  .site-header.is-compact { box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); }
 }
 
 .header-inner {
@@ -310,7 +317,7 @@ small, .small { font-size: var(--fs-small); }
   padding-block: var(--s-2);
 }
 .logo { grid-area: logo; display: inline-flex; align-items: center; min-height: 44px; color: var(--c-text); text-decoration: none; }
-.logo svg { display: block; height: 26px; width: auto; }
+.logo svg { display: block; height: 26px; width: auto; aspect-ratio: 207 / 48; flex: none; }
 .logo:hover { color: var(--c-text); }
 
 .header-cta { display: flex; gap: var(--s-2); }
@@ -362,8 +369,8 @@ small, .small { font-size: var(--fs-small); }
 .menu-toggle[aria-expanded="true"] .burger::before { transform: translateY(7px) rotate(45deg); }
 .menu-toggle[aria-expanded="true"] .burger::after { transform: translateY(-7px) rotate(-45deg); }
 
-/* Handy und Tablet: alles (Seiten, Buttons, Sprache) im aufklappbaren Menü */
-@media (max-width: 899.98px) {
+/* Handy und Tablet (unter 1000 px): alles (Seiten, Buttons, Sprache) im aufklappbaren Menü */
+@media (max-width: 999.98px) {
   .menu-panel { grid-area: panel; padding-bottom: var(--s-4); }
   .js .menu-panel[data-open="false"] { display: none; }
   .main-nav { margin-top: var(--s-2); }
@@ -381,9 +388,9 @@ small, .small { font-size: var(--fs-small); }
 /* Ohne JavaScript ist der Burger-Button überflüssig – das Menü ist immer sichtbar */
 html:not(.js) .header-inner .menu-toggle { display: none; }
 
-@media (min-width: 900px) {
+@media (min-width: 1000px) {
   .header-inner {
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: max-content minmax(0, 1fr) auto;   /* Logo nie zusammenquetschen */
     grid-template-areas: "logo nav actions";
     gap: var(--s-5);
     padding-block: var(--s-3);
@@ -395,7 +402,38 @@ html:not(.js) .header-inner .menu-toggle { display: none; }
   .header-inner .menu-toggle { display: none; }
   .main-nav ul { display: flex; justify-content: center; gap: var(--s-5); }
   .lang-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Groß (ganz oben): zwei Zeilen – Logo, Sprache und Buttons; darunter die Navigation in großer Schrift */
+  .site-header:not(.is-compact) .header-inner {
+    grid-template-columns: max-content 1fr;
+    grid-template-areas: "logo actions" "nav nav";
+    row-gap: var(--s-3);
+    padding-block: var(--s-5) var(--s-2);
+  }
+  .site-header:not(.is-compact) .main-nav { border-top: 1px solid var(--c-line); padding-top: var(--s-1); }
+  .site-header:not(.is-compact) .main-nav ul { justify-content: flex-start; gap: var(--s-6); }
+  .site-header:not(.is-compact) .logo svg { height: 40px; }
+  .site-header:not(.is-compact) .main-nav a { font-size: 1.1875rem; }
+  .site-header:not(.is-compact) .header-cta .btn { min-height: 48px; padding: var(--s-2) var(--s-5); font-size: 1rem; }
+  .site-header:not(.is-compact) .lang-switch a { font-size: 0.9375rem; }
+  .main-nav a { white-space: nowrap; }
+  .header-inner { transition: padding 220ms ease; }
+  .logo svg { transition: height 220ms ease; }
+  .main-nav a { transition: font-size 220ms ease; }
+  .header-cta .btn { white-space: nowrap; transition: min-height 220ms ease, padding 220ms ease, font-size 220ms ease; }
+  /* Klein beim Scrollen: eine Zeile (wie bisher) */
+  .is-compact .header-inner { padding-block: var(--s-2); }
 }
+/* Schmale Laptops: Abstände in der kleinen Zeile enger */
+@media (min-width: 1000px) and (max-width: 1199.98px) {
+  .is-compact .header-inner { column-gap: var(--s-3); }
+  .is-compact .main-nav ul { gap: var(--s-3); }
+  .is-compact .main-nav a { font-size: 0.9375rem; }
+  .is-compact .lang-switch a { min-width: 30px; padding-inline: var(--s-1); }
+  .is-compact .header-cta .btn { padding-inline: var(--s-2); }
+}
+/* Beim Messen der Größen keine Animation */
+.no-anim, .no-anim * { transition: none !important; }
 
 /* Sprachumschalter */
 .lang-switch { display: flex; align-items: center; gap: 0; list-style: none; margin: 0; padding: 0; }
