@@ -503,6 +503,22 @@ async function stubEndpoint(page, formSelector) {
     check("Laptop: Sprungziel (#termin-…) wird nicht vom Header verdeckt", anchorPos.row >= anchorPos.hb && anchorPos.row < anchorPos.hb + 60, JSON.stringify(anchorPos));
     await ctx.close();
 
+    // Veraltetes/fehlendes main.js (z. B. aus dem Browser-Cache): Header muss die schmale, „sticky“ Leiste bleiben
+    const stale = await browser.newContext({ viewport: { width: 1870, height: 920 } });
+    const sp = await stale.newPage();
+    await sp.route(/js\/main\.js/, (route) => route.fulfill({ status: 200, contentType: "text/javascript", body: "/* alt */" }));
+    await sp.goto(BASE + "de/angebote.html");
+    await sp.mouse.wheel(0, 700); await sp.waitForTimeout(300);
+    const st = await sp.evaluate(() => {
+      const h = document.querySelector(".site-header"), r = h.getBoundingClientRect();
+      return { pos: getComputedStyle(h).position, h: Math.round(r.height), top: Math.round(r.top) };
+    });
+    check("Laptop: mit veraltetem main.js bleibt der Header die schmale Leiste (nichts verdeckt)", st.pos === "sticky" && st.h <= 80 && st.top === 0, JSON.stringify(st));
+    await stale.close();
+    const links = await (async () => { const c2 = await browser.newContext(); const p2 = await c2.newPage(); await p2.goto(BASE + "de/index.html");
+      const r = await p2.evaluate(() => [...document.querySelectorAll('link[rel="stylesheet"], script[src]')].map((e) => e.getAttribute("href") || e.getAttribute("src"))); await c2.close(); return r; })();
+    check("CSS und JavaScript mit Versionsnummer (?v=…) gegen veraltete Browser-Caches", links.length >= 2 && links.every((u) => /\?v=[0-9a-f]{10}$/.test(u)), links.join(" "));
+
     const m = await browser.newContext({ viewport: { width: 375, height: 740 } });
     const mp = await m.newPage();
     await mp.goto(BASE + "de/index.html");

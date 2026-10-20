@@ -102,6 +102,7 @@
     // Höhe groß/klein messen und Platz für den festen Header reservieren
     var measure = function () {
       if (!wide.matches) {
+        root.classList.remove("header-js");
         header.classList.remove("is-compact");
         compact = false;
         root.style.removeProperty("--header-h");
@@ -109,6 +110,7 @@
         return;
       }
       header.classList.add("no-anim");
+      root.classList.add("header-js"); // ab jetzt großer/kleiner Header (siehe style.css)
       header.classList.remove("is-compact");
       var big = header.offsetHeight;
       header.classList.add("is-compact");

@@ -1331,12 +1331,23 @@ def page_data(c):
     return json_for_script(data)
 
 
+def asset_version(rel):
+    """Kurzer Inhalts-Hash als Versionsnummer (?v=…): Nach jeder Änderung lädt der Browser die neue Datei,
+    statt eine alte aus dem Cache mit neuen Dateien zu mischen (GitHub Pages cacht bis zu 10 Minuten)."""
+    import hashlib
+    return hashlib.sha1((ROOT / rel).read_bytes()).hexdigest()[:10]
+
+
+def asset(rel, root=""):
+    return f"{root}{rel}?v={asset_version(rel)}"
+
+
 def scripts(c):
     root = "../"
     names = PAGE_SCRIPTS.get(c.page, [])
     # main.js zuerst: stellt window.SkillsLab (Seitendaten, Hilfsfunktionen) bereit
-    tags = [f'<script src="{root}js/main.js" defer></script>']
-    tags += [f'<script src="{root}js/{n}.js" defer></script>' for n in names]
+    tags = [f'<script src="{asset("js/main.js", root)}" defer></script>']
+    tags += [f'<script src="{asset(f"js/{n}.js", root)}" defer></script>' for n in names]
     return "\n".join(tags)
 
 
@@ -1363,6 +1374,7 @@ class Build:
             "alternates": alternates,
             "og": og,
             "root": "../",
+            "css": asset("css/style.css", "../"),
             "jsonld": jsonld(c),
             "skip": esc(c.t("common.skip")),
             "header": header(c),
@@ -1436,7 +1448,7 @@ class Build:
 {alts}
 <link rel="alternate" hreflang="x-default" href="{self.site["base_url"]}/">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="{asset("css/style.css")}">
 <noscript><meta http-equiv="refresh" content="5;url=de/index.html"></noscript>
 <script>
   /* Sprachweiche: gespeicherte Wahl > Browsersprache > Deutsch */
@@ -1483,7 +1495,7 @@ class Build:
 <meta name="robots" content="noindex">
 <title>{esc(self.i18n["de"]["pages"]["notfound"]["title"])} · Skills Lab e.V.</title>
 <link rel="icon" href="{base}/assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="{base}/css/style.css">
+<link rel="stylesheet" href="{base}/{asset("css/style.css")}">
 </head>
 <body>
 <main id="main" class="container page-head">
