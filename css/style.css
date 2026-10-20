@@ -806,6 +806,60 @@ html:not(.js) .theme-switch { display: none; }
 .consent h2 { font-size: 1rem; margin-bottom: var(--s-1); }
 .consent p { margin: 0; font-size: var(--fs-small); }
 
+/* Handy-Optimierung (unter 600 px) ----------------------------------------- */
+@media (max-width: 599.98px) {
+  /* Kopfzeile: Sprache und beide Buttons in einer Zeile */
+  .header-inner { gap: var(--s-2) var(--s-3); padding-block: var(--s-2); }
+  .header-actions { flex-wrap: nowrap; gap: var(--s-2); }
+  .lang-switch a { min-width: 34px; padding: 0 var(--s-1); }
+  .header-cta { gap: var(--s-1); }
+  .header-cta .btn { min-height: 40px; padding: var(--s-1) var(--s-3); font-size: 0.8125rem; white-space: nowrap; }
+
+  /* Weniger Leerraum, kürzere Wege */
+  .section { padding-block: var(--s-6); }
+  .page-head { padding-block: var(--s-6) var(--s-5); }
+  .hero { padding-block: var(--s-6); }
+  .lead { font-size: 1.0625rem; }
+  .rows > li { padding-block: var(--s-4); }
+
+  /* Große, gut treffbare Buttons */
+  .hero .btn-row .btn, .support .btn, .form button[type="submit"], .ics-box .btn { width: 100%; }
+
+  /* Eckdaten kompakt in zwei Spalten */
+  .facts { grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr); gap: var(--s-1) var(--s-3); }
+  .facts dt { overflow-wrap: anywhere; hyphens: auto; }
+  .facts dd { margin: 0; }
+
+  /* Kalender: „‹ November 2026 ›“ in einer Zeile */
+  .cal-nav-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cal-nav .btn { min-width: 44px; min-height: 44px; font-size: 1.25rem; }
+  .cal-nav-status { font-size: var(--fs-h3); }
+  .js .cal-month-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  /* Detailfenster als Panel von unten */
+  .event-dialog { width: 100%; max-width: 100%; max-height: 85vh; margin: auto 0 0; border-radius: 14px 14px 0 0; }
+  .event-dialog .btn-row { flex-direction: column; align-items: stretch; }
+  .event-dialog .btn-row .btn { width: 100%; }
+  .event-dialog .btn-row .btn--text { justify-content: center; }
+
+  /* Footer: Verein und Rechtliches nebeneinander */
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid > div:first-child { grid-column: 1 / -1; }
+}
+
+/* Sehr schmale Handys (unter 380 px): Kopfzeile noch etwas enger */
+@media (max-width: 379.98px) {
+  .header-actions { gap: var(--s-1); }
+  .lang-switch a { min-width: 28px; padding: 0 2px; }
+  .header-cta { min-width: 0; }
+  .header-actions > nav { flex: none; }
+  .lang-switch { flex-wrap: nowrap; }
+  .header-cta .btn { min-width: 0; padding: var(--s-1) var(--s-2); font-size: 0.75rem; line-height: 1.15; white-space: normal; }
+}
+
+/* iOS zoomt bei Eingabefeldern unter 16 px – deshalb überall mindestens 16 px */
+.theme-switch select { font-size: 1rem; }
+
 /* 9. Bewegung und Druck -------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

@@ -59,9 +59,13 @@
     months.forEach(function (m, j) { m.hidden = j !== index; });
     if (prevBtn) prevBtn.disabled = index === 0;
     if (nextBtn) nextBtn.disabled = index === months.length - 1;
-    if (status && announce) {
+    // Monatsname zwischen den Buttons (auf dem Handy die einzige Überschrift).
+    // Beim ersten Anzeigen ohne Ansage: Live-Region erst danach aktivieren.
+    if (status) {
       var title = months[index].querySelector(".cal-month-title");
+      if (!announce) status.removeAttribute("aria-live");
       status.textContent = title ? title.textContent : "";
+      if (!announce) window.setTimeout(function () { status.setAttribute("aria-live", "polite"); }, 0);
     }
   }
 

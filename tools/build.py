@@ -856,9 +856,9 @@ def page_dates(c):
 </div>
 <div id="calendar-view">
 <div class="cal-nav" data-js-only hidden>
-<button type="button" class="btn btn--outline btn--small" data-cal-prev><span aria-hidden="true">‹</span> {esc(c.t(T + "prev_month"))}</button>
+<button type="button" class="btn btn--outline btn--small" data-cal-prev><span aria-hidden="true">‹</span><span class="cal-nav-text"> {esc(c.t(T + "prev_month"))}</span></button>
 <p class="cal-nav-status" id="cal-status" role="status" aria-live="polite"></p>
-<button type="button" class="btn btn--outline btn--small" data-cal-next>{esc(c.t(T + "next_month"))} <span aria-hidden="true">›</span></button>
+<button type="button" class="btn btn--outline btn--small" data-cal-next><span class="cal-nav-text">{esc(c.t(T + "next_month"))} </span><span aria-hidden="true">›</span></button>
 </div>
 {grids}
 </div>

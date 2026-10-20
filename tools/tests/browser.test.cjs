@@ -413,6 +413,50 @@ async function stubEndpoint(page, formSelector) {
     await ctx.close();
   }
 
+  /* 7c. Handy-Ansicht ------------------------------------------------------------ */
+  {
+    for (const w of [320, 375]) {
+      const ctx = await browser.newContext({ viewport: { width: w, height: 740 }, isMobile: true, hasTouch: true });
+      await ctx.addInitScript(() => { try { localStorage.setItem("sl-consent", JSON.stringify({ map: false, version: 1 })); } catch (e) {} });
+      const page = await ctx.newPage();
+      const rows = [];
+      for (const l of ["de", "en", "ru"]) {
+        await page.goto(BASE + `${l}/index.html`);
+        rows.push(await page.evaluate(() => {
+          const lang = document.querySelector(".lang-switch").getBoundingClientRect();
+          const cta = document.querySelector(".header-cta .btn:last-child").getBoundingClientRect();
+          const langs = Array.from(document.querySelectorAll(".lang-switch a")).map((a) => Math.round(a.getBoundingClientRect().top));
+          return { h: document.querySelector(".site-header").getBoundingClientRect().height,
+                   oneRow: Math.abs((lang.top + lang.bottom) / 2 - (cta.top + cta.bottom) / 2) < 12 && new Set(langs).size === 1,
+                   fits: document.documentElement.scrollWidth <= window.innerWidth };
+        }));
+      }
+      check(`Handy ${w}px: Kopfzeile kompakt (≤ 130 px), Sprache + Buttons in einer Zeile (DE/EN/RU)`,
+        rows.every((r) => r.h <= 130 && r.oneRow && r.fits), JSON.stringify(rows));
+      if (w === 375) {
+        await page.clock.setFixedTime(new Date("2026-11-12T10:00:00"));
+        await page.goto(BASE + "de/termine.html");
+        const nav = await page.evaluate(() => ({
+          status: document.getElementById("cal-status").textContent,
+          titleHidden: document.querySelector(".cal-month:not([hidden]) .cal-month-title").getBoundingClientRect().width <= 1,
+          btnName: document.querySelector("[data-cal-next]").textContent.trim(),
+        }));
+        check("Handy: Kalender-Navigation „‹ November 2026 ›“, Buttons behalten ihren Namen", nav.status === "November 2026" && nav.titleHidden && nav.btnName.includes("Nächster Monat"), JSON.stringify(nav));
+        await page.tap('.cal-chip[data-event="2026-11-21-praesentieren"]');
+        const sheet = await page.evaluate(() => {
+          const r = document.getElementById("event-dialog").getBoundingClientRect();
+          const b = document.querySelector("#event-dialog .ics-btn").getBoundingClientRect();
+          return { bottom: Math.round(window.innerHeight - r.bottom), width: Math.round(r.width), btn: Math.round(b.width) };
+        });
+        check("Handy: Termin antippen öffnet Panel von unten mit breiten Buttons", sheet.bottom <= 1 && sheet.width === 375 && sheet.btn > 250, JSON.stringify(sheet));
+        await page.goto(BASE + "de/index.html");
+        const heroBtn = await page.evaluate(() => document.querySelector(".hero .btn").getBoundingClientRect().width);
+        check("Handy: Hauptbuttons auf volle Breite", heroBtn > 300, String(heroBtn));
+      }
+      await ctx.close();
+    }
+  }
+
   /* 8. Sprachweiche und Sprachumschalter --------------------------------------- */
   for (const [locale, expected] of [["en-GB", "en/index.html"], ["ru-RU", "ru/index.html"], ["fr-FR", "de/index.html"]]) {
     const ctx = await browser.newContext({ locale });

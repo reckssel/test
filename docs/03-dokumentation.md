@@ -282,6 +282,10 @@ Schrift: `Inter` mit Fallback `system-ui`. Die woff2-Dateien werden nach Bedarf 
 - Abstände `--s-1` … `--s-9` = 4, 8, 12, 16, 24, 32, 48, 64, 96 px
 - Inhaltsbreite `--container` 72 rem, Textspalte `--measure` 68 Zeichen, Seitenrand `--gutter` 16 px (ab 600 px: 32 px)
 - Breakpoints: 600 px (Tablet), 900 px (Desktop-Navigation, fixierter Header)
+- **Handy-Optimierung (unter 600 px, seit 20.10.2026):** Kopfzeile in zwei Zeilen (Logo + Menü; Sprache + „Mitglied werden“ + „Spenden“),
+  kompaktere Abstände, Haupt-Buttons über die volle Breite, Eckdaten in zwei Spalten, Kalender-Navigation „‹ Monat ›“ in einer Zeile,
+  Termindetails als Panel von unten, Footer-Linklisten nebeneinander. Unter 380 px rückt die Kopfzeile noch enger zusammen,
+  Button-Texte dürfen dort zweizeilig werden. Auswahlfelder mindestens 16 px Schrift (verhindert das automatische Zoomen unter iOS).
 - Radius `--radius` 4 px nur an Buttons und Eingabefeldern
 - Bewegung: nur Übergänge von 150 ms; bei „Bewegung reduzieren“ ganz abgeschaltet
 
@@ -585,7 +589,7 @@ Der Build meldet alles, was noch fehlt.
 | PHP-Beispielskript | `php -l` + lokale Anfragen mit `curl` | 6 Fälle wie erwartet |
 | Sichtprüfung | Screenshots bei 360/375, 768, 1280 px | Layout geprüft, gefundene Fehler behoben |
 
-**Die Browser-Tests (inzwischen 100) umfassen:**
+**Die Browser-Tests (inzwischen 105) umfassen:**
 - **Layout:** alle 46 Seiten in 360, 768 und 1280 px Breite ohne horizontales Scrollen und ohne Konsolenfehler.
 - **Tastatur:** Skip-Link als erster Tab-Stopp und sichtbar, Fokus auf `<main>`. Mobiles Menü mit `aria-expanded` und Escape. Sichtbarer Fokusrahmen, Zielgrößen ≥ 24 px, „Bewegung reduzieren“.
 - **Einwilligung:** Banner, **kein Request an openstreetmap.org ohne Einwilligung**, Ablehnung, gespeicherte Entscheidung, „Karte laden“, Widerruf in den Cookie-Einstellungen.
@@ -600,6 +604,7 @@ Der Build meldet alles, was noch fehlt.
 - **GiroCode:** Der Code wird **mit jsQR dekodiert und Zeichen für Zeichen verglichen**: bei 25 €, 100 €, 12,50 € und einem ungültigen Betrag. Dazu Textalternative, SVG-Download, Spendenanfrage mit Pflicht-Anschrift bei Bescheinigung, Bestätigungs-Code über 50 € mit Namen im Verwendungszweck, Hinweis auf einen Dauerauftrag, Kopieren der IBAN.
 - **Termine:** vergangene ausblenden bei simuliertem Datum, Filter mit Ansage, Vorauswahl über die URL, 3 Termine auf der Startseite, Vorbelegung des Kontaktformulars.
 - **Kalender:** Standardansicht und aktueller Monat, Blättern mit Ansage, heutiger Tag, Detailfenster (Inhalt, Escape, Fokus zurück), Download und Prüfung der .ics-Datei (CRLF, ≤ 75 Byte je Zeile, Zeitzone, Start/Ende), Kursfilter im Kalender, Liste unter dem Kalender mit .ics-Button je Termin, Sammel- und Kursdateien, russische Datei (UTF-8-Faltung), Kalender-Links auf der Angebotsseite. Zusätzlich wurden alle 57 .ics-Dateien mit der Python-Bibliothek `icalendar` eingelesen (108 Termine, Zeitzonen korrekt).
+- **Handy (320 und 375 px):** kompakte Kopfzeile in DE/EN/RU, Kalender-Navigation, Termin-Panel von unten, Buttons in voller Breite.
 - **Sprachen:** Sprachweiche für en-GB, ru-RU und fr-FR, Sprachumschalter, gespeicherte Sprache, Übersetzungshinweis auf der englischen Satzung.
 - **Betrieb:** `file://` mit Skripten, GiroCode und Schrift, kyrillischer Schnitt auf russischen Seiten. Ohne JavaScript: Navigation, Bankdaten, mailto-Formular und Terminliste.
 - **Einheitstest:** IBAN-Modul mit 6 gültigen und 5 ungültigen Beispielen.
