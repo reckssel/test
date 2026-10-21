@@ -30,7 +30,7 @@ TRACKING = -0.4     # Laufweite in SVG-Einheiten
 
 COLORS = {
     "logo.svg": {"text": "#1e6b47", "accent": "#e2ad1f"},
-    "logo-dark.svg": {"text": "#7fd1a1", "accent": "#f0c64a"},
+    "logo-dark.svg": {"text": "#dcdfe2", "accent": "#c2a463"},
 }
 
 

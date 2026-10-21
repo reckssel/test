@@ -1,0 +1,47 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Skills Lab e.V.//Termine//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Ясная коммуникация в жизни и на ра
+ боте – Skills Lab e.V.
+X-WR-TIMEZONE:Europe/Berlin
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:2027-01-16-kommunikation@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270116T093000
+DTEND;TZID=Europe/Berlin:20270116T123000
+SUMMARY:Ясная коммуникация в жизни и на рабо
+ те – Skills Lab e.V.
+LOCATION:Помещение объединения\, [Musterstraße 1]\, Э
+ рбах
+DESCRIPTION:Слушать\, переспрашивать\, говорит
+ ь от первого лица: мы отрабатываем прост
+ ые приёмы для успешного разговора – даж
+ е в трудной ситуации. Много коротких упр
+ ажнений в небольших группах.\n\nПервое за
+ нятие курса. Остальные даты вы получите 
+ после записи.\n\nЗапрос и запись: https://reckssel
+ .github.io/test/ru/contact.html?thema=kurs&termin=2027-01-16-kommunikation
+URL:https://reckssel.github.io/test/ru/termin-2027-01-16-kommunikation.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

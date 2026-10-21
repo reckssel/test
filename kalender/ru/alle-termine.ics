@@ -1,0 +1,269 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Skills Lab e.V.//Termine//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Skills Lab e.V. – Расписание
+X-WR-TIMEZONE:Europe/Berlin
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:2026-11-07-digital-fit@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261107T100000
+DTEND;TZID=Europe/Berlin:20261107T120000
+SUMMARY:Цифровая грамотность: смартфон и инт
+ ернет – Skills Lab e.V.
+LOCATION:Помещение объединения\, [Musterstraße 1]\, Э
+ рбах
+DESCRIPTION:Спокойно и шаг за шагом: писать соо
+ бщения\, делиться фотографиями\, безопас
+ но искать в интернете\, записываться на п
+ риём онлайн. Приносите своё устройство.\n
+ \nПервое занятие курса. Остальные даты вы
+  получите после записи.\n\nЗапрос и запись
+ : https://reckssel.github.io/test/ru/contact.html?thema=kurs&termin=2026-1
+ 1-07-digital-fit
+URL:https://reckssel.github.io/test/ru/termin-2026-11-07-digital-fit.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-12-zeitmanagement@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261112T190000
+DTEND;TZID=Europe/Berlin:20261112T203000
+SUMMARY:Тайм-менеджмент и самоорганизация –
+  Skills Lab e.V.
+LOCATION:Онлайн (ссылка после регистрации)
+DESCRIPTION:Расставлять приоритеты\, планиров
+ ать задачи\, беречь время для отдыха: пра
+ ктичные методы без перфекционизма. Онла
+ йн\, с небольшими заданиями между заняти
+ ями.\n\nПервое занятие курса. Остальные да
+ ты вы получите после записи.\n\nЗапрос и з
+ апись: https://reckssel.github.io/test/ru/contact.html?thema=kurs&ter
+ min=2026-11-12-zeitmanagement
+URL:https://reckssel.github.io/test/ru/termin-2026-11-12-zeitmanagement.htm
+ l
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-14-kommunikation@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261114T093000
+DTEND;TZID=Europe/Berlin:20261114T123000
+SUMMARY:Ясная коммуникация в жизни и на рабо
+ те – Skills Lab e.V.
+LOCATION:Помещение объединения\, [Musterstraße 1]\, Э
+ рбах
+DESCRIPTION:Слушать\, переспрашивать\, говорит
+ ь от первого лица: мы отрабатываем прост
+ ые приёмы для успешного разговора – даж
+ е в трудной ситуации. Много коротких упр
+ ажнений в небольших группах.\n\nПервое за
+ нятие курса. Остальные даты вы получите 
+ после записи.\n\nЗапрос и запись: https://reckssel
+ .github.io/test/ru/contact.html?thema=kurs&termin=2026-11-14-kommunikation
+URL:https://reckssel.github.io/test/ru/termin-2026-11-14-kommunikation.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-21-praesentieren@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261121T100000
+DTEND;TZID=Europe/Berlin:20261121T160000
+SUMMARY:Уверенные презентации – Skills Lab e.V.
+LOCATION:Помещение объединения\, [Musterstraße 1]\, Э
+ рбах
+DESCRIPTION:От идеи к ясному посылу: структура\
+ , слайды с минимумом текста\, голос и волн
+ ение. Каждый участник проводит короткую 
+ презентацию и получает доброжелательну
+ ю обратную связь.\n\nПервое занятие курса.
+  Остальные даты вы получите после записи
+ .\n\nЗапрос и запись: https://reckssel.github.io/test/ru/cont
+ act.html?thema=kurs&termin=2026-11-21-praesentieren
+URL:https://reckssel.github.io/test/ru/termin-2026-11-21-praesentieren.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-26-ki-werkzeuge@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261126T180000
+DTEND;TZID=Europe/Berlin:20261126T203000
+SUMMARY:Инструменты ИИ: понимать и применять
+  – Skills Lab e.V.
+LOCATION:Помещение в Эрбахе и онлайн
+DESCRIPTION:Что умеют генераторы текста и ИИ д
+ ля изображений – и чего не умеют? Пробуе
+ м на практике\, критически оцениваем рез
+ ультаты и обсуждаем защиту данных и авто
+ рское право.\n\nПервое занятие курса. Оста
+ льные даты вы получите после записи.\n\nЗа
+ прос и запись: https://reckssel.github.io/test/ru/contact.html?
+ thema=kurs&termin=2026-11-26-ki-werkzeuge
+URL:https://reckssel.github.io/test/ru/termin-2026-11-26-ki-werkzeuge.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-03-englisch-beruf@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261203T183000
+DTEND;TZID=Europe/Berlin:20261203T200000
+SUMMARY:Английский для работы – Skills Lab e.V.
+LOCATION:Онлайн (ссылка после регистрации)
+DESCRIPTION:Электронные письма\, звонки и сове
+ щания на английском: тренируем типичные 
+ рабочие ситуации и целенаправленно расш
+ иряем словарный запас.\n\nПервое занятие 
+ курса. Остальные даты вы получите после 
+ записи.\n\nЗапрос и запись: https://reckssel.github.io/
+ test/ru/contact.html?thema=kurs&termin=2026-12-03-englisch-beruf
+URL:https://reckssel.github.io/test/ru/termin-2026-12-03-englisch-beruf.htm
+ l
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-05-digital-fit@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20261205T100000
+DTEND;TZID=Europe/Berlin:20261205T120000
+SUMMARY:Цифровая грамотность: смартфон и инт
+ ернет – Skills Lab e.V.
+LOCATION:Помещение объединения\, [Musterstraße 1]\, Э
+ рбах
+DESCRIPTION:Спокойно и шаг за шагом: писать соо
+ бщения\, делиться фотографиями\, безопас
+ но искать в интернете\, записываться на п
+ риём онлайн. Приносите своё устройство.\n
+ \nПервое занятие курса. Остальные даты вы
+  получите после записи.\n\nЗапрос и запись
+ : https://reckssel.github.io/test/ru/contact.html?thema=kurs&termin=2026-1
+ 2-05-digital-fit
+URL:https://reckssel.github.io/test/ru/termin-2026-12-05-digital-fit.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-01-16-kommunikation@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270116T093000
+DTEND;TZID=Europe/Berlin:20270116T123000
+SUMMARY:Ясная коммуникация в жизни и на рабо
+ те – Skills Lab e.V.
+LOCATION:Помещение объединения\, [Musterstraße 1]\, Э
+ рбах
+DESCRIPTION:Слушать\, переспрашивать\, говорит
+ ь от первого лица: мы отрабатываем прост
+ ые приёмы для успешного разговора – даж
+ е в трудной ситуации. Много коротких упр
+ ажнений в небольших группах.\n\nПервое за
+ нятие курса. Остальные даты вы получите 
+ после записи.\n\nЗапрос и запись: https://reckssel
+ .github.io/test/ru/contact.html?thema=kurs&termin=2027-01-16-kommunikation
+URL:https://reckssel.github.io/test/ru/termin-2027-01-16-kommunikation.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-01-21-zeitmanagement@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270121T190000
+DTEND;TZID=Europe/Berlin:20270121T203000
+SUMMARY:Тайм-менеджмент и самоорганизация –
+  Skills Lab e.V.
+LOCATION:Онлайн (ссылка после регистрации)
+DESCRIPTION:Расставлять приоритеты\, планиров
+ ать задачи\, беречь время для отдыха: пра
+ ктичные методы без перфекционизма. Онла
+ йн\, с небольшими заданиями между заняти
+ ями.\n\nПервое занятие курса. Остальные да
+ ты вы получите после записи.\n\nЗапрос и з
+ апись: https://reckssel.github.io/test/ru/contact.html?thema=kurs&ter
+ min=2027-01-21-zeitmanagement
+URL:https://reckssel.github.io/test/ru/termin-2027-01-21-zeitmanagement.htm
+ l
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-02-06-praesentieren@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270206T100000
+DTEND;TZID=Europe/Berlin:20270206T160000
+SUMMARY:Уверенные презентации – Skills Lab e.V.
+LOCATION:Помещение объединения\, [Musterstraße 1]\, Э
+ рбах
+DESCRIPTION:От идеи к ясному посылу: структура\
+ , слайды с минимумом текста\, голос и волн
+ ение. Каждый участник проводит короткую 
+ презентацию и получает доброжелательну
+ ю обратную связь.\n\nПервое занятие курса.
+  Остальные даты вы получите после записи
+ .\n\nЗапрос и запись: https://reckssel.github.io/test/ru/cont
+ act.html?thema=kurs&termin=2027-02-06-praesentieren
+URL:https://reckssel.github.io/test/ru/termin-2027-02-06-praesentieren.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-02-25-ki-werkzeuge@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270225T180000
+DTEND;TZID=Europe/Berlin:20270225T203000
+SUMMARY:Инструменты ИИ: понимать и применять
+  – Skills Lab e.V.
+LOCATION:Помещение в Эрбахе и онлайн
+DESCRIPTION:Что умеют генераторы текста и ИИ д
+ ля изображений – и чего не умеют? Пробуе
+ м на практике\, критически оцениваем рез
+ ультаты и обсуждаем защиту данных и авто
+ рское право.\n\nПервое занятие курса. Оста
+ льные даты вы получите после записи.\n\nЗа
+ прос и запись: https://reckssel.github.io/test/ru/contact.html?
+ thema=kurs&termin=2027-02-25-ki-werkzeuge
+URL:https://reckssel.github.io/test/ru/termin-2027-02-25-ki-werkzeuge.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+UID:2027-03-04-englisch-beruf@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270304T183000
+DTEND;TZID=Europe/Berlin:20270304T200000
+SUMMARY:Английский для работы – Skills Lab e.V.
+LOCATION:Онлайн (ссылка после регистрации)
+DESCRIPTION:Электронные письма\, звонки и сове
+ щания на английском: тренируем типичные 
+ рабочие ситуации и целенаправленно расш
+ иряем словарный запас.\n\nПервое занятие 
+ курса. Остальные даты вы получите после 
+ записи.\n\nЗапрос и запись: https://reckssel.github.io/
+ test/ru/contact.html?thema=kurs&termin=2027-03-04-englisch-beruf
+URL:https://reckssel.github.io/test/ru/termin-2027-03-04-englisch-beruf.htm
+ l
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

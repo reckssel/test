@@ -101,7 +101,7 @@ async function stubEndpoint(page, formSelector) {
       const sw = await page.evaluate(() => document.documentElement.scrollWidth);
       if (sw > width) problems.push(`${p}: horizontaler Überlauf (${sw}px)`);
       if (errs.length) problems.push(`${p}: ${errs.join(" | ")}`);
-      if (["de/index.html", "de/spenden.html", "de/termine.html", "de/mitglied-werden.html", "ru/index.html", "de/satzung.html", "de/kontakt.html"].includes(p)) {
+      if (["de/index.html", "de/spenden.html", "de/termine.html", "de/mitglied-werden.html", "ru/index.html", "de/satzung.html", "de/kontakt.html", "de/termin-2026-11-21-praesentieren.html"].includes(p)) {
         await page.screenshot({ path: path.join(OUT, `${p.replace("/", "_")}-${width}.png`), fullPage: true });
       }
       await page.close();
@@ -145,16 +145,25 @@ async function stubEndpoint(page, formSelector) {
     check("Skip-Link setzt Fokus auf <main>", (await page.evaluate(() => document.activeElement.id)) === "main");
 
     const navHidden = await page.locator("#main-nav").isHidden();
+    const burgerName = await page.evaluate(() => document.querySelector(".menu-toggle").textContent.trim());
     await page.click(".menu-toggle");
     const expanded = await page.getAttribute(".menu-toggle", "aria-expanded");
     const navShown = await page.locator("#main-nav").isVisible();
     await page.keyboard.press("Escape");
     const closed = (await page.getAttribute(".menu-toggle", "aria-expanded")) === "false" && (await page.locator("#main-nav").isHidden());
     const focusBack = await page.evaluate(() => document.activeElement.classList.contains("menu-toggle"));
-    check("Mobiles Menü: zu → auf (aria-expanded) → Escape schließt, Fokus zurück", navHidden && expanded === "true" && navShown && closed && focusBack);
+    check("Burger-Menü: zu → auf (aria-expanded) → Escape schließt, Fokus zurück; Button hat Namen „Menü“", navHidden && expanded === "true" && navShown && closed && focusBack && burgerName === "Menü", burgerName);
 
-    const fv = await page.evaluate(() => { const b = document.querySelector(".btn"); b.focus(); return getComputedStyle(b).outlineStyle + " " + getComputedStyle(b).outlineWidth; });
-    check("Sichtbarer Fokusrahmen (outline) an Buttons", fv.startsWith("solid") && parseFloat(fv.split(" ")[1]) >= 2, fv);
+    // Fokusrahmen mit echter Tastaturbedienung messen: Tab → Skip-Link, Logo, Burger-Button
+    await page.goto(BASE + "de/index.html");
+    const ring = async () => page.evaluate(() => { const e = document.activeElement, st = getComputedStyle(e); return e.className + " " + st.outlineStyle + " " + st.outlineWidth; });
+    await page.keyboard.press("Tab"); await page.keyboard.press("Tab"); await page.keyboard.press("Tab");
+    const burgerRing = await ring();
+    await page.keyboard.press("Enter"); // Menü öffnen
+    await page.keyboard.press("Tab");   // erster Menüpunkt
+    const linkRing = await ring();
+    const fv = burgerRing + " | " + linkRing;
+    check("Sichtbarer Fokusrahmen per Tastatur (Burger-Button, Menüpunkte)", /^menu-toggle solid [3-9]px \| .*solid [3-9]px$/.test(fv), fv);
 
     const small = await page.evaluate(() => Array.from(document.querySelectorAll("a.btn, button.btn, .lang-switch a, .main-nav a"))
       .filter((e) => e.offsetParent).map((e) => e.getBoundingClientRect()).filter((r) => r.height < 24 || r.width < 24).length);
@@ -357,6 +366,223 @@ async function stubEndpoint(page, formSelector) {
     const msg = await page.inputValue("#contact-nachricht");
     check("Kontaktformular wird aus Terminlink vorbelegt", (await page.inputValue("#contact-thema")) === "kurs" && msg.includes("Sicher präsentieren"), msg);
     await ctx.close();
+  }
+
+  /* 7b. Kalenderansicht und .ics-Dateien ---------------------------------------- */
+  {
+    const icsLinesOk = (txt) => txt.startsWith("BEGIN:VCALENDAR\r\n") && txt.trimEnd().endsWith("END:VCALENDAR") &&
+      !/[^\r]\n/.test(txt) && txt.split("\r\n").every((l) => Buffer.byteLength(l, "utf8") <= 75);
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 1000 }, acceptDownloads: true });
+    await ctx.addInitScript(() => { try { localStorage.setItem("sl-consent", JSON.stringify({ map: false, version: 1 })); } catch (e) {} });
+    const page = await ctx.newPage();
+    await page.clock.setFixedTime(new Date("2026-11-20T10:00:00"));
+    await page.goto(BASE + "de/termine.html");
+    const visibleMonths = await page.$$eval(".cal-month:not([hidden])", (m) => m.map((x) => x.dataset.month));
+    check("Kalender: aktueller Monat (Nov 2026) sichtbar, darunter die Terminliste",
+      visibleMonths.join() === "2026-11" && (await page.locator("#dates-table").isVisible()) && (await page.isDisabled("[data-cal-prev]")) &&
+      (await page.evaluate(() => document.getElementById("calendar-view").compareDocumentPosition(document.getElementById("list-view")) & Node.DOCUMENT_POSITION_FOLLOWING)) > 0);
+    check("Kalender: heutiger Tag markiert", (await page.getAttribute('.mg-day[data-date="2026-11-20"]', "aria-current")) === "date");
+    await page.click("[data-cal-next]");
+    const next = await page.$$eval(".cal-month:not([hidden])", (m) => m.map((x) => x.dataset.month));
+    check("Kalender: „Nächster Monat“ blättert und sagt den Monat an", next.join() === "2026-12" && (await page.textContent("#cal-status")) === "Dezember 2026");
+    await page.click("[data-cal-prev]");
+    const chip = page.locator('.cal-chip[data-event="2026-11-21-praesentieren"]');
+    await chip.click();
+    const dlgOpen = await page.locator("#event-dialog").isVisible();
+    const dlgTitle = await page.textContent("#event-dialog-title");
+    const icsHref = await page.getAttribute("#event-dialog .ics-btn", "href");
+    check("Termin anklicken öffnet Detailfenster mit Kurs, Ort und Kalender-Button", dlgOpen && dlgTitle === "Sicher präsentieren" &&
+      icsHref === "../kalender/de/termin-2026-11-21-praesentieren.ics" && (await page.textContent("#event-dialog")).includes("Vereinsraum"));
+    const [dl] = await Promise.all([page.waitForEvent("download"), page.click("#event-dialog .ics-btn")]);
+    const dlPath = path.join(OUT, dl.suggestedFilename());
+    await dl.saveAs(dlPath);
+    const ics = fs.readFileSync(dlPath, "utf8");
+    check("„In meinen Kalender“ lädt gültige .ics-Datei (CRLF, ≤75 Byte/Zeile, Zeitzone, Start/Ende)",
+      dl.suggestedFilename() === "termin-2026-11-21-praesentieren.ics" && icsLinesOk(ics) &&
+      ics.includes("DTSTART;TZID=Europe/Berlin:20261121T100000") && ics.includes("DTEND;TZID=Europe/Berlin:20261121T160000") &&
+      ics.includes("BEGIN:VTIMEZONE") && (ics.match(/BEGIN:VEVENT/g) || []).length === 1, dl.suggestedFilename());
+    await page.keyboard.press("Escape");
+    const focusBack = await page.evaluate(() => document.activeElement.dataset.event);
+    check("Escape schließt das Detailfenster, Fokus zurück auf den Termin", (await page.locator("#event-dialog").isHidden()) && focusBack === "2026-11-21-praesentieren");
+    await page.selectOption("#filter-course", "ki-werkzeuge");
+    const shownChips = await page.$$eval(".cal-chips li:not([hidden]) .cal-chip", (c) => c.map((x) => x.dataset.course));
+    check("Kursfilter wirkt auch im Kalender", shownChips.length > 0 && shownChips.every((x) => x === "ki-werkzeuge"), shownChips.join());
+    check("Liste unter dem Kalender: .ics-Button je Termin",
+      (await page.locator("#dates-table tr[data-date] .ics-btn").count()) === 12 && (await page.locator("#calendar-view").isVisible()));
+
+    // Sammeldateien und Sprachen
+    const all = fs.readFileSync(path.join(ROOT, "kalender/de/alle-termine.ics"), "utf8");
+    const ru = fs.readFileSync(path.join(ROOT, "kalender/ru/termin-2026-11-07-digital-fit.ics"), "utf8");
+    const course = fs.readFileSync(path.join(ROOT, "kalender/en/kurs-praesentieren.ics"), "utf8");
+    check("alle-termine.ics: 12 Termine, gültige Zeilen", (all.match(/BEGIN:VEVENT/g) || []).length === 12 && icsLinesOk(all));
+    check("Kurs-Datei (EN) enthält genau die Termine des Kurses", (course.match(/BEGIN:VEVENT/g) || []).length === 2 && course.includes("SUMMARY:Presenting with confidence"));
+    check("Russische .ics: kyrillischer Titel, korrekt gefaltet (UTF-8)", ru.includes("Цифровая грамотность") && icsLinesOk(ru));
+    await page.goto(BASE + "de/angebote.html");
+    check("Angebote: Kalender-Link für jeden Kurs", (await page.locator('a.ics-link[href^="../kalender/de/kurs-"]').count()) === 6);
+    await ctx.close();
+  }
+
+  /* 7d. Eigene Seite je Termin ---------------------------------------------------- */
+  {
+    const EV = "2026-11-21-praesentieren";
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 1000 } });
+    await ctx.addInitScript(() => { try { localStorage.setItem("sl-consent", JSON.stringify({ map: false, version: 1 })); } catch (e) {} });
+    const page = await ctx.newPage();
+    await page.clock.setFixedTime(new Date("2026-11-09T10:00:00"));
+    const evFiles = ["de", "en", "ru"].map((l) => `${l}/termin-${EV}.html`);
+    check("Terminseiten: je Termin und Sprache eine Seite (12 × 3)",
+      ["de", "en", "ru"].every((l) => fs.readdirSync(path.join(ROOT, l)).filter((f) => f.startsWith("termin-")).length === 12) &&
+      evFiles.every((f) => fs.existsSync(path.join(ROOT, f))));
+    await page.goto(BASE + "de/termine.html");
+    await page.click(`.cal-chip[data-event="${EV}"]`);
+    await page.click("#event-dialog >> text=Alle Details");
+    check("Kalender-Detailfenster → „Alle Details“ öffnet die Terminseite", page.url().endsWith(`de/termin-${EV}.html`), page.url());
+    check("Terminseite: Überschrift, Datum, Ort, Brotkrumen",
+      (await page.textContent("h1")) === "Sicher präsentieren" && (await page.textContent(".event-when")).includes("21.11.2026") &&
+      (await page.textContent(".event-when")).includes("Vereinsraum") && (await page.locator(".breadcrumb a").count()) === 3);
+    const cd = await page.textContent("[data-countdown]");
+    check("Countdown nach heutigem Datum („In 12 Tagen“)", cd === "In 12 Tagen" && (await page.locator("[data-countdown]").isVisible()), cd);
+    check("Kommender Termin: Anfrage-Button sichtbar, Hinweis „stattgefunden“ verborgen",
+      (await page.locator("[data-event-request]").isVisible()) && (await page.locator("[data-event-past]").isHidden()) &&
+      (await page.getAttribute("[data-event-request]", "href")) === `kontakt.html?thema=kurs&termin=${EV}`);
+    check("Terminseite: .ics-Button verweist auf die Termindatei",
+      (await page.getAttribute(".event-actions .ics-btn", "href")) === `../kalender/de/termin-${EV}.ics`);
+    // Teilen ohne Web-Share-API: Link wird kopiert
+    await ctx.grantPermissions(["clipboard-read", "clipboard-write"]);
+    const shareTxt = await page.textContent("[data-share]");
+    await page.click("[data-share]");
+    await page.waitForTimeout(100);
+    check("Teilen (ohne Teilen-Menü): „Link kopieren“ → „Link kopiert“", shareTxt === "Link kopieren" && (await page.textContent("[data-share]")) === "Link kopiert");
+    const ld = JSON.parse(await page.textContent('script[type="application/ld+json"]'));
+    check("Terminseite: strukturierte Daten (EducationEvent mit eigener URL)",
+      ld["@graph"][0]["@type"] === "EducationEvent" && ld["@graph"][0].url.endsWith(`/de/termin-${EV}.html`));
+    await page.click(".pager-link--next");
+    check("Blättern: „Nächster Termin“ führt zum folgenden Termin", page.url().endsWith("de/termin-2026-11-26-ki-werkzeuge.html"), page.url());
+    await page.clock.setFixedTime(new Date("2026-11-20T10:00:00"));
+    await page.goto(BASE + `de/termin-${EV}.html`);
+    check("Countdown einen Tag vorher: „Morgen“", (await page.textContent("[data-countdown]")) === "Morgen");
+    await page.clock.setFixedTime(new Date("2026-12-01T10:00:00"));
+    await page.goto(BASE + `de/termin-${EV}.html`);
+    check("Vergangener Termin: Hinweis sichtbar, kein Anfrage-Button, kein Countdown",
+      (await page.locator("[data-event-past]").isVisible()) && (await page.locator("[data-event-request]").isHidden()) && (await page.locator("[data-countdown]").isHidden()));
+    await page.clock.setFixedTime(new Date("2026-10-28T10:00:00"));
+    await page.goto(BASE + "ru/termin-2026-11-12-zeitmanagement.html");
+    check("Russisch: Pluralform im Countdown (15 → „Через 15 дней“)", (await page.textContent("[data-countdown]")) === "Через 15 дней", await page.textContent("[data-countdown]"));
+    await page.goto(BASE + "de/index.html");
+    const homeLink = await page.getAttribute("[data-upcoming] li:not([hidden]) a.date-row-title", "href");
+    await page.goto(BASE + "de/termine.html");
+    const listLink = await page.getAttribute(`#termin-${EV} .col-course a`, "href");
+    check("Startseite und Liste verlinken auf die Terminseiten", /^termin-.+\.html$/.test(homeLink) && listLink === `termin-${EV}.html`, `${homeLink} / ${listLink}`);
+    const sm = fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8");
+    check("Sitemap enthält alle Terminseiten", (sm.match(/<loc>[^<]*\/termin-[^<]+<\/loc>/g) || []).length === 36);
+    await ctx.close();
+  }
+
+  /* 7c. Handy-Ansicht ------------------------------------------------------------ */
+  {
+    for (const w of [320, 375]) {
+      const ctx = await browser.newContext({ viewport: { width: w, height: 740 }, isMobile: true, hasTouch: true });
+      await ctx.addInitScript(() => { try { localStorage.setItem("sl-consent", JSON.stringify({ map: false, version: 1 })); } catch (e) {} });
+      const page = await ctx.newPage();
+      const rows = [];
+      for (const l of ["de", "en", "ru"]) {
+        await page.goto(BASE + `${l}/index.html`);
+        const closed = await page.evaluate(() => ({
+          h: document.querySelector(".site-header").getBoundingClientRect().height,
+          ctaHidden: !document.querySelector(".header-cta .btn").offsetParent,
+          langHidden: !document.querySelector(".lang-switch a").offsetParent,
+        }));
+        await page.click(".menu-toggle");
+        const open = await page.evaluate(() => {
+          const visible = (sel) => Array.from(document.querySelectorAll(sel)).every((e) => e.offsetParent);
+          return {
+            expanded: document.querySelector(".menu-toggle").getAttribute("aria-expanded"),
+            nav: visible(".main-nav a"), cta: visible(".header-cta .btn"),
+            langLong: Array.from(document.querySelectorAll(".lang-switch .lang-long")).every((e) => e.getBoundingClientRect().width > 20),
+            fits: document.documentElement.scrollWidth <= window.innerWidth,
+          };
+        });
+        rows.push({ l, ...closed, ...open });
+      }
+      check(`Handy ${w}px: Burger-Menü – Kopfzeile schlank (≤ 80 px); Seiten, „Mitglied werden“, „Spenden“ und Sprachen (ausgeschrieben) im Menü (DE/EN/RU)`,
+        rows.every((r) => r.h <= 80 && r.ctaHidden && r.langHidden && r.expanded === "true" && r.nav && r.cta && r.langLong && r.fits), JSON.stringify(rows));
+      if (w === 375) {
+        await page.clock.setFixedTime(new Date("2026-11-12T10:00:00"));
+        await page.goto(BASE + "de/termine.html");
+        const nav = await page.evaluate(() => ({
+          status: document.getElementById("cal-status").textContent,
+          titleHidden: document.querySelector(".cal-month:not([hidden]) .cal-month-title").getBoundingClientRect().width <= 1,
+          btnName: document.querySelector("[data-cal-next]").textContent.trim(),
+        }));
+        check("Handy: Kalender-Navigation „‹ November 2026 ›“, Buttons behalten ihren Namen", nav.status === "November 2026" && nav.titleHidden && nav.btnName.includes("Nächster Monat"), JSON.stringify(nav));
+        await page.tap('.cal-chip[data-event="2026-11-21-praesentieren"]');
+        const sheet = await page.evaluate(() => {
+          const r = document.getElementById("event-dialog").getBoundingClientRect();
+          const b = document.querySelector("#event-dialog .ics-btn").getBoundingClientRect();
+          return { bottom: Math.round(window.innerHeight - r.bottom), width: Math.round(r.width), btn: Math.round(b.width) };
+        });
+        check("Handy: Termin antippen öffnet Panel von unten mit breiten Buttons", sheet.bottom <= 1 && sheet.width === 375 && sheet.btn > 250, JSON.stringify(sheet));
+        await page.goto(BASE + "de/index.html");
+        const heroBtn = await page.evaluate(() => document.querySelector(".hero .btn").getBoundingClientRect().width);
+        check("Handy: Hauptbuttons auf volle Breite", heroBtn > 300, String(heroBtn));
+      }
+      await ctx.close();
+    }
+  }
+
+  /* 7d. Laptop: Header oben groß, beim Scrollen klein ------------------------------ */
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    await ctx.addInitScript(() => { try { localStorage.setItem("sl-consent", JSON.stringify({ map: false, version: 1 })); } catch (e) {} });
+    const page = await ctx.newPage();
+    const state = () => page.evaluate(() => ({
+      h: Math.round(document.querySelector(".site-header").getBoundingClientRect().height),
+      compact: document.querySelector(".site-header").classList.contains("is-compact"),
+      h1Doc: Math.round(document.querySelector("h1").getBoundingClientRect().top + window.scrollY),
+    }));
+    await page.goto(BASE + "de/index.html");
+    await page.waitForTimeout(300);
+    const top = await state();
+    await page.mouse.wheel(0, 400); await page.waitForTimeout(400);
+    const down = await state();
+    await page.mouse.wheel(0, -2000); await page.waitForTimeout(400);
+    const back = await state();
+    check("Laptop: Header oben groß (zweizeilig), beim Scrollen klein, oben wieder groß – Inhalt springt nicht",
+      top.h > 130 && !top.compact && down.compact && down.h <= 70 && !back.compact && back.h === top.h && top.h1Doc === down.h1Doc,
+      JSON.stringify({ top, down, back }));
+    await page.goto(BASE + "de/termine.html#termin-2026-12-03-englisch-beruf");
+    await page.waitForTimeout(400);
+    const anchorPos = await page.evaluate(() => ({
+      row: document.getElementById("termin-2026-12-03-englisch-beruf").getBoundingClientRect().top,
+      hb: document.querySelector(".site-header").getBoundingClientRect().bottom,
+    }));
+    check("Laptop: Sprungziel (#termin-…) wird nicht vom Header verdeckt", anchorPos.row >= anchorPos.hb && anchorPos.row < anchorPos.hb + 60, JSON.stringify(anchorPos));
+    await ctx.close();
+
+    // Veraltetes/fehlendes main.js (z. B. aus dem Browser-Cache): Header muss die schmale, „sticky“ Leiste bleiben
+    const stale = await browser.newContext({ viewport: { width: 1870, height: 920 } });
+    const sp = await stale.newPage();
+    await sp.route(/js\/main\.js/, (route) => route.fulfill({ status: 200, contentType: "text/javascript", body: "/* alt */" }));
+    await sp.goto(BASE + "de/angebote.html");
+    await sp.mouse.wheel(0, 700); await sp.waitForTimeout(300);
+    const st = await sp.evaluate(() => {
+      const h = document.querySelector(".site-header"), r = h.getBoundingClientRect();
+      return { pos: getComputedStyle(h).position, h: Math.round(r.height), top: Math.round(r.top) };
+    });
+    check("Laptop: mit veraltetem main.js bleibt der Header die schmale Leiste (nichts verdeckt)", st.pos === "sticky" && st.h <= 80 && st.top === 0, JSON.stringify(st));
+    await stale.close();
+    const links = await (async () => { const c2 = await browser.newContext(); const p2 = await c2.newPage(); await p2.goto(BASE + "de/index.html");
+      const r = await p2.evaluate(() => [...document.querySelectorAll('link[rel="stylesheet"], script[src]')].map((e) => e.getAttribute("href") || e.getAttribute("src"))); await c2.close(); return r; })();
+    check("CSS und JavaScript mit Versionsnummer (?v=…) gegen veraltete Browser-Caches", links.length >= 2 && links.every((u) => /\?v=[0-9a-f]{10}$/.test(u)), links.join(" "));
+
+    const m = await browser.newContext({ viewport: { width: 375, height: 740 } });
+    const mp = await m.newPage();
+    await mp.goto(BASE + "de/index.html");
+    await mp.mouse.wheel(0, 600); await mp.waitForTimeout(300);
+    const mobile = await mp.evaluate(() => ({ pos: getComputedStyle(document.querySelector(".site-header")).position,
+      compact: document.querySelector(".site-header").classList.contains("is-compact") }));
+    check("Handy: Header unverändert (nicht fixiert, kein Schrumpfen)", mobile.pos === "static" && !mobile.compact, JSON.stringify(mobile));
+    await m.close();
   }
 
   /* 8. Sprachweiche und Sprachumschalter --------------------------------------- */

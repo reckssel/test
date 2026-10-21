@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Skills Lab e.V.//Termine//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Klar kommunizieren im Alltag und Beruf – Skills Lab e.V.
+X-WR-TIMEZONE:Europe/Berlin
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:2027-01-16-kommunikation@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270116T093000
+DTEND;TZID=Europe/Berlin:20270116T123000
+SUMMARY:Klar kommunizieren im Alltag und Beruf – Skills Lab e.V.
+LOCATION:Vereinsraum\, [Musterstraße 1]\, Erbach
+DESCRIPTION:Zuhören\, nachfragen\, Ich-Botschaften: Wir üben einfache Wer
+ kzeuge für Gespräche\, die gelingen – auch wenn es schwierig wird. Mit
+  vielen kurzen Übungen in kleinen Gruppen.\n\nErster Termin des Kurses. D
+ ie weiteren Termine erhalten Sie nach der Anmeldung.\n\nAnfrage und Anmeld
+ ung: https://reckssel.github.io/test/de/kontakt.html?thema=kurs&termin=202
+ 7-01-16-kommunikation
+URL:https://reckssel.github.io/test/de/termin-2027-01-16-kommunikation.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR

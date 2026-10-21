@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Skills Lab e.V.//Termine//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Understanding and using AI tools – Skills Lab e.V.
+X-WR-TIMEZONE:Europe/Berlin
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:2027-02-25-ki-werkzeuge@reckssel.github.io
+DTSTAMP:20261016T000000Z
+DTSTART;TZID=Europe/Berlin:20270225T180000
+DTEND;TZID=Europe/Berlin:20270225T203000
+SUMMARY:Understanding and using AI tools – Skills Lab e.V.
+LOCATION:Club room Erbach and online
+DESCRIPTION:What can text generators and image AI do – and what can’t t
+ hey? We try things out\, assess results critically and talk about data pro
+ tection and copyright.\n\nFirst session of the course. You will receive th
+ e further dates after registering.\n\nEnquiry and registration: https://re
+ ckssel.github.io/test/en/contact.html?thema=kurs&termin=2027-02-25-ki-werk
+ zeuge
+URL:https://reckssel.github.io/test/en/termin-2027-02-25-ki-werkzeuge.html
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
